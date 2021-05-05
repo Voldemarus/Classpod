@@ -19,6 +19,9 @@
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
+		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
+		322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33F42642B16400ACD371 /* PreferencesVC.m */; };
+		322B33FB2642B24500ACD371 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,12 @@
 		322B33DD2642A7A300ACD371 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		322B33E72642AC0A00ACD371 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
 		322B33E82642AC0A00ACD371 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
+		322B33ED2642ADE000ACD371 /* StudentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentVC.h; sourceTree = "<group>"; };
+		322B33EE2642ADE000ACD371 /* StudentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentVC.m; sourceTree = "<group>"; };
+		322B33F32642B16400ACD371 /* PreferencesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesVC.h; sourceTree = "<group>"; };
+		322B33F42642B16400ACD371 /* PreferencesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesVC.m; sourceTree = "<group>"; };
+		322B33F92642B24400ACD371 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		322B33FA2642B24400ACD371 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +130,7 @@
 				1BB03B192640637600B6096F /* ClassPod.entitlements */,
 				322B33DD2642A7A300ACD371 /* PrefixHeader.pch */,
 				322B33DB2642A68E00ACD371 /* Helpers */,
+				322B34002642B44500ACD371 /* Prefs */,
 				1BB03ADE2640628A00B6096F /* AppDelegate.h */,
 				1BB03ADF2640628A00B6096F /* AppDelegate.m */,
 				1BB03AE12640628A00B6096F /* SceneDelegate.h */,
@@ -131,6 +141,8 @@
 				1BB03AED2640628D00B6096F /* Assets.xcassets */,
 				322B33D526427DE200ACD371 /* TeacherVC.h */,
 				322B33D626427DE200ACD371 /* TeacherVC.m */,
+				322B33ED2642ADE000ACD371 /* StudentVC.h */,
+				322B33EE2642ADE000ACD371 /* StudentVC.m */,
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
@@ -172,6 +184,17 @@
 				322B33DC2642A6A300ACD371 /* DebugPrint.h */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		322B34002642B44500ACD371 /* Prefs */ = {
+			isa = PBXGroup;
+			children = (
+				322B33F92642B24400ACD371 /* Preferences.h */,
+				322B33FA2642B24400ACD371 /* Preferences.m */,
+				322B33F32642B16400ACD371 /* PreferencesVC.h */,
+				322B33F42642B16400ACD371 /* PreferencesVC.m */,
+			);
+			path = Prefs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,8 +330,11 @@
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				1BB03AEC2640628B00B6096F /* ClassPod.xcdatamodeld in Sources */,
+				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
 				322B33D726427DE200ACD371 /* TeacherVC.m in Sources */,
+				322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */,
+				322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */,
 				322B33E92642AC0B00ACD371 /* DAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

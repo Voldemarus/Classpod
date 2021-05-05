@@ -13,5 +13,6 @@
 
 #import "DebugPrint.h"
 #import "DAO.h"
+#import "Preferences.h"
 
 #endif /* PrefixHeader_pch */
