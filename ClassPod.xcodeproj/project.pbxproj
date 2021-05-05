@@ -17,6 +17,7 @@
 		1BB03AF42640628D00B6096F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AF32640628D00B6096F /* main.m */; };
 		1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AFD2640628E00B6096F /* ClassPodTests.m */; };
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
+		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,9 @@
 		1BB03B082640628E00B6096F /* ClassPodUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodUITests.m; sourceTree = "<group>"; };
 		1BB03B0A2640628E00B6096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BB03B192640637600B6096F /* ClassPod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPod.entitlements; sourceTree = "<group>"; };
+		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
+		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 		1BB03AD22640628A00B6096F = {
 			isa = PBXGroup;
 			children = (
+				322B33D12642709F00ACD371 /* README.md */,
 				1BB03ADD2640628A00B6096F /* ClassPod */,
 				1BB03AFC2640628E00B6096F /* ClassPodTests */,
 				1BB03B072640628E00B6096F /* ClassPodUITests */,
@@ -117,6 +122,8 @@
 				1BB03AE52640628A00B6096F /* ViewController.m */,
 				1BB03AE72640628B00B6096F /* Main.storyboard */,
 				1BB03AED2640628D00B6096F /* Assets.xcassets */,
+				322B33D526427DE200ACD371 /* TeacherVC.h */,
+				322B33D626427DE200ACD371 /* TeacherVC.m */,
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
@@ -284,6 +291,7 @@
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				1BB03AEC2640628B00B6096F /* ClassPod.xcdatamodeld in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
+				322B33D726427DE200ACD371 /* TeacherVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
