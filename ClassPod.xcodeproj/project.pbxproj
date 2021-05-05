@@ -20,6 +20,7 @@
 		1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AFD2640628E00B6096F /* ClassPodTests.m */; };
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
+		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,10 @@
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
+		322B33DC2642A6A300ACD371 /* DebugPrint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugPrint.h; sourceTree = "<group>"; };
+		322B33DD2642A7A300ACD371 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		322B33E72642AC0A00ACD371 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
+		322B33E82642AC0A00ACD371 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +123,8 @@
 			children = (
 				1BB03B1A2640640000B6096F /* LANSettings */,
 				1BB03B192640637600B6096F /* ClassPod.entitlements */,
+				322B33DD2642A7A300ACD371 /* PrefixHeader.pch */,
+				322B33DB2642A68E00ACD371 /* Helpers */,
 				1BB03ADE2640628A00B6096F /* AppDelegate.h */,
 				1BB03ADF2640628A00B6096F /* AppDelegate.m */,
 				1BB03AE12640628A00B6096F /* SceneDelegate.h */,
@@ -132,6 +139,8 @@
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
 				1BB03AEA2640628B00B6096F /* ClassPod.xcdatamodeld */,
+				322B33E72642AC0A00ACD371 /* DAO.h */,
+				322B33E82642AC0A00ACD371 /* DAO.m */,
 			);
 			path = ClassPod;
 			sourceTree = "<group>";
@@ -161,6 +170,14 @@
 				1B751DA62642B083001D86B6 /* ServiceLocator.m */,
 			);
 			path = LANSettings;
+			sourceTree = "<group>";
+		};
+		322B33DB2642A68E00ACD371 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				322B33DC2642A6A300ACD371 /* DebugPrint.h */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +316,7 @@
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
 				322B33D726427DE200ACD371 /* TeacherVC.m in Sources */,
+				322B33E92642AC0B00ACD371 /* DAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +492,7 @@
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,6 +512,7 @@
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

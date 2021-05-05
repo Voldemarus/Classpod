@@ -28,10 +28,12 @@
 
 - (IBAction) buttonMicrophonePressed:(id)sender
 {
+    DLog(@"🐝 button Microphone Pressed");
 }
 
 - (IBAction) buttonMusicPressed:(id)sender
 {
+    DLog(@"🐝 button Music Pressed");
 }
 
 #pragma mark Table methods
