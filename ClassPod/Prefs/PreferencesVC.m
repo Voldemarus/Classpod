@@ -13,7 +13,7 @@
 @interface PreferencesVC ()
 <UITableViewDelegate, UITableViewDataSource>
 {
-    __weak IBOutlet Preferences *prefs;
+    Preferences *prefs;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *table;

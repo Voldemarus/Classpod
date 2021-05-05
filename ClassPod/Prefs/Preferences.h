@@ -16,7 +16,9 @@
 - (void) flush;
 
 @property (nonatomic, readwrite) BOOL teacherModeON;
-
+@property (nonatomic, readwrite) BOOL audioTeacherON;
+@property (nonatomic, readwrite) BOOL audioPersonalON;
+    
 @end
 
 #endif // Preferences_h

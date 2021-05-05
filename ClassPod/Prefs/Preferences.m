@@ -15,7 +15,9 @@
 
 @end
 
-NSString * const VVVteacherModeON          =   @"VVVteacherModeON";
+NSString * const VVVteacherModeON           =   @"VVVteacherModeON";
+NSString * const VVVaudioTeacherON          =   @"VVVaudioTeacherON";
+NSString * const VVVaudioPersonalON         =   @"VVVaudioPersonalON";
 
 @implementation Preferences
 
@@ -34,6 +36,8 @@ NSString * const VVVteacherModeON          =   @"VVVteacherModeON";
     NSMutableDictionary  *defaultValues = [NSMutableDictionary new];
     
     [defaultValues setObject:@(0) forKey:VVVteacherModeON];
+    [defaultValues setObject:@(1) forKey:VVVaudioTeacherON];
+    [defaultValues setObject:@(1) forKey:VVVaudioPersonalON];
 
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
 }
@@ -60,6 +64,26 @@ NSString * const VVVteacherModeON          =   @"VVVteacherModeON";
 - (void) setTeacherModeON:(BOOL)teacherModeON
 {
     [prefs setBool:teacherModeON forKey:VVVteacherModeON];
+    [self flush];
+}
+
+- (BOOL) audioTeacherON
+{
+    return [prefs boolForKey:VVVaudioTeacherON];
+}
+- (void) setAudioTeacherON:(BOOL)audioTeacherON
+{
+    [prefs setBool:audioTeacherON forKey:VVVaudioTeacherON];
+    [self flush];
+}
+
+- (BOOL) audioPersonalON
+{
+    return [prefs boolForKey:VVVaudioPersonalON];
+}
+- (void) setAudioPersonalON:(BOOL)audioPersonalON
+{
+    [prefs setBool:audioPersonalON forKey:VVVaudioPersonalON];
     [self flush];
 }
 
