@@ -56,6 +56,7 @@
 		1BB03B042640628E00B6096F /* ClassPodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB03B082640628E00B6096F /* ClassPodUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodUITests.m; sourceTree = "<group>"; };
 		1BB03B0A2640628E00B6096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BB03B192640637600B6096F /* ClassPod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPod.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +107,8 @@
 		1BB03ADD2640628A00B6096F /* ClassPod */ = {
 			isa = PBXGroup;
 			children = (
+				1BB03B1A2640640000B6096F /* LANSettings */,
+				1BB03B192640637600B6096F /* ClassPod.entitlements */,
 				1BB03ADE2640628A00B6096F /* AppDelegate.h */,
 				1BB03ADF2640628A00B6096F /* AppDelegate.m */,
 				1BB03AE12640628A00B6096F /* SceneDelegate.h */,
@@ -138,6 +141,13 @@
 				1BB03B0A2640628E00B6096F /* Info.plist */,
 			);
 			path = ClassPodUITests;
+			sourceTree = "<group>";
+		};
+		1BB03B1A2640640000B6096F /* LANSettings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LANSettings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				INFOPLIST_FILE = ClassPod/Info.plist;
@@ -463,6 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				INFOPLIST_FILE = ClassPod/Info.plist;
