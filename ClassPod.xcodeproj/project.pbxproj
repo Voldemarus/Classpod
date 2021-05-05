@@ -60,6 +60,8 @@
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
+		322B33DC2642A6A300ACD371 /* DebugPrint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugPrint.h; sourceTree = "<group>"; };
+		322B33DD2642A7A300ACD371 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,8 @@
 		1BB03ADD2640628A00B6096F /* ClassPod */ = {
 			isa = PBXGroup;
 			children = (
+				322B33DD2642A7A300ACD371 /* PrefixHeader.pch */,
+				322B33DB2642A68E00ACD371 /* Helpers */,
 				1BB03ADE2640628A00B6096F /* AppDelegate.h */,
 				1BB03ADF2640628A00B6096F /* AppDelegate.m */,
 				1BB03AE12640628A00B6096F /* SceneDelegate.h */,
@@ -145,6 +149,14 @@
 				1BB03B0A2640628E00B6096F /* Info.plist */,
 			);
 			path = ClassPodUITests;
+			sourceTree = "<group>";
+		};
+		322B33DB2642A68E00ACD371 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				322B33DC2642A6A300ACD371 /* DebugPrint.h */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +467,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -473,6 +486,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
