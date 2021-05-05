@@ -15,9 +15,7 @@
 
 @end
 
-//NSString * const REQUEST_URL = @"http:/";
-
-//NSString * const VVVappVersionReceived          =   @"VVVappVersionReceived";
+NSString * const VVVteacherModeON          =   @"VVVteacherModeON";
 
 @implementation Preferences
 
@@ -34,7 +32,8 @@
 {
     // set up default parameters
     NSMutableDictionary  *defaultValues = [NSMutableDictionary new];
-//    [defaultValues setObject:@(1) forKey:VVVappVersionReceived];
+    
+    [defaultValues setObject:@(0) forKey:VVVteacherModeON];
 
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
 }
@@ -54,5 +53,14 @@
 
 #pragma mark -
 
+- (BOOL) teacherModeON
+{
+    return [prefs boolForKey:VVVteacherModeON];
+}
+- (void) setTeacherModeON:(BOOL)teacherModeON
+{
+    [prefs setBool:teacherModeON forKey:VVVteacherModeON];
+    [self flush];
+}
 
 @end

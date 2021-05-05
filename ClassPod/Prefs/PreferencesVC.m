@@ -6,11 +6,14 @@
 //
 
 #import "PreferencesVC.h"
+#import "CellLabelSwith.h"
+
+#define TAG_TEACHER_MODE    11
 
 @interface PreferencesVC ()
 <UITableViewDelegate, UITableViewDataSource>
 {
-    
+    __weak IBOutlet Preferences *prefs;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -22,6 +25,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    prefs = [Preferences sharedPreferences];
 }
 
 #pragma mark Table methods
@@ -33,13 +37,28 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 1;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LabelSwitch" forIndexPath:indexPath];
+    NSInteger row = indexPath.row;
+    
+    CellLabelSwith *cell = (CellLabelSwith*)[tableView dequeueReusableCellWithIdentifier:CellLabelSwithID forIndexPath:indexPath];
+    cell.swith.tag = 0;
+    if (row == 0) {
+        cell.name.text = RStr(@"Start as teacher mode");
+        cell.swith.on = prefs.teacherModeON;
+        cell.swith.tag = TAG_TEACHER_MODE;
+    }
     return cell;
+}
+
+- (IBAction) switchPressed:(UISwitch*)sw
+{
+    if (sw.tag == TAG_TEACHER_MODE) {
+        prefs.teacherModeON = sw.on;
+    }
 }
 
 @end

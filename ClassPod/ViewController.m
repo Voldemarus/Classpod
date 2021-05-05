@@ -8,15 +8,31 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+{
+    __weak IBOutlet Preferences *prefs;
+}
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    prefs = [Preferences sharedPreferences];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (prefs.teacherModeON) {
+            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"TeacherVC"] animated:NO completion:nil];
+        } else {
+//            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"StudentVC"] animated:NO completion:nil];
+        }
+    });
+}
 
 @end

@@ -29,7 +29,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Student"/>
                                 <connections>
-                                    <segue destination="gZq-JG-pdG" kind="modal" modalPresentationStyle="fullScreen" id="9Kl-Am-BHi"/>
+                                    <segue destination="gZq-JG-pdG" kind="showDetail" identifier="StudentMode" id="9Kl-Am-BHi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNG-L3-jkx">
@@ -38,7 +38,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Teacher"/>
                                 <connections>
-                                    <segue destination="vRH-0K-0Tq" kind="presentation" modalPresentationStyle="fullScreen" id="MqX-U6-yWu"/>
+                                    <segue destination="vRH-0K-0Tq" kind="showDetail" identifier="TeacherMode" id="MqX-U6-yWu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7h-d2-WPC">
@@ -47,7 +47,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <state key="normal" title="Setup"/>
                                 <connections>
-                                    <segue destination="rJ6-2N-q9T" kind="presentation" id="PNZ-wY-O1X"/>
+                                    <segue destination="rJ6-2N-q9T" kind="show" id="PNZ-wY-O1X"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -72,13 +72,40 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LabelSwitch" id="ySS-OG-uF4">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellLabelSwithID" id="ySS-OG-uF4" customClass="CellLabelSwith">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="41.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ySS-OG-uF4" id="v6B-Tj-Ljf">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="41.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gI7-Np-8Lf">
+                                                    <rect key="frame" x="20" y="9.5" width="46" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMW-dh-wiM">
+                                                    <rect key="frame" x="274" y="5.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchPressed:" destination="rJ6-2N-q9T" eventType="valueChanged" id="NCf-jA-mma"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mMW-dh-wiM" firstAttribute="centerY" secondItem="v6B-Tj-Ljf" secondAttribute="centerY" id="AgO-L2-tSG"/>
+                                                <constraint firstItem="mMW-dh-wiM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gI7-Np-8Lf" secondAttribute="trailing" constant="10" id="Efs-xI-Rs4"/>
+                                                <constraint firstItem="mMW-dh-wiM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="v6B-Tj-Ljf" secondAttribute="top" constant="5" id="bqE-P4-I9v"/>
+                                                <constraint firstItem="gI7-Np-8Lf" firstAttribute="leading" secondItem="v6B-Tj-Ljf" secondAttribute="leading" constant="20" id="edg-Sv-x3a"/>
+                                                <constraint firstItem="gI7-Np-8Lf" firstAttribute="centerY" secondItem="v6B-Tj-Ljf" secondAttribute="centerY" id="fXr-7q-T2X"/>
+                                                <constraint firstAttribute="trailing" secondItem="mMW-dh-wiM" secondAttribute="trailing" constant="20" id="kEJ-TR-ebw"/>
+                                                <constraint firstItem="gI7-Np-8Lf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="v6B-Tj-Ljf" secondAttribute="top" constant="2" id="kyB-L2-yhi"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="gI7-Np-8Lf" id="TXi-cs-oVA"/>
+                                            <outlet property="swith" destination="mMW-dh-wiM" id="vlK-JV-j5H"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -90,6 +117,7 @@
                         <viewLayoutGuide key="safeArea" id="NOa-qq-1AO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="sgS-Zp-le5"/>
                     <connections>
                         <outlet property="table" destination="AzT-mz-akM" id="OZD-4Z-Sft"/>
                     </connections>
@@ -101,9 +129,9 @@
         <!--TeacherVC-->
         <scene sceneID="dJq-Or-iXL">
             <objects>
-                <viewController id="vRH-0K-0Tq" customClass="TeacherVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeacherVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vRH-0K-0Tq" customClass="TeacherVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k5i-4A-rIG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeF-g5-CMT">
@@ -115,7 +143,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3i5-eA-g9H">
-                                <rect key="frame" x="40" y="200" width="295" height="287"/>
+                                <rect key="frame" x="40" y="200" width="295" height="247"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellStudent1" id="jKh-g5-fz7">
@@ -158,7 +186,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACP-ek-sIA">
-                                <rect key="frame" x="123" y="506" width="128" height="128"/>
+                                <rect key="frame" x="123" y="486" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" image="MicrophoneRed"/>
                                 <connections>
@@ -173,7 +201,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Голос с микрофона для отмеченных" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOI-zz-C1q">
-                                <rect key="frame" x="42" y="484" width="290" height="21"/>
+                                <rect key="frame" x="42" y="464" width="290" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -210,9 +238,9 @@
         <!--StudentVC-->
         <scene sceneID="Sc8-S0-I0I">
             <objects>
-                <viewController id="gZq-JG-pdG" customClass="StudentVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StudentVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gZq-JG-pdG" customClass="StudentVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hRz-oS-1lh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Student mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjx-EW-f6f">

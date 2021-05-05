@@ -24,6 +24,7 @@
 		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
 		322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33F42642B16400ACD371 /* PreferencesVC.m */; };
 		322B33FB2642B24500ACD371 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
+		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		322B33F42642B16400ACD371 /* PreferencesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesVC.m; sourceTree = "<group>"; };
 		322B33F92642B24400ACD371 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		322B33FA2642B24400ACD371 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
+		322B340A2642B80900ACD371 /* CellLabelSwith.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellLabelSwith.h; sourceTree = "<group>"; };
+		322B340B2642B80900ACD371 /* CellLabelSwith.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellLabelSwith.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +202,8 @@
 				322B33FA2642B24400ACD371 /* Preferences.m */,
 				322B33F32642B16400ACD371 /* PreferencesVC.h */,
 				322B33F42642B16400ACD371 /* PreferencesVC.m */,
+				322B340A2642B80900ACD371 /* CellLabelSwith.h */,
+				322B340B2642B80900ACD371 /* CellLabelSwith.m */,
 			);
 			path = Prefs;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 			files = (
 				1BB03AF42640628D00B6096F /* main.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
+				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				1BB03AEC2640628B00B6096F /* ClassPod.xcdatamodeld in Sources */,
 				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,

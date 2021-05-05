@@ -8,14 +8,14 @@
 #ifndef Preferences_h
 #define Preferences_h
 
-//extern NSString * const REQUEST_URL;
+//extern NSString * const ПРИМЕР;
 
 @interface Preferences : NSObject
 
 + (Preferences *) sharedPreferences;
 - (void) flush;
 
-//@property (nonatomic, retain) NSString *audioDevice;
+@property (nonatomic, readwrite) BOOL teacherModeON;
 
 @end
 
