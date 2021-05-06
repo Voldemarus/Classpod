@@ -43,6 +43,8 @@
 /* Begin PBXFileReference section */
 		1B751DA52642B083001D86B6 /* ServiceLocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		1B751DA62642B083001D86B6 /* ServiceLocator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
+		1B751DB02642B500001D86B6 /* chatterclient-bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "chatterclient-bonjour.m"; sourceTree = "<group>"; };
+		1B751DB12642B500001D86B6 /* chatterserver-bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "chatterserver-bonjour.m"; sourceTree = "<group>"; };
 		1BB03ADB2640628A00B6096F /* ClassPod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassPod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB03ADE2640628A00B6096F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BB03ADF2640628A00B6096F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -166,6 +168,8 @@
 		1BB03B1A2640640000B6096F /* LANSettings */ = {
 			isa = PBXGroup;
 			children = (
+				1B751DB02642B500001D86B6 /* chatterclient-bonjour.m */,
+				1B751DB12642B500001D86B6 /* chatterserver-bonjour.m */,
 				1B751DA52642B083001D86B6 /* ServiceLocator.h */,
 				1B751DA62642B083001D86B6 /* ServiceLocator.m */,
 			);

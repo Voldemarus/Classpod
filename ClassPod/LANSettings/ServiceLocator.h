@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) BOOL classProvider;
 
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END
