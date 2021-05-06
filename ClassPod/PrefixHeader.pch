@@ -13,5 +13,12 @@
 
 #import "DebugPrint.h"
 #import "DAO.h"
+#import "Preferences.h"
+
+/**
+ RStr - Resource String
+ Provides localized string from default localization storage
+ */
+#define RStr(name) NSLocalizedString(name, name)
 
 #endif /* PrefixHeader_pch */
