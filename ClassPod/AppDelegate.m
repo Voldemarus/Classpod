@@ -6,8 +6,11 @@
 //
 
 #import "AppDelegate.h"
+#import "ServiceLocator.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () {
+    ServiceLocator *srl;
+}
 
 @end
 
@@ -16,6 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+#warning FIC ME ! Debug only
+
+    srl = [ServiceLocator sharedInstance];
+    srl.classProvider = YES;
+    srl.name = @"ClassPod Voldemarus";
+    [srl publishService];
+
+
     return YES;
 }
 

@@ -18,7 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) BOOL classProvider;
 
+/**
+    name of the class, associated with user name/specialisation
+ */
+@property (nonatomic, retain) NSString *name;
 
+
+- (void) publishService;
+- (void) stopService;
 
 
 
