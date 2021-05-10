@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-//#import "Message+CoreDataClass.h"
+#import "Teacher+CoreDataClass.h"
+#import "Student+CoreDataClass.h"
+#import "Music+CoreDataClass.h"
+#import "ClassPod+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

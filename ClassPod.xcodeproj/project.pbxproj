@@ -11,13 +11,30 @@
 		1B03F20326454DFB007A9A3A /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B03F20226454DFB007A9A3A /* Network.framework */; };
 		1B03F20526454E07007A9A3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B03F20426454E07007A9A3A /* CoreMedia.framework */; };
 		1B03F20726454E0F007A9A3A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B03F20626454E0F007A9A3A /* MediaPlayer.framework */; };
+		1B067FDE2649446E00B7C23C /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
+		1B067FE22649465F00B7C23C /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
+		1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */; };
+		1B067FFA2649482100B7C23C /* Student+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */; };
+		1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */; };
+		1B067FFC2649482100B7C23C /* Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */; };
+		1B067FFD2649482100B7C23C /* Music+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */; };
+		1B067FFE2649482100B7C23C /* Music+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */; };
+		1B067FFF2649482100B7C23C /* Music+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */; };
+		1B0680002649482100B7C23C /* Music+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */; };
+		1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */; };
+		1B0680022649482100B7C23C /* Teacher+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */; };
+		1B0680032649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */; };
+		1B0680042649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */; };
+		1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */; };
+		1B0680062649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */; };
+		1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
+		1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1B751DA82642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03ADF2640628A00B6096F /* AppDelegate.m */; };
 		1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AE22640628A00B6096F /* SceneDelegate.m */; };
 		1BB03AE62640628A00B6096F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AE52640628A00B6096F /* ViewController.m */; };
 		1BB03AE92640628B00B6096F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BB03AE72640628B00B6096F /* Main.storyboard */; };
-		1BB03AEC2640628B00B6096F /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AEA2640628B00B6096F /* ClassPod.xcdatamodeld */; };
 		1BB03AEE2640628D00B6096F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB03AED2640628D00B6096F /* Assets.xcassets */; };
 		1BB03AF12640628D00B6096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */; };
 		1BB03AF42640628D00B6096F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AF32640628D00B6096F /* main.m */; };
@@ -54,6 +71,23 @@
 		1B03F20226454DFB007A9A3A /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		1B03F20426454E07007A9A3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1B03F20626454E0F007A9A3A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		1B067FDD2649446E00B7C23C /* ClassPod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ClassPod.xcdatamodel; sourceTree = "<group>"; };
+		1B067FE92649482000B7C23C /* Student+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Student+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1B067FEA2649482000B7C23C /* Student+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Student+CoreDataClass.h"; sourceTree = "<group>"; };
+		1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Student+CoreDataClass.m"; sourceTree = "<group>"; };
+		1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Student+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B067FED2649482000B7C23C /* Music+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Music+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1B067FEE2649482000B7C23C /* Music+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Music+CoreDataClass.h"; sourceTree = "<group>"; };
+		1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Music+CoreDataClass.m"; sourceTree = "<group>"; };
+		1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Music+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B067FF12649482000B7C23C /* Teacher+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Teacher+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1B067FF22649482000B7C23C /* Teacher+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Teacher+CoreDataClass.h"; sourceTree = "<group>"; };
+		1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Teacher+CoreDataClass.m"; sourceTree = "<group>"; };
+		1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Teacher+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B067FF52649482000B7C23C /* ClassPod+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassPod+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassPod+CoreDataClass.h"; sourceTree = "<group>"; };
+		1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataClass.m"; sourceTree = "<group>"; };
+		1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataProperties.m"; sourceTree = "<group>"; };
 		1B751DA52642B083001D86B6 /* ServiceLocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		1B751DA62642B083001D86B6 /* ServiceLocator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		1B751DB02642B500001D86B6 /* chatterclient-bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "chatterclient-bonjour.m"; sourceTree = "<group>"; };
@@ -66,7 +100,6 @@
 		1BB03AE42640628A00B6096F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1BB03AE52640628A00B6096F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1BB03AE82640628B00B6096F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1BB03AEB2640628B00B6096F /* ClassPod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ClassPod.xcdatamodel; sourceTree = "<group>"; };
 		1BB03AED2640628D00B6096F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BB03AF02640628D00B6096F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BB03AF22640628D00B6096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +175,40 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1B067FDB2649443C00B7C23C /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				322B33E72642AC0A00ACD371 /* DAO.h */,
+				322B33E82642AC0A00ACD371 /* DAO.m */,
+				1B06800C2649483C00B7C23C /* Entities */,
+				1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		1B06800C2649483C00B7C23C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				1B067FE92649482000B7C23C /* Student+CoreDataProperties.h */,
+				1B067FEA2649482000B7C23C /* Student+CoreDataClass.h */,
+				1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */,
+				1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */,
+				1B067FED2649482000B7C23C /* Music+CoreDataProperties.h */,
+				1B067FEE2649482000B7C23C /* Music+CoreDataClass.h */,
+				1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */,
+				1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */,
+				1B067FF12649482000B7C23C /* Teacher+CoreDataProperties.h */,
+				1B067FF22649482000B7C23C /* Teacher+CoreDataClass.h */,
+				1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */,
+				1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */,
+				1B067FF52649482000B7C23C /* ClassPod+CoreDataProperties.h */,
+				1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */,
+				1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */,
+				1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		1BB03AD22640628A00B6096F = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +234,7 @@
 		1BB03ADD2640628A00B6096F /* ClassPod */ = {
 			isa = PBXGroup;
 			children = (
+				1B067FDB2649443C00B7C23C /* DAO */,
 				1BB03B1A2640640000B6096F /* LANSettings */,
 				1BB03B192640637600B6096F /* ClassPod.entitlements */,
 				322B33DD2642A7A300ACD371 /* PrefixHeader.pch */,
@@ -187,9 +255,6 @@
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
-				1BB03AEA2640628B00B6096F /* ClassPod.xcdatamodeld */,
-				322B33E72642AC0A00ACD371 /* DAO.h */,
-				322B33E82642AC0A00ACD371 /* DAO.m */,
 			);
 			path = ClassPod;
 			sourceTree = "<group>";
@@ -375,17 +440,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB03AF42640628D00B6096F /* main.m in Sources */,
+				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
 				1B03F1F726454CD5007A9A3A /* GCDAsyncSocket.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
+				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
+				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
 				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
+				1B067FFD2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
-				1BB03AEC2640628B00B6096F /* ClassPod.xcdatamodeld in Sources */,
 				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
+				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
 				322B33D726427DE200ACD371 /* TeacherVC.m in Sources */,
+				1B067FFF2649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
+				1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,
+				1B0680032649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */,
 				322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */,
 				322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */,
+				1B067FDE2649446E00B7C23C /* ClassPod.xcdatamodeld in Sources */,
 				322B33E92642AC0B00ACD371 /* DAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,7 +468,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B751DA82642B083001D86B6 /* ServiceLocator.m in Sources */,
+				1B067FFC2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
+				1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,
+				1B0680022649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
+				1B067FFA2649482100B7C23C /* Student+CoreDataClass.m in Sources */,
+				1B0680062649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
 				1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */,
+				1B0680042649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */,
+				1B067FE22649465F00B7C23C /* ClassPod.xcdatamodeld in Sources */,
+				1B067FFE2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
+				1B0680002649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,12 +796,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1BB03AEA2640628B00B6096F /* ClassPod.xcdatamodeld */ = {
+		1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1BB03AEB2640628B00B6096F /* ClassPod.xcdatamodel */,
+				1B067FDD2649446E00B7C23C /* ClassPod.xcdatamodel */,
 			);
-			currentVersion = 1BB03AEB2640628B00B6096F /* ClassPod.xcdatamodel */;
+			currentVersion = 1B067FDD2649446E00B7C23C /* ClassPod.xcdatamodel */;
 			path = ClassPod.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

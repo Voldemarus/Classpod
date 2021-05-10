@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1030" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="ClassPod" representedClassName="ClassPod" syncable="YES">
+        <attribute name="dateStarted" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <relationship name="music" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Music" inverseName="classes" inverseEntity="Music"/>
+        <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="classes" inverseEntity="Student"/>
+        <relationship name="teacher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Teacher" inverseName="classes" inverseEntity="Teacher"/>
+    </entity>
+    <entity name="Music" representedClassName="Music" syncable="YES">
+        <attribute name="fileName" optional="YES" attributeType="String"/>
+        <attribute name="fileURL" optional="YES" attributeType="String"/>
+        <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="music" inverseEntity="ClassPod"/>
+    </entity>
+    <entity name="Student" representedClassName="Student" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="students" inverseEntity="ClassPod"/>
+    </entity>
+    <entity name="Teacher" representedClassName="Teacher" syncable="YES">
+        <attribute name="courseName" optional="YES" attributeType="String"/>
+        <attribute name="hourRate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="teacher" inverseEntity="ClassPod"/>
+    </entity>
+    <elements>
+        <element name="Teacher" positionX="-237.551513671875" positionY="6.208770751953125" width="128" height="133"/>
+        <element name="Student" positionX="-203.1754150390625" positionY="-145.6943817138672" width="128" height="103"/>
+        <element name="ClassPod" positionX="-12.50994873046875" positionY="-124.7966766357422" width="128" height="133"/>
+        <element name="Music" positionX="212.3820190429688" positionY="-147.310302734375" width="128" height="88"/>
+    </elements>
+</model>
