@@ -8,7 +8,8 @@
 #import "AppDelegate.h"
 #import "ServiceLocator.h"
 
-@interface AppDelegate () {
+@interface AppDelegate ()  <ServiceLocatorDelegate>
+{
     ServiceLocator *srl;
 }
 
@@ -20,15 +21,33 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-#warning FIC ME ! Debug only
+#warning FIX ME ! Debug only
 
     srl = [ServiceLocator sharedInstance];
     srl.classProvider = YES;
+    srl.delegate = self;
     srl.name = @"ClassPod Voldemarus";
     [srl publishService];
 
 
     return YES;
+}
+
+
+#pragma mark - ServiceLocator delegate -
+
+
+- (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
+{
+    NSLog(@">>> New Abbonent  connected to the class!");
+}
+
+- (void) abonentDisconnected:(NSError *)error
+{
+    NSLog(@"Abonent disconnected");
+    if (error) {
+        NSLog(@"Error on disconnectig - %@", [error localizedDescription]);
+    }
 }
 
 

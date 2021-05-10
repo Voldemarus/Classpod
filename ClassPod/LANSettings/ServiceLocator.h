@@ -7,7 +7,17 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GCDAsyncSocket.h"
+
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol ServiceLocatorDelegate  <NSObject>
+
+@optional
+- (void) newAbonentConnected:(GCDAsyncSocket *)newSocket;
+- (void) abonentDisconnected:(NSError  * _Nullable )error;
+
+@end
 
 @interface ServiceLocator : NSObject
 
@@ -22,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
     name of the class, associated with user name/specialisation
  */
 @property (nonatomic, retain) NSString *name;
+
+@property (nonatomic, assign) id <ServiceLocatorDelegate> delegate;
 
 
 - (void) publishService;

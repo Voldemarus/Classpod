@@ -6,52 +6,25 @@
 //
 
 
-#import <stdbool.h>  // true/false
-#import <stdint.h>   // UINT8_MAX
-#import <stdio.h>    // fprintf()
-#import <stdlib.h>   // EXIT_SUCCESS
-#import <string.h>   // strerror()
-
-#import <errno.h>   // errno
-#import <fcntl.h>   // fcntl()
-#import <mach/vm_param.h>  // PAGE_SIZE
-#import <unistd.h>  // close()
-
-#import <arpa/inet.h>     // inet_ntop()
-#import <netdb.h>         // gethostbyname2()
-#import <netinet/in.h>    // struct sockaddr_in
-#import <netinet6/in6.h>  // struct sockaddr_in6
-#import <sys/socket.h>    // socket(), AF_INET
-#import <sys/types.h>     // random types
-
-
 #import "ServiceLocator.h"
 #import "Preferences.h"
 
 NSString * const VVVServiceType     =   @"_classpod._tcp";
 NSString * const VVVserviceDomain   =   @"local.";
 
-static const int kAcceptQueueSizeHint = 8;
 
-static int StartListening (int *portNum);
-
-@interface ServiceLocator () <NSNetServiceDelegate, NSNetServiceBrowserDelegate>
+@interface ServiceLocator () <NSNetServiceDelegate, GCDAsyncSocketDelegate, NSNetServiceBrowserDelegate>
 {
     BOOL moreComing;
     NSInteger servicePort;  // to make individual connection
 
-    struct sockaddr_in *serverAddr;
+    NSMutableData *dataBuffer;
 }
 
+@property (nonatomic, retain) NSMutableArray *clientArray;
 @property (nonatomic, retain) NSNetService *service;
 @property (nonatomic, retain) NSNetServiceBrowser *browser;
-
-- (BOOL) discover;  // blocks
-- (BOOL) resolve;   // blocks
-
-- (NSMutableData *) address;
-
-
+@property (nonatomic, retain) GCDAsyncSocket *socket;
 
 @end
 
@@ -72,6 +45,8 @@ static int StartListening (int *portNum);
         self.browser = [[NSNetServiceBrowser alloc] init];
        [self.browser setDelegate:self];
 
+        dataBuffer = [NSMutableData data];
+        self.clientArray = [NSMutableArray new];
         moreComing = YES;
 
         NSLog(@"%s: discovering...", __func__);
@@ -86,17 +61,17 @@ static int StartListening (int *portNum);
 - (void) publishService
 {
     if (self.classProvider) {
-        int portNum;
-        StartListening(&portNum);           // Create and bind socket
-        
-        // we are working in service provider mode now.
-        // port will be assigned dynamically
-        NSString *serviceName = (self.name ? self.name : @"FIX ME!");
-        self.service = [[NSNetService alloc] initWithDomain:VVVserviceDomain type:VVVServiceType name:serviceName port:portNum];
-        [self.service scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-        self.service.delegate = self;
-        NSNetServiceOptions options = NSNetServiceNoAutoRename | NSNetServiceListenForConnections;
-        [self.service publishWithOptions:options];
+        self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        NSError* error = nil;
+        if ([self.socket acceptOnPort:0 error:&error]) {
+          NSString *serviceName = (self.name ? self.name : @"FIX ME!");
+            self.service = [[NSNetService alloc] initWithDomain:VVVserviceDomain type:VVVServiceType name:serviceName port:self.socket.localPort];
+            [self.service scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+            self.service.delegate = self;
+            [self.service publishWithOptions:0];
+        } else {
+            NSLog(@"Unable to create socket. Error %@ with user info %@.", error, [error userInfo]);
+        }
     }
 }
 
@@ -105,6 +80,7 @@ static int StartListening (int *portNum);
     if (self.service) {
         [self.service stop];
         self.service = nil;
+        self.socket = nil;
     }
 }
 
@@ -119,6 +95,69 @@ static int StartListening (int *portNum);
 {
     
 }
+
+#pragma mark - Socket delegate
+
+-(void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket{
+    self.socket= newSocket;
+
+    [self.socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0f tag:0];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(newAbonentConnected:)]) {
+        [self.delegate newAbonentConnected:newSocket];
+    }
+     NSLog(@"Accepted the new socked");
+}
+
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
+
+    NSLog(@"%@", error.userInfo);
+
+    if (self.socket == socket) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(abonentDisconnected:)]) {
+            [self.delegate abonentDisconnected:error];
+        }
+     }
+
+
+}
+
+-(void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
+    NSLog(@"Write data is done");
+}
+
+
+-(void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
+
+    NSLog(@"Trying to read the data");
+
+    [dataBuffer appendData:data];
+    if ([sock socketAvailableBytes] == 0) {
+        // All data has been gathered, try to extract info
+        NSError *error = nil;
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:dataBuffer options:0 error:&error];
+        if (!error) {
+            NSLog(@"Received data - %@",jsonDict);
+        } else {
+            NSLog(@"Cannot parse incoming packet - %@", [error localizedDescription]);
+            NSString *tmp = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
+            NSLog(@"Data read - >>%@<<",tmp);
+        }
+
+          [dataBuffer setLength:0];
+    }
+
+
+    [sock readDataWithTimeout:-1.0f tag:0];
+
+}
+
+//-(GCDAsyncSocket*)getSelectedSocket
+//{
+//    NSNetService* coService =[self.clientArray objectAtIndex:self.selectedIndex];
+//    return  [self.dictSockets objectForKey:coService.name];
+//
+//}
 
 
 #pragma mark - NSNetService delegate
@@ -138,82 +177,7 @@ static int StartListening (int *portNum);
     DLog(@"Domain  : %@", sender.domain);
     DLog(@"Host    : %@", sender.hostName);
     DLog(@"Port No : %ld", (long)servicePort);
-    NSArray <NSData *> *addrArray = sender.addresses;
-    DLog(@"Addresses : ");
-    for (NSData *addr in addrArray) {
-        // address is a sockaddr struct stored as NSData
-        const struct sockaddr *gen = [addr bytes];
-        int fam = gen->sa_family;
-        DLog(@"%s: family %d", __func__, fam);
-        if (AF_INET == fam) {
-            memcpy(serverAddr, gen, sizeof(const struct sockaddr));
-            char *ip = inet_ntoa(serverAddr->sin_addr);
-            NSString *ipStr = [[NSString alloc] initWithCString:ip encoding:NSUTF8StringEncoding];
-            DLog(@"IP4 address - %@",ipStr);
-            break;
-        }
-    }
-    
 }
-
-
-#pragma mark - C Helpers
-
-// Returns fd on success, -1 on error.  Based on main() in simpleserver.m
-static int StartListening (int *portNum) {
-    // get a socket
-    int fd = socket (AF_INET, SOCK_STREAM, 0);
-
-    if (fd == -1) {
-        perror ("*** socket");
-        goto bailout;
-    }
-
-    // Reuse the address so stale sockets won't kill us.
-    int yes = 1;
-    int result = setsockopt (fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
-    if (result == -1) {
-        perror("*** setsockopt(SO_REUSEADDR)");
-        goto bailout;
-    }
-
-    // Bind to an address and port
-    struct sockaddr_in sin;
-
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_len = sizeof(sin);
-    sin.sin_port = 0;       // Auto assign mode
-
-    result = bind (fd, (struct sockaddr *)&sin, sin.sin_len);
-    if (result == -1) {
-        perror("*** bind");
-        goto bailout;
-    }
-
-    socklen_t addrLen = sizeof(sin);
-    result = getsockname(fd, (struct sockaddr *)&sin, &addrLen);
-    if (result == -1) {
-        perror("*** listen");
-        goto bailout;
-    }
-
-    result = listen (fd, kAcceptQueueSizeHint);
-    if (result == -1) {
-        perror("*** listen");
-        goto bailout;
-    }
-    *portNum = sin.sin_port;
-    printf("listening on port %d\n", *portNum);
-    return fd;
-
-bailout:
-    if (fd != -1) {
-        close(fd);
-        fd = -1;
-    }
-    return fd;
-}  // StartListening
 
 
 
