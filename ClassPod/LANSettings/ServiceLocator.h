@@ -35,9 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) id <ServiceLocatorDelegate> delegate;
 
-
 - (void) publishService;
 - (void) stopService;
+
+- (void) startBrowsing;
 
 
 

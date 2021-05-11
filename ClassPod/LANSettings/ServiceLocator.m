@@ -90,15 +90,21 @@ NSString * const VVVserviceDomain   =   @"local.";
     }
 }
 
+- (void) startBrowsing
+{
+    [self.browser searchForServicesOfType:VVVServiceType inDomain:VVVserviceDomain];
+}
+
 #pragma - NSNetServiceBrowser delegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
 {
-
+    DLog(@"Found domain - %@",domainString);
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
+    DLog(@"Service found - %@", service.name);
     
 }
 

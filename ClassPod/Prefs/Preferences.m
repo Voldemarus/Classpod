@@ -19,6 +19,10 @@ NSString * const VVVteacherModeON           =   @"VVVteacherModeON";
 NSString * const VVVaudioTeacherON          =   @"VVVaudioTeacherON";
 NSString * const VVVaudioPersonalON         =   @"VVVaudioPersonalON";
 NSString * const VVVUUID                    =   @"vvv3";
+NSString * const VVVname                    =   @"vvv4";
+NSString * const VVVrate                    =   @"vvv5";
+NSString * const VVVcourse                  =   @"vvv6";
+NSString * const VVVnote                    =   @"vvv7";
 
 @implementation Preferences
 
@@ -39,6 +43,10 @@ NSString * const VVVUUID                    =   @"vvv3";
     [defaultValues setObject:@(0) forKey:VVVteacherModeON];
     [defaultValues setObject:@(1) forKey:VVVaudioTeacherON];
     [defaultValues setObject:@(1) forKey:VVVaudioPersonalON];
+    [defaultValues setObject:@50 forKey:VVVrate];
+    [defaultValues setObject:@"" forKey:VVVname];
+    [defaultValues setObject:@"" forKey:VVVcourse];
+    [defaultValues setObject:@"" forKey:VVVnote];
 
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
 }
@@ -78,6 +86,47 @@ NSString * const VVVUUID                    =   @"vvv3";
 }
 
 #pragma mark -
+
+- (double) rate
+{
+    return [prefs doubleForKey:VVVrate];
+}
+
+- (void) setRate:(double)rate
+{
+    [prefs setDouble:rate forKey:VVVrate];
+}
+
+- (NSString *) myName
+{
+    return [prefs objectForKey:VVVname];
+}
+
+- (void) setMyName:(NSString *)myName
+{
+    [prefs setObject:myName forKey:VVVname];
+}
+
+- (NSString *) courseName
+{
+    return [prefs objectForKey:VVVcourse];
+}
+
+- (void) setCourseName:(NSString *)courseName
+{
+    [prefs setObject:courseName forKey:VVVcourse];
+}
+
+- (NSString *) note
+{
+    return [prefs objectForKey:VVVnote];
+}
+
+- (void) setNote:(NSString *)note
+{
+    [prefs setObject:note forKey:VVVnote];
+}
+
 
 - (BOOL) teacherModeON
 {

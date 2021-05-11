@@ -7,10 +7,14 @@
 
 #import "AppDelegate.h"
 #import "ServiceLocator.h"
+#import "Preferences.h"
+#import "DAO.h"
 
 @interface AppDelegate ()  <ServiceLocatorDelegate>
 {
     ServiceLocator *srl;
+    Preferences *prefs;
+    DAO *dao;
 }
 
 @end
@@ -20,17 +24,45 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
-#warning FIX ME ! Debug only
+    prefs = [Preferences sharedPreferences];
+    dao = [DAO sharedInstance];
 
     srl = [ServiceLocator sharedInstance];
-    srl.classProvider = YES;
     srl.delegate = self;
-    srl.name = @"ClassPod Voldemarus";
-    [srl publishService];
-
+    if (prefs.teacherModeON) {
+        [self startService];
+    } else {
+        [self browseServices];
+    }
 
     return YES;
+}
+
+
+- (void) applicationDidEnterBackground:(UIApplication *)application
+{
+    [prefs flush];
+}
+
+- (void) applicationWillTerminate:(UIApplication *)application
+{
+    [prefs flush];
+}
+
+
+- (void) startService
+{
+    NSString *clName = [NSString stringWithFormat:@"Classpod %@",prefs.myName];
+    srl.classProvider = YES;
+    srl.name = clName;
+    [srl publishService];
+}
+
+- (void) browseServices
+{
+    srl.classProvider = NO;
+    srl.name = prefs.myName;
+    [srl startBrowsing];
 }
 
 
