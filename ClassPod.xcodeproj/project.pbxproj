@@ -29,6 +29,7 @@
 		1B0680062649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */; };
 		1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
+		1B0680202649759D00B7C23C /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 		1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1B751DA82642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03ADF2640628A00B6096F /* AppDelegate.m */; };
@@ -467,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0680202649759D00B7C23C /* DAO.m in Sources */,
 				1B751DA82642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FFC2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
 				1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,

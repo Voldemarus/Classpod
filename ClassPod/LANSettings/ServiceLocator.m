@@ -8,6 +8,7 @@
 
 #import "ServiceLocator.h"
 #import "Preferences.h"
+#import "DAO.h"
 
 NSString * const VVVServiceType     =   @"_classpod._tcp";
 NSString * const VVVserviceDomain   =   @"local.";
@@ -18,6 +19,8 @@ NSString * const VVVserviceDomain   =   @"local.";
     BOOL moreComing;
     NSInteger servicePort;  // to make individual connection
 
+    Preferences *prefs;
+    DAO         *dao;
     NSMutableData *dataBuffer;
 }
 
@@ -44,6 +47,9 @@ NSString * const VVVserviceDomain   =   @"local.";
     if (self = [super init]) {
         self.browser = [[NSNetServiceBrowser alloc] init];
        [self.browser setDelegate:self];
+
+        prefs = [Preferences sharedPreferences];
+        dao = [DAO sharedInstance];
 
         dataBuffer = [NSMutableData data];
         self.clientArray = [NSMutableArray new];
@@ -118,8 +124,6 @@ NSString * const VVVserviceDomain   =   @"local.";
             [self.delegate abonentDisconnected:error];
         }
      }
-
-
 }
 
 -(void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
@@ -127,22 +131,31 @@ NSString * const VVVserviceDomain   =   @"local.";
 }
 
 
--(void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-
-    NSLog(@"Trying to read the data");
+-(void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    NSLog(@"Trying to read the data with tag - %ld",tag);
 
     [dataBuffer appendData:data];
     if ([sock socketAvailableBytes] == 0) {
         // All data has been gathered, try to extract info
-        NSError *error = nil;
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:dataBuffer options:0 error:&error];
-        if (!error) {
-            NSLog(@"Received data - %@",jsonDict);
+        NSUUID *teacherUUID = nil;
+        Student *student = [dao studentWithData:dataBuffer forTeacher:&teacherUUID];
+        if (student) {
+            NSLog(@"Student request accepted - %@", student);
+            // process student here
+
         } else {
-            NSLog(@"Cannot parse incoming packet - %@", [error localizedDescription]);
-            NSString *tmp = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-            NSLog(@"Data read - >>%@<<",tmp);
+            NSError *error = nil;
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:dataBuffer options:0 error:&error];
+            if (!error) {
+                NSLog(@"Received data - %@",jsonDict);
+            } else {
+                NSLog(@"Cannot parse incoming packet - %@", [error localizedDescription]);
+                NSString *tmp = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
+                NSLog(@"Data read - >>%@<<",tmp);
+            }
         }
+
 
           [dataBuffer setLength:0];
     }

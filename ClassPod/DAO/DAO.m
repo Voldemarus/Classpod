@@ -6,8 +6,16 @@
 //  Copyright © 2019 Dmitry Likhtarov. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "DAO.h"
-//#import "Preferences.h"
+#import "DebugPrint.h"
+#import "Preferences.h"
+
+
+// JSON keys for student request
+
+
+
 
 @interface DAO ()
 {
@@ -150,6 +158,75 @@
 }
 
 #pragma mark - Custom methods
+
+- (NSArray <Student *> *) studentsForCurrentTeacher
+{
+    NSFetchRequest *req = [Student fetchRequest];
+    // all students in teacher mode belongs to the current teacher
+    // as we fill database when clients subscribe to the service
+    NSError *error = nil;
+    NSArray <Student *> *result = [self.persistentContainer.viewContext executeFetchRequest:req error:&error];
+    if (!result && error) {
+        DLog(@"Cannot get data from Student entity - %@",[error localizedDescription]);
+     }
+    if (result.count > 1) {
+        NSArray <Student *> *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(  Student *obj1, Student *obj2) {
+            return [obj1.name compare:obj2.name];
+        }];
+        return sortedArray;
+    }
+    return result;
+}
+
+- (NSArray <Teacher *> *) teachersList
+{
+    NSFetchRequest *req = [Teacher fetchRequest];
+    NSError *error = nil;
+    NSArray <Teacher *> *result = [self.persistentContainer.viewContext executeFetchRequest:req error:&error];
+    if (!result && error) {
+        DLog(@"Cannot get data from Teacher entity - %@",[error localizedDescription]);
+    }
+    if (result.count > 1) {
+        NSArray <Teacher *> *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(  Teacher  *obj1, Teacher *obj2) {
+            return [obj1.name compare:obj2.name];
+        }];
+        return sortedArray;
+    }
+    return result;
+}
+
+//
+// Returns student instance from the data packet, receiced from
+// remote client, and places it into local CoreData database
+//
+- (Student *) studentWithData:(NSData *)aData forTeacher:(NSUUID **)tUUID
+{
+    if (!aData) {
+        return nil;
+    }
+    Student *std = [Student parseDataPacket:aData forTeacher:tUUID inMoc:self.persistentContainer.viewContext];
+    if (tUUID) {
+        // teacher uuid is provided - link to proper class
+        
+    }
+    return std;
+}
+
+
+- (NSData *) dataPackForStudent:(Student *)student
+{
+    NSData *d = [student packetDataWithTeacherUUID:nil];
+    return d;
+}
+
+- (NSData *) dataPackForStudent:(Student *)student
+                  withTeacherID:(NSUUID *)tUUID
+{
+    NSData *d = [student packetDataWithTeacherUUID:tUUID];
+    return d;
+
+}
+
 
 
 @end

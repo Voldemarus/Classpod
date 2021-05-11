@@ -15,6 +15,7 @@
 + (Preferences *) sharedPreferences;
 - (void) flush;
 
+@property (nonatomic, readonly)  NSUUID *personalUUID;
 @property (nonatomic, readwrite) BOOL teacherModeON;
 @property (nonatomic, readwrite) BOOL audioTeacherON;
 @property (nonatomic, readwrite) BOOL audioPersonalON;

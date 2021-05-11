@@ -104,7 +104,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="name" destination="gI7-Np-8Lf" id="TXi-cs-oVA"/>
-                                            <outlet property="swith" destination="mMW-dh-wiM" id="vlK-JV-j5H"/>
+                                            <outlet property="switch" destination="mMW-dh-wiM" id="vlK-JV-j5H"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

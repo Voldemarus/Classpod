@@ -8,12 +8,36 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "GCDAsyncSocket.h"
 
 @class ClassPod;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Student : NSManagedObject
+
+@property (nonatomic, retain) GCDAsyncSocket *socket;
+
+/**
+    Scan local database and return record about Student from data packet
+    or create new record.
+ */
++ (Student *) parseDataPacket:(NSData *)pack
+                   forTeacher:(NSUUID  *_Nullable * _Nullable )tUUID
+                        inMoc:(NSManagedObjectContext *)moc;
+/**
+    Returns record for given UUID or nil, if no such record is present in the database
+ */
+
++ (Student *) getStudentByUUID:(NSUUID *)aUUID
+                         inMoc:(NSManagedObjectContext *)moc;
+
+/**
+ Packs current Studen' data into packet to stream.  if TeacherID is not empty, field with
+ request to assign particular class is added.
+ */
+- (NSData *) packetDataWithTeacherUUID:(NSUUID * _Nullable ) teacherId;
+
 
 @end
 

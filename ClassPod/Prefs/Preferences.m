@@ -18,6 +18,7 @@
 NSString * const VVVteacherModeON           =   @"VVVteacherModeON";
 NSString * const VVVaudioTeacherON          =   @"VVVaudioTeacherON";
 NSString * const VVVaudioPersonalON         =   @"VVVaudioPersonalON";
+NSString * const VVVUUID                    =   @"vvv3";
 
 @implementation Preferences
 
@@ -53,6 +54,27 @@ NSString * const VVVaudioPersonalON         =   @"VVVaudioPersonalON";
 - (void) flush
 {
     [prefs synchronize];
+}
+
+#pragma mark -
+
+- (NSUUID *) personalUUID
+{
+    static NSUUID *uuid = nil;
+    if (!uuid) {
+        NSString *uud  = [prefs objectForKey:VVVUUID];
+        if (uud) {
+            // pickup uuid from the storage
+            uuid = [[NSUUID alloc] initWithUUIDString:uud];
+        } else {
+            // no uuid is created yet, create it and store in
+            // defaults
+            uuid = [NSUUID UUID];
+            [prefs setObject:uuid.UUIDString forKey:VVVUUID];
+            [prefs synchronize];
+        }
+    }
+    return uuid;
 }
 
 #pragma mark -
