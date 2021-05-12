@@ -8,6 +8,7 @@
 #import "CellLabelSwith.h"
 
 NSString * const CellLabelSwithID = @"CellLabelSwithID";
+NSString * const CellLabelButtonID = @"CellLabelButtonID";
 
 @implementation CellLabelSwith
 
