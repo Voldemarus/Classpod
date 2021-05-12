@@ -9,10 +9,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
-                <outlet property="serviceTable" destination="xfg-Gt-cvn" id="jcW-TI-7bO"/>
-                <outlet property="studentName" destination="rCd-1k-WD0" id="lDf-xY-bgU"/>
-                <outlet property="studentNote" destination="ePS-fT-Nfk" id="TB3-uj-tfD"/>
-                <outlet property="studentUUID" destination="AGv-dS-XVg" id="RF5-Bf-YJL"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -20,6 +16,10 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="modeTabView" destination="uhC-bQ-hXS" id="n9i-iR-dXl"/>
+                <outlet property="serviceTable" destination="xfg-Gt-cvn" id="wJ5-Qh-VAa"/>
+                <outlet property="studentName" destination="rCd-1k-WD0" id="BFT-MO-Zzy"/>
+                <outlet property="studentNote" destination="4yC-ex-W4m" id="NoD-9B-WjL"/>
+                <outlet property="studentUUID" destination="AGv-dS-XVg" id="Y1R-G8-ObV"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -728,6 +728,9 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="1YX-gr-OvD"/>
+                                            </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGv-dS-XVg">
                                             <rect key="frame" x="146" y="251" width="271" height="21"/>
@@ -737,6 +740,9 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="Jrn-1C-gxJ"/>
+                                            </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3yN-Kv-UAo">
                                             <rect key="frame" x="25" y="311" width="92" height="16"/>
@@ -747,33 +753,6 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yf-NY-DT7">
-                                            <rect key="frame" x="146" y="290" width="271" height="57"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="a0F-0c-Cgw">
-                                                <rect key="frame" x="0.0" y="0.0" width="256" height="57"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="ePS-fT-Nfk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="57"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="256" height="57"/>
-                                                        <size key="maxSize" width="276" height="10000000"/>
-                                                        <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    </textView>
-                                                </subviews>
-                                            </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="RiR-VZ-Twk">
-                                                <rect key="frame" x="-100" y="-100" width="225" height="15"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="ipx-lm-n9y">
-                                                <rect key="frame" x="256" y="0.0" width="15" height="57"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                        </scrollView>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rpI-Zw-NkE">
                                             <rect key="frame" x="27" y="254" width="36" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -843,6 +822,18 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </tableHeaderView>
                                         </scrollView>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-ex-W4m">
+                                            <rect key="frame" x="146" y="290" width="271" height="57"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="P4o-6g-Ynu">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <outlet property="delegate" destination="Voe-Tx-rLC" id="6t7-rJ-kl8"/>
+                                            </connections>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
