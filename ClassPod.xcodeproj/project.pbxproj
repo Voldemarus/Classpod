@@ -47,6 +47,7 @@
 		322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33F42642B16400ACD371 /* PreferencesVC.m */; };
 		322B33FB2642B24500ACD371 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
+		3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B981264BF73C00ACA5FE /* CellStudentList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,8 @@
 		322B33FA2642B24400ACD371 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		322B340A2642B80900ACD371 /* CellLabelSwith.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellLabelSwith.h; sourceTree = "<group>"; };
 		322B340B2642B80900ACD371 /* CellLabelSwith.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellLabelSwith.m; sourceTree = "<group>"; };
+		3253B980264BF73C00ACA5FE /* CellStudentList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellStudentList.h; sourceTree = "<group>"; };
+		3253B981264BF73C00ACA5FE /* CellStudentList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellStudentList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +254,8 @@
 				1BB03AED2640628D00B6096F /* Assets.xcassets */,
 				322B33D526427DE200ACD371 /* TeacherVC.h */,
 				322B33D626427DE200ACD371 /* TeacherVC.m */,
+				3253B980264BF73C00ACA5FE /* CellStudentList.h */,
+				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
 				322B33ED2642ADE000ACD371 /* StudentVC.h */,
 				322B33EE2642ADE000ACD371 /* StudentVC.m */,
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
@@ -441,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB03AF42640628D00B6096F /* main.m in Sources */,
+				3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */,
 				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
 				1B03F1F726454CD5007A9A3A /* GCDAsyncSocket.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
