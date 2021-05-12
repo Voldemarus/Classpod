@@ -8,24 +8,64 @@
 #import "ProfileEditVC.h"
 
 @interface ProfileEditVC ()
+{
+    
+    __weak IBOutlet UILabel *labelHeader;
+
+    __weak IBOutlet UILabel *labelName;
+    __weak IBOutlet UITextField *textFieldName;
+
+    __weak IBOutlet UILabel *labelNote;
+    __weak IBOutlet UITextView *textViewNote;
+
+    __weak IBOutlet UIView *viewTeacher;
+
+    __weak IBOutlet UILabel *labelCourseName;
+    __weak IBOutlet UITextField *textFieldCourseName;
+
+    __weak IBOutlet UILabel *labelHourRate;
+    __weak IBOutlet UITextField *textFieldHourRate;
+}
 
 @end
 
 @implementation ProfileEditVC
 
-- (void)viewDidLoad {
+- (void) viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self updateUI];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) setScreenMode:(ScreenMode)screenMode
+{
+    _screenMode = screenMode;
 }
-*/
+
+- (void) updateUI
+{
+    labelHeader.text = (self.screenMode == ScreenMode_Teachr) ? RStr(@"Edit teacher profile") : RStr(@"Edit student profile");
+    labelName.text = RStr(@"Name:");
+    textFieldName.text = @"?????????";
+    labelNote.text = RStr(@"Note:");
+    textViewNote.text = @"?????? текст примечания";
+    if (self.screenMode == ScreenMode_Teachr) {
+        viewTeacher.alpha = 1.0;
+        labelCourseName.text = RStr(@"Course name:");
+        textFieldCourseName.text = @"???? Название курса";
+        labelHourRate.text = RStr(@"Hour Rate");
+        textFieldHourRate.text = [NSString stringWithFormat:@"%.2f", 123.45];
+    } else {
+        viewTeacher.alpha = 0.0;
+    }
+}
+
+- (IBAction)closePressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
+}
+
 
 @end

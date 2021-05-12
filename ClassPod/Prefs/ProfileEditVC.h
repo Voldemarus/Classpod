@@ -16,7 +16,7 @@ typedef enum : NSUInteger {
 
 @interface ProfileEditVC : UIViewController
 
-@property (readwrite) ScreenMode screenMode;
+@property (nonatomic, readwrite) ScreenMode screenMode;
 
 @end
 
