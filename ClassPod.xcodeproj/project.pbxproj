@@ -48,6 +48,7 @@
 		322B33FB2642B24500ACD371 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
 		3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B981264BF73C00ACA5FE /* CellStudentList.m */; };
+		3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B987264BFE2500ACA5FE /* CellTecherList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,8 @@
 		322B340B2642B80900ACD371 /* CellLabelSwith.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellLabelSwith.m; sourceTree = "<group>"; };
 		3253B980264BF73C00ACA5FE /* CellStudentList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellStudentList.h; sourceTree = "<group>"; };
 		3253B981264BF73C00ACA5FE /* CellStudentList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellStudentList.m; sourceTree = "<group>"; };
+		3253B986264BFE2500ACA5FE /* CellTecherList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellTecherList.h; sourceTree = "<group>"; };
+		3253B987264BFE2500ACA5FE /* CellTecherList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellTecherList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +261,8 @@
 				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
 				322B33ED2642ADE000ACD371 /* StudentVC.h */,
 				322B33EE2642ADE000ACD371 /* StudentVC.m */,
+				3253B986264BFE2500ACA5FE /* CellTecherList.h */,
+				3253B987264BFE2500ACA5FE /* CellTecherList.m */,
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
@@ -456,6 +461,7 @@
 				1B067FFD2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,
+				3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
