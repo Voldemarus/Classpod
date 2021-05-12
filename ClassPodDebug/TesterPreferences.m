@@ -21,11 +21,11 @@ NSString * const VVVUUID                    =   @"vvv3";
 
 @implementation TesterPreferences
 
-+ (Preferences *) sharedPreferences
++ (TesterPreferences *) sharedPreferences
 {
-    static Preferences *_Preferences;
+    static TesterPreferences *_Preferences;
     if (_Preferences == nil) {
-        _Preferences = [[Preferences alloc] init];
+        _Preferences = [[TesterPreferences alloc] init];
     }
     return _Preferences;
 }

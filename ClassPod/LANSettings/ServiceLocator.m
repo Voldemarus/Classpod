@@ -9,6 +9,7 @@
 #import "ServiceLocator.h"
 #import "Preferences.h"
 #import "DAO.h"
+#import "DebugPrint.h"
 
 NSString * const VVVServiceType     =   @"_classpod._tcp";
 NSString * const VVVserviceDomain   =   @"local.";
