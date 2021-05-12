@@ -8,7 +8,9 @@
 #import "ProfileEditVC.h"
 
 @interface ProfileEditVC ()
+<UITextFieldDelegate, UITextViewDelegate>
 {
+    Preferences *prefs;
     
     __weak IBOutlet UILabel *labelHeader;
 
@@ -34,6 +36,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    prefs = [Preferences sharedPreferences];
     [self updateUI];
     
 }
@@ -47,17 +50,38 @@
 {
     labelHeader.text = (self.screenMode == ScreenMode_Teachr) ? RStr(@"Edit teacher profile") : RStr(@"Edit student profile");
     labelName.text = RStr(@"Name:");
-    textFieldName.text = @"?????????";
+    textFieldName.text = prefs.myName;
     labelNote.text = RStr(@"Note:");
-    textViewNote.text = @"?????? текст примечания";
+    textViewNote.text = prefs.note;
     if (self.screenMode == ScreenMode_Teachr) {
         viewTeacher.alpha = 1.0;
         labelCourseName.text = RStr(@"Course name:");
-        textFieldCourseName.text = @"???? Название курса";
+        textFieldCourseName.text = prefs.courseName;
         labelHourRate.text = RStr(@"Hour Rate");
-        textFieldHourRate.text = [NSString stringWithFormat:@"%.2f", 123.45];
+        textFieldHourRate.text = [NSString stringWithFormat:@"%.2f", prefs.rate];
     } else {
         viewTeacher.alpha = 0.0;
+    }
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    NSString *text = textField.text;
+    if (textField == textFieldName) {
+        prefs.myName = text;
+    } if (textField == textFieldCourseName) {
+        prefs.courseName = text;
+    } if (textField == textFieldHourRate) {
+        text = [text stringByReplacingOccurrencesOfString:@"," withString:@"."];
+        prefs.rate = text.doubleValue;
+        textFieldHourRate.text = [NSString stringWithFormat:@"%.2f", prefs.rate];
+    }
+}
+
+- (void) textViewDidEndEditing:(UITextView *)textView
+{
+    if (textView == textViewNote) {
+        prefs.note = textView.text;
     }
 }
 
