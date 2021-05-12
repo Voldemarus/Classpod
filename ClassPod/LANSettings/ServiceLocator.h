@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ServiceLocatorDelegate  <NSObject>
 
 @optional
+// Service related methods, called when new client is connected to service
+// or disconnected.
 - (void) newAbonentConnected:(GCDAsyncSocket *)newSocket;
 - (void) abonentDisconnected:(NSError  * _Nullable )error;
 
