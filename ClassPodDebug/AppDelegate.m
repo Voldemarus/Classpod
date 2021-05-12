@@ -6,14 +6,14 @@
 //
 
 #import "AppDelegate.h"
-#import "TesterPreferences.h"
+#import "Preferences.h"
 #import "DAO.h"
 #import "ServiceLocator.h"
 
 @interface AppDelegate () <NSTableViewDelegate, ServiceLocatorDelegate,
                             NSTableViewDataSource, NSTabViewDelegate>
 {
-    TesterPreferences *prefs;
+    Preferences *prefs;
     ServiceLocator *srl;
     DAO *dao;
     BOOL currentMode;       // YES - server , NO - client
@@ -41,7 +41,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    prefs = [TesterPreferences sharedPreferences];
+    prefs = [Preferences sharedPreferences];
     dao = [DAO sharedInstance];
 
     srl = [ServiceLocator sharedInstance];

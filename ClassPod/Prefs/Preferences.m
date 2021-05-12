@@ -24,6 +24,17 @@ NSString * const VVVrate                    =   @"vvv5";
 NSString * const VVVcourse                  =   @"vvv6";
 NSString * const VVVnote                    =   @"vvv7";
 
+#ifndef MAIN_APP_IOS
+
+// Only mac version
+NSString * const VVVMACteacherModeON           =   @"vvvm0";
+NSString * const VVVStudentName             =   @"vvvm1";
+NSString * const VVVstudentNote             =   @"vvvm2";
+NSString * const VVVstudentUUID             =   @"vvvm3";
+
+#endif
+
+
 @implementation Preferences
 
 + (Preferences *) sharedPreferences
@@ -48,6 +59,15 @@ NSString * const VVVnote                    =   @"vvv7";
     [defaultValues setObject:@"" forKey:VVVcourse];
     [defaultValues setObject:@"" forKey:VVVnote];
 
+#ifndef MAIN_APP_IOS
+
+// Only mac version
+    [defaultValues setObject:@"" forKey:VVVStudentName];
+    [defaultValues setObject:@"" forKey:VVVstudentNote];
+    [defaultValues setObject:@(0) forKey:VVVMACteacherModeON];
+
+#endif
+    
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
 }
 
@@ -157,5 +177,61 @@ NSString * const VVVnote                    =   @"vvv7";
     [prefs setBool:audioPersonalON forKey:VVVaudioPersonalON];
     [self flush];
 }
+
+#ifndef MAIN_APP_IOS
+
+// Only mac version
+
+- (NSString *) studentName
+{
+    return [prefs objectForKey:VVVStudentName];
+}
+
+- (void) setStudentName:(NSString *)studentName
+{
+    [prefs setObject:studentName forKey:VVVStudentName];
+}
+
+- (NSString *) studentNote
+{
+    return [prefs objectForKey:VVVstudentNote];
+}
+
+- (void) setStudentNote:(NSString *)studentNote
+{
+    [prefs setObject:studentNote forKey:VVVstudentNote];
+}
+
+- (NSUInteger) testerMode
+{
+    return [prefs integerForKey:VVVMACteacherModeON];
+}
+
+- (void) setTesterMode:(NSUInteger)testerMode
+{
+    [prefs setInteger:testerMode forKey:VVVMACteacherModeON];
+}
+
+
+- (NSUUID *) studentUUID
+{
+    static NSUUID *uuid = nil;
+    if (!uuid) {
+        NSString *uud  = [prefs objectForKey:VVVstudentUUID];
+        if (uud) {
+            // pickup uuid from the storage
+            uuid = [[NSUUID alloc] initWithUUIDString:uud];
+        } else {
+            // no uuid is created yet, create it and store in
+            // defaults
+            uuid = [NSUUID UUID];
+            [prefs setObject:uuid.UUIDString forKey:VVVstudentUUID];
+            [prefs synchronize];
+        }
+    }
+    return uuid;
+}
+
+#endif // #ifndef MAIN_APP_IOS
 
 @end

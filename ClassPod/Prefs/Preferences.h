@@ -8,6 +8,8 @@
 #ifndef Preferences_h
 #define Preferences_h
 
+#import <Foundation/Foundation.h>
+
 //extern NSString * const ПРИМЕР;
 
 @interface Preferences : NSObject
@@ -29,7 +31,18 @@
 @property (nonatomic, readwrite) BOOL teacherModeON;
 @property (nonatomic, readwrite) BOOL audioTeacherON;
 @property (nonatomic, readwrite) BOOL audioPersonalON;
-    
+
+
+#ifndef MAIN_APP_IOS
+
+// Only mac version
+@property (nonatomic, retain) NSString *studentName;
+@property (nonatomic, retain) NSString *studentNote;
+@property (nonatomic, readonly) NSUUID *studentUUID;
+@property (nonatomic) NSUInteger testerMode;
+
+#endif
+
 @end
 
 #endif // Preferences_h

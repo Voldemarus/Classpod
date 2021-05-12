@@ -59,7 +59,6 @@
 		1BEDC689264C0275008C88A7 /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
 		1BEDC692264C0489008C88A7 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03F1F626454CD5007A9A3A /* GCDAsyncSocket.m */; };
 		1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
-		1BEDC6A2264C0633008C88A7 /* TesterPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
@@ -68,7 +67,7 @@
 		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
 		3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B981264BF73C00ACA5FE /* CellStudentList.m */; };
 		3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B987264BFE2500ACA5FE /* CellTecherList.m */; };
-		32788C7B264C13CE00FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
+		32788CA0264C1DF200FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,8 +161,6 @@
 		1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodDebugUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodDebugUITests.m; sourceTree = "<group>"; };
 		1BEDC63A264C0234008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1BEDC6A0264C0633008C88A7 /* TesterPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TesterPreferences.h; sourceTree = "<group>"; };
-		1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TesterPreferences.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
@@ -387,8 +384,6 @@
 				1BEDC621264C0233008C88A7 /* Info.plist */,
 				1BEDC622264C0234008C88A7 /* main.m */,
 				1BEDC624264C0234008C88A7 /* ClassPodDebug.entitlements */,
-				1BEDC6A0264C0633008C88A7 /* TesterPreferences.h */,
-				1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */,
 			);
 			path = ClassPodDebug;
 			sourceTree = "<group>";
@@ -716,9 +711,8 @@
 				1BEDC682264C026F008C88A7 /* ClassPod+CoreDataProperties.m in Sources */,
 				1BEDC66D264C0261008C88A7 /* Teacher+CoreDataClass.m in Sources */,
 				1BEDC651264C024C008C88A7 /* Student+CoreDataClass.m in Sources */,
-				1BEDC6A2264C0633008C88A7 /* TesterPreferences.m in Sources */,
 				1BEDC67B264C026B008C88A7 /* ClassPod+CoreDataClass.m in Sources */,
-				32788C7B264C13CE00FC087E /* Preferences.m in Sources */,
+				32788CA0264C1DF200FC087E /* Preferences.m in Sources */,
 				1BEDC623264C0234008C88A7 /* main.m in Sources */,
 				1BEDC674264C0265008C88A7 /* Teacher+CoreDataProperties.m in Sources */,
 				1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */,
@@ -918,6 +912,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"MAIN_APP_IOS=1",
+				);
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -939,6 +937,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"MAIN_APP_IOS=1",
+				);
 				INFOPLIST_FILE = ClassPod/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
