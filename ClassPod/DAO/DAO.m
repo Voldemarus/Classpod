@@ -6,7 +6,6 @@
 //  Copyright © 2019 Dmitry Likhtarov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "DAO.h"
 #import "DebugPrint.h"
 #import "Preferences.h"

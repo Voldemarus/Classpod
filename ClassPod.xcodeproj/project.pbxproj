@@ -41,6 +41,25 @@
 		1BB03AF42640628D00B6096F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AF32640628D00B6096F /* main.m */; };
 		1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AFD2640628E00B6096F /* ClassPodTests.m */; };
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
+		1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC61A264C0233008C88A7 /* AppDelegate.m */; };
+		1BEDC61D264C0233008C88A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61C264C0233008C88A7 /* Assets.xcassets */; };
+		1BEDC620264C0233008C88A7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61E264C0233008C88A7 /* MainMenu.xib */; };
+		1BEDC623264C0234008C88A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC622264C0234008C88A7 /* main.m */; };
+		1BEDC62E264C0234008C88A7 /* ClassPodDebugTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC62D264C0234008C88A7 /* ClassPodDebugTests.m */; };
+		1BEDC639264C0234008C88A7 /* ClassPodDebugUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */; };
+		1BEDC64A264C0243008C88A7 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
+		1BEDC651264C024C008C88A7 /* Student+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */; };
+		1BEDC658264C0251008C88A7 /* Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */; };
+		1BEDC65F264C0257008C88A7 /* Music+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */; };
+		1BEDC666264C025C008C88A7 /* Music+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */; };
+		1BEDC66D264C0261008C88A7 /* Teacher+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */; };
+		1BEDC674264C0265008C88A7 /* Teacher+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */; };
+		1BEDC67B264C026B008C88A7 /* ClassPod+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */; };
+		1BEDC682264C026F008C88A7 /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
+		1BEDC689264C0275008C88A7 /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
+		1BEDC692264C0489008C88A7 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03F1F626454CD5007A9A3A /* GCDAsyncSocket.m */; };
+		1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
+		1BEDC6A2264C0633008C88A7 /* TesterPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
@@ -63,6 +82,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1BB03ADA2640628A00B6096F;
 			remoteInfo = ClassPod;
+		};
+		1BEDC62A264C0234008C88A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BB03AD32640628A00B6096F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BEDC616264C0233008C88A7;
+			remoteInfo = ClassPodDebug;
+		};
+		1BEDC635264C0234008C88A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BB03AD32640628A00B6096F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BEDC616264C0233008C88A7;
+			remoteInfo = ClassPodDebug;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -112,6 +145,22 @@
 		1BB03B082640628E00B6096F /* ClassPodUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodUITests.m; sourceTree = "<group>"; };
 		1BB03B0A2640628E00B6096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BB03B192640637600B6096F /* ClassPod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPod.entitlements; sourceTree = "<group>"; };
+		1BEDC617264C0233008C88A7 /* ClassPodDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassPodDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BEDC619264C0233008C88A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1BEDC61A264C0233008C88A7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1BEDC61C264C0233008C88A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1BEDC61F264C0233008C88A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1BEDC621264C0233008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BEDC622264C0234008C88A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1BEDC624264C0234008C88A7 /* ClassPodDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPodDebug.entitlements; sourceTree = "<group>"; };
+		1BEDC629264C0234008C88A7 /* ClassPodDebugTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodDebugTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BEDC62D264C0234008C88A7 /* ClassPodDebugTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodDebugTests.m; sourceTree = "<group>"; };
+		1BEDC62F264C0234008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodDebugUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodDebugUITests.m; sourceTree = "<group>"; };
+		1BEDC63A264C0234008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BEDC6A0264C0633008C88A7 /* TesterPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TesterPreferences.h; sourceTree = "<group>"; };
+		1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TesterPreferences.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
@@ -148,6 +197,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1BB03B012640628E00B6096F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC614264C0233008C88A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC626264C0234008C88A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC631264C0234008C88A7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,6 +287,9 @@
 				1BB03ADD2640628A00B6096F /* ClassPod */,
 				1BB03AFC2640628E00B6096F /* ClassPodTests */,
 				1BB03B072640628E00B6096F /* ClassPodUITests */,
+				1BEDC618264C0233008C88A7 /* ClassPodDebug */,
+				1BEDC62C264C0234008C88A7 /* ClassPodDebugTests */,
+				1BEDC637264C0234008C88A7 /* ClassPodDebugUITests */,
 				1BB03ADC2640628A00B6096F /* Products */,
 				1B03F20126454DFB007A9A3A /* Frameworks */,
 			);
@@ -228,6 +301,9 @@
 				1BB03ADB2640628A00B6096F /* ClassPod.app */,
 				1BB03AF92640628E00B6096F /* ClassPodTests.xctest */,
 				1BB03B042640628E00B6096F /* ClassPodUITests.xctest */,
+				1BEDC617264C0233008C88A7 /* ClassPodDebug.app */,
+				1BEDC629264C0234008C88A7 /* ClassPodDebugTests.xctest */,
+				1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +364,40 @@
 				1B751DA62642B083001D86B6 /* ServiceLocator.m */,
 			);
 			path = LANSettings;
+			sourceTree = "<group>";
+		};
+		1BEDC618264C0233008C88A7 /* ClassPodDebug */ = {
+			isa = PBXGroup;
+			children = (
+				1BEDC619264C0233008C88A7 /* AppDelegate.h */,
+				1BEDC61A264C0233008C88A7 /* AppDelegate.m */,
+				1BEDC61C264C0233008C88A7 /* Assets.xcassets */,
+				1BEDC61E264C0233008C88A7 /* MainMenu.xib */,
+				1BEDC621264C0233008C88A7 /* Info.plist */,
+				1BEDC622264C0234008C88A7 /* main.m */,
+				1BEDC624264C0234008C88A7 /* ClassPodDebug.entitlements */,
+				1BEDC6A0264C0633008C88A7 /* TesterPreferences.h */,
+				1BEDC6A1264C0633008C88A7 /* TesterPreferences.m */,
+			);
+			path = ClassPodDebug;
+			sourceTree = "<group>";
+		};
+		1BEDC62C264C0234008C88A7 /* ClassPodDebugTests */ = {
+			isa = PBXGroup;
+			children = (
+				1BEDC62D264C0234008C88A7 /* ClassPodDebugTests.m */,
+				1BEDC62F264C0234008C88A7 /* Info.plist */,
+			);
+			path = ClassPodDebugTests;
+			sourceTree = "<group>";
+		};
+		1BEDC637264C0234008C88A7 /* ClassPodDebugUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */,
+				1BEDC63A264C0234008C88A7 /* Info.plist */,
+			);
+			path = ClassPodDebugUITests;
 			sourceTree = "<group>";
 		};
 		322B33DB2642A68E00ACD371 /* Helpers */ = {
@@ -367,6 +477,59 @@
 			productReference = 1BB03B042640628E00B6096F /* ClassPodUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1BEDC616264C0233008C88A7 /* ClassPodDebug */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BEDC641264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebug" */;
+			buildPhases = (
+				1BEDC613264C0233008C88A7 /* Sources */,
+				1BEDC614264C0233008C88A7 /* Frameworks */,
+				1BEDC615264C0233008C88A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClassPodDebug;
+			productName = ClassPodDebug;
+			productReference = 1BEDC617264C0233008C88A7 /* ClassPodDebug.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1BEDC628264C0234008C88A7 /* ClassPodDebugTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BEDC642264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebugTests" */;
+			buildPhases = (
+				1BEDC625264C0234008C88A7 /* Sources */,
+				1BEDC626264C0234008C88A7 /* Frameworks */,
+				1BEDC627264C0234008C88A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BEDC62B264C0234008C88A7 /* PBXTargetDependency */,
+			);
+			name = ClassPodDebugTests;
+			productName = ClassPodDebugTests;
+			productReference = 1BEDC629264C0234008C88A7 /* ClassPodDebugTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1BEDC633264C0234008C88A7 /* ClassPodDebugUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BEDC643264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebugUITests" */;
+			buildPhases = (
+				1BEDC630264C0234008C88A7 /* Sources */,
+				1BEDC631264C0234008C88A7 /* Frameworks */,
+				1BEDC632264C0234008C88A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BEDC636264C0234008C88A7 /* PBXTargetDependency */,
+			);
+			name = ClassPodDebugUITests;
+			productName = ClassPodDebugUITests;
+			productReference = 1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -386,6 +549,17 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 1BB03ADA2640628A00B6096F;
 					};
+					1BEDC616264C0233008C88A7 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					1BEDC628264C0234008C88A7 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 1BEDC616264C0233008C88A7;
+					};
+					1BEDC633264C0234008C88A7 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 1BEDC616264C0233008C88A7;
+					};
 				};
 			};
 			buildConfigurationList = 1BB03AD62640628A00B6096F /* Build configuration list for PBXProject "ClassPod" */;
@@ -404,6 +578,9 @@
 				1BB03ADA2640628A00B6096F /* ClassPod */,
 				1BB03AF82640628E00B6096F /* ClassPodTests */,
 				1BB03B032640628E00B6096F /* ClassPodUITests */,
+				1BEDC616264C0233008C88A7 /* ClassPodDebug */,
+				1BEDC628264C0234008C88A7 /* ClassPodDebugTests */,
+				1BEDC633264C0234008C88A7 /* ClassPodDebugUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -427,6 +604,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1BB03B022640628E00B6096F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC615264C0233008C88A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BEDC61D264C0233008C88A7 /* Assets.xcassets in Resources */,
+				1BEDC620264C0233008C88A7 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC627264C0234008C88A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC632264C0234008C88A7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -491,6 +691,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1BEDC613264C0233008C88A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BEDC64A264C0243008C88A7 /* DAO.m in Sources */,
+				1BEDC692264C0489008C88A7 /* GCDAsyncSocket.m in Sources */,
+				1BEDC658264C0251008C88A7 /* Student+CoreDataProperties.m in Sources */,
+				1BEDC689264C0275008C88A7 /* ClassPod.xcdatamodeld in Sources */,
+				1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */,
+				1BEDC682264C026F008C88A7 /* ClassPod+CoreDataProperties.m in Sources */,
+				1BEDC66D264C0261008C88A7 /* Teacher+CoreDataClass.m in Sources */,
+				1BEDC651264C024C008C88A7 /* Student+CoreDataClass.m in Sources */,
+				1BEDC6A2264C0633008C88A7 /* TesterPreferences.m in Sources */,
+				1BEDC67B264C026B008C88A7 /* ClassPod+CoreDataClass.m in Sources */,
+				1BEDC623264C0234008C88A7 /* main.m in Sources */,
+				1BEDC674264C0265008C88A7 /* Teacher+CoreDataProperties.m in Sources */,
+				1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */,
+				1BEDC65F264C0257008C88A7 /* Music+CoreDataClass.m in Sources */,
+				1BEDC666264C025C008C88A7 /* Music+CoreDataProperties.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC625264C0234008C88A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BEDC62E264C0234008C88A7 /* ClassPodDebugTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BEDC630264C0234008C88A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BEDC639264C0234008C88A7 /* ClassPodDebugUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -503,6 +741,16 @@
 			isa = PBXTargetDependency;
 			target = 1BB03ADA2640628A00B6096F /* ClassPod */;
 			targetProxy = 1BB03B052640628E00B6096F /* PBXContainerItemProxy */;
+		};
+		1BEDC62B264C0234008C88A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BEDC616264C0233008C88A7 /* ClassPodDebug */;
+			targetProxy = 1BEDC62A264C0234008C88A7 /* PBXContainerItemProxy */;
+		};
+		1BEDC636264C0234008C88A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BEDC616264C0233008C88A7 /* ClassPodDebug */;
+			targetProxy = 1BEDC635264C0234008C88A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -521,6 +769,14 @@
 				1BB03AF02640628D00B6096F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1BEDC61E264C0233008C88A7 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1BEDC61F264C0233008C88A7 /* Base */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -756,6 +1012,132 @@
 			};
 			name = Release;
 		};
+		1BEDC63B264C0234008C88A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassPodDebug/ClassPodDebug.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ClassPodDebug/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1BEDC63C264C0234008C88A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClassPodDebug/ClassPodDebug.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ClassPodDebug/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1BEDC63D264C0234008C88A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				INFOPLIST_FILE = ClassPodDebugTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebugTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClassPodDebug.app/Contents/MacOS/ClassPodDebug";
+			};
+			name = Debug;
+		};
+		1BEDC63E264C0234008C88A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				INFOPLIST_FILE = ClassPodDebugTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebugTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClassPodDebug.app/Contents/MacOS/ClassPodDebug";
+			};
+			name = Release;
+		};
+		1BEDC63F264C0234008C88A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				INFOPLIST_FILE = ClassPodDebugUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebugUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = ClassPodDebug;
+			};
+			name = Debug;
+		};
+		1BEDC640264C0234008C88A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				INFOPLIST_FILE = ClassPodDebugUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPodDebugUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = ClassPodDebug;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -791,6 +1173,33 @@
 			buildConfigurations = (
 				1BB03B142640628E00B6096F /* Debug */,
 				1BB03B152640628E00B6096F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BEDC641264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebug" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BEDC63B264C0234008C88A7 /* Debug */,
+				1BEDC63C264C0234008C88A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BEDC642264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebugTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BEDC63D264C0234008C88A7 /* Debug */,
+				1BEDC63E264C0234008C88A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BEDC643264C0234008C88A7 /* Build configuration list for PBXNativeTarget "ClassPodDebugUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BEDC63F264C0234008C88A7 /* Debug */,
+				1BEDC640264C0234008C88A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
