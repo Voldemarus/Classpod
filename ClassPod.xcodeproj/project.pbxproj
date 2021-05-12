@@ -68,6 +68,7 @@
 		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
 		3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B981264BF73C00ACA5FE /* CellStudentList.m */; };
 		3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B987264BFE2500ACA5FE /* CellTecherList.m */; };
+		32788C7B264C13CE00FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -717,6 +718,7 @@
 				1BEDC651264C024C008C88A7 /* Student+CoreDataClass.m in Sources */,
 				1BEDC6A2264C0633008C88A7 /* TesterPreferences.m in Sources */,
 				1BEDC67B264C026B008C88A7 /* ClassPod+CoreDataClass.m in Sources */,
+				32788C7B264C13CE00FC087E /* Preferences.m in Sources */,
 				1BEDC623264C0234008C88A7 /* main.m in Sources */,
 				1BEDC674264C0265008C88A7 /* Teacher+CoreDataProperties.m in Sources */,
 				1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */,
