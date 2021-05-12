@@ -9,7 +9,7 @@
 
 @interface ViewController ()
 {
-    __weak IBOutlet Preferences *prefs;
+    Preferences *prefs;
 }
 
 @end
