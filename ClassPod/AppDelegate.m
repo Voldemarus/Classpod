@@ -29,11 +29,11 @@
 
     srl = [ServiceLocator sharedInstance];
     srl.delegate = self;
-    if (prefs.teacherModeON) {
+ //   if (prefs.teacherModeON) {
         [self startService];
-    } else {
-        [self browseServices];
-    }
+//    } else {
+//        [self browseServices];
+//    }
 
     return YES;
 }

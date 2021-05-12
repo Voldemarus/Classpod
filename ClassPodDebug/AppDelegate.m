@@ -30,7 +30,7 @@
 @property (weak) IBOutlet NSTextField *studentName;
 @property (weak) IBOutlet NSTextField *studentUUID;
 @property (weak) IBOutlet NSTableView *serviceTable;
-@property (unsafe_unretained) IBOutlet NSTextView *studentNote;
+@property (weak) IBOutlet NSTextField *studentNote;
 
 
 @property (strong) IBOutlet NSWindow *window;
@@ -50,27 +50,27 @@
 
     [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
     currentMode = (prefs.testerMode == 0);
-    if (currentMode == 0) {
-        [self startService];
-    } else {
+//    if (currentMode == 0) {
+//        [self startService];
+//    } else {
         [self startBrowsing];
-    }
+//    }
     self.studentUUID.stringValue = prefs.studentUUID.UUIDString;
     self.studentName.stringValue = prefs.studentName;
-    self.studentNote.string = prefs.studentNote;
+    self.studentNote.stringValue = prefs.studentNote;
     connectedService = nil;
 
     teacherList = @[];
     studentList = @[];
 
     [self.serviceTable reloadData];
-
-
 }
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    prefs.studentName = self.studentName.stringValue;
+    prefs.studentNote = self.studentNote.stringValue;
 }
 
 
@@ -121,6 +121,7 @@
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(nullable NSTabViewItem *)tabViewItem
 {
     NSInteger index = [tabView indexOfTabViewItem:tabViewItem];
+    prefs.testerMode = index;
     if (index == 0) {
         // service part
         [self stopServiceConnection:-1];
