@@ -61,10 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) runMainThreadBlock:(void (^)(void))block; // Запустить в основном потоке
 + (void) runMainThreadBlock:(void (^)(void))block;
 
-
-- (void) networkActivityIndicatorVisible:(BOOL)startRomashka; // индикатор активности сети.
-+ (void) networkActivityIndicatorVisible:(BOOL)startRomashka; // индикатор активности сети.
-
 @end
 
 NS_ASSUME_NONNULL_END

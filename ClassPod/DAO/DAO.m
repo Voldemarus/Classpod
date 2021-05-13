@@ -137,26 +137,6 @@
         dispatch_async(dispatch_get_main_queue(), block);
     }
 }
- 
-// индикатор активности сети.
-- (void) networkActivityIndicatorVisible:(BOOL)startRomashka
-{
-#ifdef USING_IOS
-    [self runMainThreadBlock:^{
-        [UIApplication.sharedApplication setNetworkActivityIndicatorVisible:startRomashka];
-    }];
-#else
-#endif
-}
-+ (void) networkActivityIndicatorVisible:(BOOL)startRomashka
-{
-#ifdef USING_IOS
-    [self runMainThreadBlock:^{
-        [UIApplication.sharedApplication setNetworkActivityIndicatorVisible:startRomashka];
-    }];
-#else
-#endif
-}
 
 #pragma mark - Custom methods
 
