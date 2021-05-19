@@ -208,6 +208,14 @@
 
 }
 
+- (Teacher*) newTeacherWithService:(NSNetService *)service
+{
+    Teacher *newObj = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(Teacher.class) inManagedObjectContext:self.moc];
+    if (newObj) {
+        newObj.name = service.name;
+    }
+    return newObj;
+}
 
 
 @end

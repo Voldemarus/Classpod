@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DebugPrint.h"
 #import "Preferences.h"
 #import "DAO.h"
 #import "ServiceLocator.h"
@@ -47,6 +48,9 @@
     srl = [ServiceLocator sharedInstance];
     srl.delegate = self;
 
+#ifdef DEBUG
+    prefs.studentName = @"Я студиоз";
+#endif
 
     [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
     currentMode = (prefs.testerMode == 0);
@@ -60,12 +64,16 @@
     self.studentNote.stringValue = prefs.studentNote;
     connectedService = nil;
 
-    teacherList = @[];
+    [self updateUI];
+}
+
+- (void) updateUI
+{
+    teacherList = [dao teachersList];
     studentList = @[];
 
     [self.serviceTable reloadData];
 }
-
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
@@ -73,7 +81,32 @@
     prefs.studentNote = self.studentNote.stringValue;
 }
 
+#pragma mark - ServiceLocator delegate -
 
+
+- (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
+{
+    NSLog(@">>> New Abbonent  connected to the class!");
+}
+
+- (void) abonentDisconnected:(NSError *)error
+{
+    NSLog(@"Abonent disconnected");
+    if (error) {
+        NSLog(@"Error on disconnectig - %@", [error localizedDescription]);
+    }
+}
+
+- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
+{
+    DLog(@"didFindService %@", service);
+    Teacher *newTeacher = [dao newTeacherWithService:service];
+    [self updateUI];
+}
+- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
+{
+    DLog(@"didFindDomain %@", domainString);
+}
 
 #pragma mark - NSTableView Delegate/Dataspurce
 
@@ -103,22 +136,24 @@
     return tableColumn.identifier;
 }
 
-- (IBAction)serviceListAction:(id)sender {
+- (IBAction) serviceListAction:(id)sender
+{
     NSTableView* tableView = (NSTableView*)sender;
     NSInteger index = tableView.selectedRow;
-
-    if (connectedService) {
-        // detach actual service
-        [self stopServiceConnection:index];
+    if (index >= 0 && index < teacherList.count) {
+        if (connectedService) {
+            // detach actual service
+            [self stopServiceConnection:index];
+        }
+        [self.serviceTable reloadData];
     }
-    [self.serviceTable reloadData];
 }
 
 
 
 #pragma mark - NSTabView delegate
 
-- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(nullable NSTabViewItem *)tabViewItem
+- (void) tabView:(NSTabView *)tabView didSelectTabViewItem:(nullable NSTabViewItem *)tabViewItem
 {
     NSInteger index = [tabView indexOfTabViewItem:tabViewItem];
     prefs.testerMode = index;

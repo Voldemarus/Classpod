@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="modeTabView" destination="uhC-bQ-hXS" id="n9i-iR-dXl"/>
@@ -690,7 +690,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="462"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="462"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -803,6 +803,7 @@
                                                             </tableColumn>
                                                         </tableColumns>
                                                         <connections>
+                                                            <action selector="serviceListAction:" target="Voe-Tx-rLC" id="crA-13-Vjk"/>
                                                             <outlet property="dataSource" destination="Voe-Tx-rLC" id="1Tf-oi-3ag"/>
                                                             <outlet property="delegate" destination="Voe-Tx-rLC" id="jXu-IH-VbH"/>
                                                         </connections>

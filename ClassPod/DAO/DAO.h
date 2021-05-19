@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *) dataPackForStudent:(Student *)student;
 - (NSData *) dataPackForStudent:(Student *)student withTeacherID:(NSUUID *)tUUID;
 
+// No need comment
+- (Teacher*) newTeacherWithService:(NSNetService *)service;
 
 #pragma mark - Unified methods
 

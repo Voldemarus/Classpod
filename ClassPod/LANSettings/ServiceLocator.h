@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) newAbonentConnected:(GCDAsyncSocket *)newSocket;
 - (void) abonentDisconnected:(NSError  * _Nullable )error;
 
+- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing;
+- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing;
+
 @end
 
 @interface ServiceLocator : NSObject

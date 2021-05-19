@@ -47,19 +47,17 @@ NSString * const VVVserviceDomain   =   @"local.";
 {
     if (self = [super init]) {
         self.browser = [[NSNetServiceBrowser alloc] init];
-       [self.browser setDelegate:self];
-
+        [self.browser setDelegate:self];
+        
         prefs = [Preferences sharedPreferences];
         dao = [DAO sharedInstance];
-
+        
         dataBuffer = [NSMutableData data];
         self.clientArray = [NSMutableArray new];
         moreComing = YES;
-
+        
         NSLog(@"%s: discovering...", __func__);
-
-        [self.browser searchForServicesOfType:VVVServiceType
-                                 inDomain:VVVserviceDomain];
+        
     }
     return self;
 }
@@ -96,18 +94,28 @@ NSString * const VVVserviceDomain   =   @"local.";
     [self.browser searchForServicesOfType:VVVServiceType inDomain:VVVserviceDomain];
 }
 
-#pragma - NSNetServiceBrowser delegate
+#pragma mark - NSNetServiceBrowser delegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
 {
-    DLog(@"Found domain - %@",domainString);
+    DLog(@"Found domain - %@ (Есть еще: %@)", domainString, moreComing?@"ДА":@"НЕТ");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didFindDomain:moreComing:)]) {
+        [self.delegate didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing];
+    }
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
-    DLog(@"Service found - %@", service.name);
-    
+    DLog(@"Service found - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didFindService:moreComing:)]) {
+        [self.delegate didFindService:(NSNetService *)service moreComing:(BOOL)moreComing];
+    }
 }
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *, NSNumber *> *)errorDict
+{
+    DLog(@"didNotSearch: %@", errorDict);
+}
+
 
 #pragma mark - Socket delegate
 

@@ -29,11 +29,11 @@
 
     srl = [ServiceLocator sharedInstance];
     srl.delegate = self;
- //   if (prefs.teacherModeON) {
+    if (prefs.teacherModeON) {
         [self startService];
-//    } else {
-//        [self browseServices];
-//    }
+    } else {
+        [self browseServices];
+    }
 
     return YES;
 }
@@ -82,6 +82,14 @@
     }
 }
 
+- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
+{
+    DLog(@"didFindService %@", service);
+}
+- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
+{
+    DLog(@"didFindDomain %@", domainString);
+}
 
 #pragma mark - UISceneSession lifecycle
 

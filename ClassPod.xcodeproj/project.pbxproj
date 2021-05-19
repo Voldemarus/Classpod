@@ -267,21 +267,21 @@
 		1B06800C2649483C00B7C23C /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				1B067FE92649482000B7C23C /* Student+CoreDataProperties.h */,
 				1B067FEA2649482000B7C23C /* Student+CoreDataClass.h */,
 				1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */,
+				1B067FE92649482000B7C23C /* Student+CoreDataProperties.h */,
 				1B067FEC2649482000B7C23C /* Student+CoreDataProperties.m */,
-				1B067FED2649482000B7C23C /* Music+CoreDataProperties.h */,
 				1B067FEE2649482000B7C23C /* Music+CoreDataClass.h */,
 				1B067FEF2649482000B7C23C /* Music+CoreDataClass.m */,
+				1B067FED2649482000B7C23C /* Music+CoreDataProperties.h */,
 				1B067FF02649482000B7C23C /* Music+CoreDataProperties.m */,
-				1B067FF12649482000B7C23C /* Teacher+CoreDataProperties.h */,
 				1B067FF22649482000B7C23C /* Teacher+CoreDataClass.h */,
 				1B067FF32649482000B7C23C /* Teacher+CoreDataClass.m */,
+				1B067FF12649482000B7C23C /* Teacher+CoreDataProperties.h */,
 				1B067FF42649482000B7C23C /* Teacher+CoreDataProperties.m */,
-				1B067FF52649482000B7C23C /* ClassPod+CoreDataProperties.h */,
 				1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */,
 				1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */,
+				1B067FF52649482000B7C23C /* ClassPod+CoreDataProperties.h */,
 				1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */,
 			);
 			path = Entities;
