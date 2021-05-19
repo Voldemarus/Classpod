@@ -77,7 +77,7 @@
 - (void)saveContext:(NSManagedObjectContext* _Nullable)context
 {
     if (!context) {
-        context = self.persistentContainer.viewContext;
+        context = self.moc;
     }
 
 #ifdef DEBUG
@@ -146,7 +146,7 @@
     // all students in teacher mode belongs to the current teacher
     // as we fill database when clients subscribe to the service
     NSError *error = nil;
-    NSArray <Student *> *result = [self.persistentContainer.viewContext executeFetchRequest:req error:&error];
+    NSArray <Student *> *result = [self.moc executeFetchRequest:req error:&error];
     if (!result && error) {
         DLog(@"Cannot get data from Student entity - %@",[error localizedDescription]);
      }
@@ -163,7 +163,7 @@
 {
     NSFetchRequest *req = [Teacher fetchRequest];
     NSError *error = nil;
-    NSArray <Teacher *> *result = [self.persistentContainer.viewContext executeFetchRequest:req error:&error];
+    NSArray <Teacher *> *result = [self.moc executeFetchRequest:req error:&error];
     if (!result && error) {
         DLog(@"Cannot get data from Teacher entity - %@",[error localizedDescription]);
     }
@@ -185,7 +185,7 @@
     if (!aData) {
         return nil;
     }
-    Student *std = [Student parseDataPacket:aData forTeacher:tUUID inMoc:self.persistentContainer.viewContext];
+    Student *std = [Student parseDataPacket:aData forTeacher:tUUID inMoc:self.moc];
     if (tUUID) {
         // teacher uuid is provided - link to proper class
         
