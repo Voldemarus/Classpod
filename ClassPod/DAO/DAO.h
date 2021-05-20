@@ -41,14 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
     Parse incoming packet as student, or return nil
  */
-- (Student *) studentWithData:(NSData *)aData forTeacher:(NSUUID *_Nullable*_Nullable)tUUID;
+- (Student *) studentWithData:(NSData *)aData forTeacher:(NSString *_Nullable*_Nullable)tUUID;
 
 
 /**
         Converts Student instance into data packet
  */
 - (NSData *) dataPackForStudent:(Student *)student;
-- (NSData *) dataPackForStudent:(Student *)student withTeacherID:(NSUUID *)tUUID;
+- (NSData *) dataPackForStudent:(Student *)student withTeacherID:(NSString *)tUUID;
 
 // No need comment
 - (Teacher*) newTeacherWithService:(NSNetService *)service;

@@ -23,20 +23,20 @@ NS_ASSUME_NONNULL_BEGIN
     or create new record.
  */
 + (Student *) parseDataPacket:(NSData *)pack
-                   forTeacher:(NSUUID  *_Nullable * _Nullable )tUUID
+                   forTeacher:(NSString *_Nullable * _Nullable)tUUID
                         inMoc:(NSManagedObjectContext *)moc;
 /**
     Returns record for given UUID or nil, if no such record is present in the database
  */
 
-+ (Student *) getStudentByUUID:(NSUUID *)aUUID
++ (Student *) getStudentByUUID:(NSString *)aUUID
                          inMoc:(NSManagedObjectContext *)moc;
 
 /**
  Packs current Studen' data into packet to stream.  if TeacherID is not empty, field with
  request to assign particular class is added.
  */
-- (NSData *) packetDataWithTeacherUUID:(NSUUID * _Nullable ) teacherId;
+- (NSData *) packetDataWithTeacherUUID:(NSString * _Nullable) teacherId;
 
 
 @end

@@ -180,7 +180,7 @@
 // Returns student instance from the data packet, receiced from
 // remote client, and places it into local CoreData database
 //
-- (Student *) studentWithData:(NSData *)aData forTeacher:(NSUUID **)tUUID
+- (Student *) studentWithData:(NSData *)aData forTeacher:(NSString **)tUUID
 {
     if (!aData) {
         return nil;
@@ -201,7 +201,7 @@
 }
 
 - (NSData *) dataPackForStudent:(Student *)student
-                  withTeacherID:(NSUUID *)tUUID
+                  withTeacherID:(NSString *)tUUID
 {
     NSData *d = [student packetDataWithTeacherUUID:tUUID];
     return d;
@@ -224,10 +224,11 @@
     Student * student = [Student getStudentByUUID:prefs.personalUUID inMoc:self.moc];
     if (!student) {
         student = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(Student.class) inManagedObjectContext:self.moc];
-        student.name = prefs.myName;
-        student.uuid = prefs.personalUUID;
-        student.note = prefs.note;
     }
+    student.uuid = prefs.personalUUID;
+    student.name = prefs.myName;
+    student.note = prefs.note;
+
     return student;
 }
 

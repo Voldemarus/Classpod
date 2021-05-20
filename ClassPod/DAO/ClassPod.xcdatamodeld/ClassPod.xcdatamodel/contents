@@ -16,7 +16,7 @@
     <entity name="Student" representedClassName="Student" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="students" inverseEntity="ClassPod"/>
     </entity>
     <entity name="Teacher" representedClassName="Teacher" syncable="YES">
@@ -24,13 +24,13 @@
         <attribute name="hourRate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="teacher" inverseEntity="ClassPod"/>
     </entity>
     <elements>
-        <element name="Teacher" positionX="-237.551513671875" positionY="6.208770751953125" width="128" height="133"/>
-        <element name="Student" positionX="-203.1754150390625" positionY="-145.6943817138672" width="128" height="103"/>
         <element name="ClassPod" positionX="-12.50994873046875" positionY="-124.7966766357422" width="128" height="133"/>
         <element name="Music" positionX="212.3820190429688" positionY="-147.310302734375" width="128" height="88"/>
+        <element name="Student" positionX="-203.1754150390625" positionY="-145.6943817138672" width="128" height="103"/>
+        <element name="Teacher" positionX="-237.551513671875" positionY="6.208770751953125" width="128" height="133"/>
     </elements>
 </model>

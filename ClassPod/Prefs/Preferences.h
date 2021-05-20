@@ -20,7 +20,7 @@
 /**
         Both for teacher and student
  */
-@property (nonatomic, readonly)  NSUUID *personalUUID;
+@property (nonatomic, readonly)  NSString *personalUUID;
 
 // Teacher profile data
 @property (nonatomic, retain) NSString *myName;  // common for teacher and student
@@ -36,10 +36,15 @@
 #ifndef MAIN_APP_IOS
 
 // Only mac version
-@property (nonatomic, retain) NSString *studentName;
-@property (nonatomic, retain) NSString *studentNote;
-@property (nonatomic, readonly) NSUUID *studentUUID;
-@property (nonatomic) NSUInteger testerMode;
+typedef enum : NSUInteger {
+    TesterMode_Student = 0,
+    TesterMode_Teacher = 1,
+} TesterMode;
+@property (nonatomic) TesterMode testerMode;
+
+//@property (nonatomic, retain) NSString *studentName;
+//@property (nonatomic, retain) NSString *studentNote;
+//@property (nonatomic, readonly) NSString *studentUUID;
 
 #endif
 

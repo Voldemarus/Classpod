@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *courseName;
 @property (nonatomic) float hourRate;
 @property (nullable, nonatomic, copy) NSString *note;
-@property (nullable, nonatomic, copy) NSUUID *uuid;
+@property (nullable, nonatomic, copy) NSString *uuid;
 @property (nullable, nonatomic, retain) NSSet<ClassPod *> *classes;
 
 @end

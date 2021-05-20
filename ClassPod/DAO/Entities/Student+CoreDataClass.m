@@ -22,7 +22,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
 // No need to store it in database, should be valid during connection only
 @synthesize socket;
 
-- (NSData *) packetDataWithTeacherUUID:(NSUUID *) teacherId 
+- (NSData *) packetDataWithTeacherUUID:(NSString *) teacherId
 {
     NSMutableDictionary *d = [[NSMutableDictionary alloc] initWithDictionary:@{
         STUDENT_UUID    :   self.uuid,
@@ -44,7 +44,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
 
 #pragma - Class methods -
 
-+ (Student *) parseDataPacket:(NSData *)pack forTeacher:(NSUUID **)tUUID inMoc:(NSManagedObjectContext *)moc
++ (Student *) parseDataPacket:(NSData *)pack forTeacher:(NSString **)tUUID inMoc:(NSManagedObjectContext *)moc
 {
     if (!pack) {
         return nil;
@@ -55,7 +55,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
         DLog(@"Cannot unpack - %@",[error localizedDescription]);
         return nil;
     }
-    NSUUID *stuid = d[STUDENT_UUID];
+    NSString *stuid = d[STUDENT_UUID];
     if (!stuid) {
         // this dictionary doesn't belong to student data
         return nil;
@@ -70,7 +70,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
             rec.uuid = stuid;
             rec.note = d[STUDENT_NOTE];
 
-            NSUUID *teachID = d[STUDENT_TUIID];
+            NSString *teachID = d[STUDENT_TUIID];
             if (teachID) {
                 // teacherID is non empty - add student to class for this teacher
                 *tUUID = teachID;
@@ -80,7 +80,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
     return rec;
 }
 
-+ (Student *) getStudentByUUID:(NSUUID *)aUid inMoc:(NSManagedObjectContext *)moc
++ (Student *) getStudentByUUID:(NSString *)aUid inMoc:(NSManagedObjectContext *)moc
 {
     NSFetchRequest *req = [Student fetchRequest];
     req.predicate = [NSPredicate predicateWithFormat:@"uuid = %@", aUid];

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<Student *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *name;
-@property (nullable, nonatomic, copy) NSUUID *uuid;
+@property (nullable, nonatomic, copy) NSString *uuid;
 @property (nullable, nonatomic, copy) NSString *note;
 @property (nullable, nonatomic, retain) NSSet<ClassPod *> *classes;
 

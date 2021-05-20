@@ -162,7 +162,7 @@ NSString * const VVVserviceDomain   =   @"local.";
     [dataBuffer appendData:data];
     if ([sock socketAvailableBytes] == 0) {
         // All data has been gathered, try to extract info
-        NSUUID *teacherUUID = nil;
+        NSString *teacherUUID = nil;
         Student *student = [dao studentWithData:dataBuffer forTeacher:&teacherUUID];
         if (student) {
             NSLog(@"Student request accepted - %@", student);

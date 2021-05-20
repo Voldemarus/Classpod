@@ -28,9 +28,9 @@ NSString * const VVVnote                    =   @"vvv7";
 
 // Only mac version
 NSString * const VVVMACteacherModeON           =   @"vvvm0";
-NSString * const VVVStudentName             =   @"vvvm1";
-NSString * const VVVstudentNote             =   @"vvvm2";
-NSString * const VVVstudentUUID             =   @"vvvm3";
+//NSString * const VVVStudentName             =   @"vvvm1";
+//NSString * const VVVstudentNote             =   @"vvvm2";
+//NSString * const VVVstudentUUID             =   @"vvvm3";
 
 #endif
 
@@ -62,8 +62,8 @@ NSString * const VVVstudentUUID             =   @"vvvm3";
 #ifndef MAIN_APP_IOS
 
 // Only mac version
-    [defaultValues setObject:@"" forKey:VVVStudentName];
-    [defaultValues setObject:@"" forKey:VVVstudentNote];
+//    [defaultValues setObject:@"" forKey:VVVStudentName];
+//    [defaultValues setObject:@"" forKey:VVVstudentNote];
     [defaultValues setObject:@(0) forKey:VVVMACteacherModeON];
 
 #endif
@@ -86,19 +86,16 @@ NSString * const VVVstudentUUID             =   @"vvvm3";
 
 #pragma mark -
 
-- (NSUUID *) personalUUID
+- (NSString *) personalUUID
 {
-    static NSUUID *uuid = nil;
+    static NSString *uuid = nil;
     if (!uuid) {
-        NSString *uud  = [prefs objectForKey:VVVUUID];
-        if (uud) {
-            // pickup uuid from the storage
-            uuid = [[NSUUID alloc] initWithUUIDString:uud];
-        } else {
+        uuid  = [prefs objectForKey:VVVUUID];
+        if (uuid.length < 1) {
             // no uuid is created yet, create it and store in
             // defaults
-            uuid = [NSUUID UUID];
-            [prefs setObject:uuid.UUIDString forKey:VVVUUID];
+            uuid = NSUUID.UUID.UUIDString;
+            [prefs setObject:uuid forKey:VVVUUID];
             [prefs synchronize];
         }
     }
@@ -182,55 +179,53 @@ NSString * const VVVstudentUUID             =   @"vvvm3";
 
 // Only mac version
 
-- (NSString *) studentName
-{
-    return [prefs objectForKey:VVVStudentName];
-}
-
-- (void) setStudentName:(NSString *)studentName
-{
-    [prefs setObject:studentName forKey:VVVStudentName];
-}
-
-- (NSString *) studentNote
-{
-    return [prefs objectForKey:VVVstudentNote];
-}
-
-- (void) setStudentNote:(NSString *)studentNote
-{
-    [prefs setObject:studentNote forKey:VVVstudentNote];
-}
-
-- (NSUInteger) testerMode
+- (TesterMode) testerMode
 {
     return [prefs integerForKey:VVVMACteacherModeON];
 }
 
-- (void) setTesterMode:(NSUInteger)testerMode
+- (void) setTesterMode:(TesterMode)testerMode
 {
     [prefs setInteger:testerMode forKey:VVVMACteacherModeON];
 }
 
+//- (NSString *) studentName
+//{
+//    return [prefs objectForKey:VVVStudentName];
+//}
+//
+//- (void) setStudentName:(NSString *)studentName
+//{
+//    [prefs setObject:studentName forKey:VVVStudentName];
+//}
+//
+//- (NSString *) studentNote
+//{
+//    return [prefs objectForKey:VVVstudentNote];
+//}
+//
+//- (void) setStudentNote:(NSString *)studentNote
+//{
+//    [prefs setObject:studentNote forKey:VVVstudentNote];
+//}
+//
+//- (NSString *) studentUUID
+//{
+//    static NSString *uuid = nil;
+//    if (!uuid) {
+//        uuid  = [prefs objectForKey:VVVstudentUUID];
+//        if (uuid.length < 1) {
+//            // no uuid is created yet, create it and store in
+//            // defaults
+//            uuid = NSUUID.UUID.UUIDString;
+//            [prefs setObject:uuid forKey:VVVstudentUUID];
+//            [prefs synchronize];
+//        }
+//    }
+//    return uuid;
+//}
 
-- (NSUUID *) studentUUID
-{
-    static NSUUID *uuid = nil;
-    if (!uuid) {
-        NSString *uud  = [prefs objectForKey:VVVstudentUUID];
-        if (uud) {
-            // pickup uuid from the storage
-            uuid = [[NSUUID alloc] initWithUUIDString:uud];
-        } else {
-            // no uuid is created yet, create it and store in
-            // defaults
-            uuid = [NSUUID UUID];
-            [prefs setObject:uuid.UUIDString forKey:VVVstudentUUID];
-            [prefs synchronize];
-        }
-    }
-    return uuid;
-}
+
 
 #endif // #ifndef MAIN_APP_IOS
 
