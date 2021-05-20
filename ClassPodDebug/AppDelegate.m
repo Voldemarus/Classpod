@@ -19,7 +19,8 @@
     DAO *dao;
     BOOL currentMode;       // YES - server , NO - client
 
-    NSArray <Teacher *> *teacherList;
+    NSMutableArray <NSNetService *> *teacherServiceList;
+//    NSArray <Teacher *> *teacherList;
     NSArray <Student *> *studentList;
     Teacher *connectedService;
 
@@ -52,6 +53,8 @@
     prefs.studentName = @"Я студиоз";
 #endif
 
+    teacherServiceList = [NSMutableArray new];
+    
     [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
     currentMode = (prefs.testerMode == 0);
 //    if (currentMode == 0) {
@@ -69,7 +72,7 @@
 
 - (void) updateUI
 {
-    teacherList = [dao teachersList];
+//    teacherList = [dao teachersList];
     studentList = @[];
 
     [self.serviceTable reloadData];
@@ -99,13 +102,41 @@
 
 - (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
-    DLog(@"didFindService %@", service);
-    Teacher *newTeacher = [dao newTeacherWithService:service];
+    DLog(@"Find Service: %@", service);
+    DLog(@"Find Service name: %@, type: %@, port: %ld", service.name, service.type, service.port);
+    
+    BOOL needAdd = YES;
+    for (NSNetService *serv in teacherServiceList) {
+        if ([serv.name isEqualToString:service.name]) {
+            needAdd = NO;
+            break;
+        }
+    }
+    if (needAdd) {
+        [teacherServiceList addObject:service];
+    }
+
+    //    Teacher *newTeacher = [dao newTeacherWithService:service];
     [self updateUI];
 }
 - (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
 {
     DLog(@"didFindDomain %@", domainString);
+}
+- (void) didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
+{
+    DLog(@"Remove Service: %@", service);
+    DLog(@"Remove Service name: %@, type: %@, port: %ld", service.name, service.type, service.port);
+//    Teacher *newTeacher = [dao te];
+    
+    for (NSNetService *serv in teacherServiceList) {
+        if ([serv.name isEqualToString:service.name]) {
+            [teacherServiceList removeObject:service];
+            break;
+        }
+    }
+    
+    [self updateUI];
 }
 
 #pragma mark - NSTableView Delegate/Dataspurce
@@ -113,7 +144,8 @@
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView
 {
     if (tableView == self.serviceTable) {
-        return teacherList.count;
+        return teacherServiceList.count;
+//        return teacherList.count;
     }
 
     return 0;
@@ -122,15 +154,18 @@
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     if (tableView == self.serviceTable) {
-        Teacher *t = teacherList[row];
+//        Teacher *t = teacherList[row];
+        NSNetService *service = teacherServiceList[row];
         if ([tableColumn.identifier isEqualToString:@"ServerName"]) {
-            return t.name;
-        } else if ([tableColumn.identifier isEqualToString:@"ServerStatus"]) {
-            if (t == connectedService) {
-                return @"Connected";
-            } else {
-                return @"";
-            }
+            return service.name;
+//            return t.name;
+        } else if ([tableColumn.identifier isEqualToString:@"ServiceStatus"]) {
+            return [NSString stringWithFormat:@"port: %ld", service.port];
+//            if (t == connectedService) {
+//                return @"Connected";
+//            } else {
+//                return @"";
+//            }
         }
     }
     return tableColumn.identifier;
@@ -140,7 +175,7 @@
 {
     NSTableView* tableView = (NSTableView*)sender;
     NSInteger index = tableView.selectedRow;
-    if (index >= 0 && index < teacherList.count) {
+    if (index >= 0 && index < teacherServiceList.count) {
         if (connectedService) {
             // detach actual service
             [self stopServiceConnection:index];
@@ -148,6 +183,19 @@
         [self.serviceTable reloadData];
     }
 }
+//
+//- (IBAction) serviceListAction:(id)sender
+//{
+//    NSTableView* tableView = (NSTableView*)sender;
+//    NSInteger index = tableView.selectedRow;
+//    if (index >= 0 && index < teacherList.count) {
+//        if (connectedService) {
+//            // detach actual service
+//            [self stopServiceConnection:index];
+//        }
+//        [self.serviceTable reloadData];
+//    }
+//}
 
 
 

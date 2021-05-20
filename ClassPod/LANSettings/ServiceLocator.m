@@ -111,6 +111,15 @@ NSString * const VVVserviceDomain   =   @"local.";
         [self.delegate didFindService:(NSNetService *)service moreComing:(BOOL)moreComing];
     }
 }
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
+{
+    DLog(@"Service removed - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didRemoveService:moreComing:)]) {
+        [self.delegate didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing];
+    }
+
+}
+
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *, NSNumber *> *)errorDict
 {
     DLog(@"didNotSearch: %@", errorDict);
@@ -200,7 +209,7 @@ NSString * const VVVserviceDomain   =   @"local.";
 - (void)netServiceDidPublish:(NSNetService *)sender
 {
     servicePort = sender.port;
-    DLog(@"Service : %@",sender.name);
+    DLog(@"Service : %@", sender.name);
     DLog(@"Type    : %@", sender.type);
     DLog(@"Domain  : %@", sender.domain);
     DLog(@"Host    : %@", sender.hostName);

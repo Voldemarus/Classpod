@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing;
 - (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing;
+- (void) didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing;
 
 @end
 
