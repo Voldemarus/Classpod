@@ -101,3 +101,12 @@ on the stream toward that student. - Student’s response:
 Тут нужна форма с профилем 
 
 
+Spotify
+
+Client ID :  78714228917241b8b0513804bb22cf2f
+
+Client Secret 4267e80483584864aa2e4027c19410cb
+
+
+
+
