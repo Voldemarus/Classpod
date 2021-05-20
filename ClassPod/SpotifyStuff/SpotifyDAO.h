@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SpotifyDAO : NSObject
 
-+ (SpotifyDAO *) sharedInsance;
++ (SpotifyDAO *) sharedInstance;
 
 @property (nonatomic, retain) SPTAppRemote *appRemote;
 

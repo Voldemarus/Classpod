@@ -42,12 +42,14 @@
 
     SPTAppRemote *rapp = self.spDao.appRemote;
     NSDictionary *authParams = [rapp authorizationParametersFromURL:url];
-    Dlog(@"AuthParameters for Spotify - %@", authParams);
+    DLog(@"AuthParameters for Spotify - %@", authParams);
 
     NSString *authToken = authParams[SPTAppRemoteAccessTokenKey];
     if (authToken) {
         SPTAppRemoteConnectionParams *cparams = rapp.connectionParameters;
-        rapp.accessToken = authToken;
+//        rapp.accessToken = authToken;
+#warning !!!! Mybe cparams.accessToken = authToken; ??
+        cparams.accessToken = authToken;
     } else {
         NSString *errDesc = authParams[SPTAppRemoteErrorDescriptionKey];
         DLog(@"Error - %@",errDesc);

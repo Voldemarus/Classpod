@@ -31,10 +31,10 @@ NSString * const SPOTIGY_REDIRECT_URL   =   @"spotify-ios-quick-start://spotify-
 @implementation SpotifyDAO
 
 
-+ (SpotifyDAO *) sharedInsance
++ (SpotifyDAO *) sharedInstance
 {
     static SpotifyDAO *__spDao = nil;
-    of (!__spDao) {
+    if (!__spDao) {
         __spDao = [[SpotifyDAO alloc] init];
     }
     return __spDao;
