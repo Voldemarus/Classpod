@@ -6,6 +6,7 @@
 //
 
 #import "StudentVC.h"
+#import "ServiceLocator.h"
 
 @interface StudentVC ()
 <
@@ -140,8 +141,10 @@ uuid:    %@",
 - (IBAction) buttonExitPressed:(id)sender
 {
     DLog(@"Exit pressed");
+    [ServiceLocator.sharedInstance stopService];
+    
     [self dismissViewControllerAnimated:YES completion:^{
-            //
+            
     }];
 }
 
