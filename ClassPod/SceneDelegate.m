@@ -5,10 +5,15 @@
 //  Created by Водолазкий В.В. on 03.05.2021.
 //
 
+#import "DebugPrint.h"
 #import "SceneDelegate.h"
 #import "AppDelegate.h"
+#import "SpotifyDAO.h"
 
-@interface SceneDelegate ()
+@interface SceneDelegate () <SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate>
+
+@property (nonatomic, retain) SpotifyDAO *spDao;
+
 
 @end
 
@@ -19,8 +24,36 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    self.spDao = [SpotifyDAO sharedInstance];
 }
 
+// Spotify related callback
+- (void) scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
+{
+    if (!URLContexts || URLContexts.count == 0) {
+        return;
+    }
+    NSURL * url = [URLContexts anyObject].URL;
+    if (!url) {
+        return;
+    }
+
+#warning MOVE to spDAO!
+
+    SPTAppRemote *rapp = self.spDao.appRemote;
+    NSDictionary *authParams = [rapp authorizationParametersFromURL:url];
+    Dlog(@"AuthParameters for Spotify - %@", authParams);
+
+    NSString *authToken = authParams[SPTAppRemoteAccessTokenKey];
+    if (authToken) {
+        SPTAppRemoteConnectionParams *cparams = rapp.connectionParameters;
+        rapp.accessToken = authToken;
+    } else {
+        NSString *errDesc = authParams[SPTAppRemoteErrorDescriptionKey];
+        DLog(@"Error - %@",errDesc);
+    }
+    rapp.delegate = self;
+}
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.
@@ -56,6 +89,10 @@
     // Save changes in the application's managed object context when the application transitions to the background.
     [DAO.sharedInstance saveContext:nil];
 }
+
+#pragma mark SPTAppRemote delegate -
+
+
 
 
 @end

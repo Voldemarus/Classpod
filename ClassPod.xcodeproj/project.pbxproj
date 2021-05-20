@@ -59,6 +59,10 @@
 		1BEDC689264C0275008C88A7 /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
 		1BEDC692264C0489008C88A7 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03F1F626454CD5007A9A3A /* GCDAsyncSocket.m */; };
 		1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
+		1BFB4EE2265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */; };
+		1BFB4EE3265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */; };
+		1BFB4EF92656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
+		1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
@@ -162,6 +166,9 @@
 		1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodDebugUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodDebugUITests.m; sourceTree = "<group>"; };
 		1BEDC63A264C0234008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		1BFB4EF72656982000DE33E9 /* SpotifyDAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyDAO.h; sourceTree = "<group>"; };
+		1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotifyDAO.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
@@ -191,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B03F20526454E07007A9A3A /* CoreMedia.framework in Frameworks */,
+				1BFB4EE2265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */,
 				1B03F20726454E0F007A9A3A /* MediaPlayer.framework in Frameworks */,
 				1B03F20326454DFB007A9A3A /* Network.framework in Frameworks */,
 			);
@@ -200,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BFB4EE3265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +255,7 @@
 		1B03F20126454DFB007A9A3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */,
 				1B03F20626454E0F007A9A3A /* MediaPlayer.framework */,
 				1B03F20426454E07007A9A3A /* CoreMedia.framework */,
 				1B03F20226454DFB007A9A3A /* Network.framework */,
@@ -318,6 +328,7 @@
 		1BB03ADD2640628A00B6096F /* ClassPod */ = {
 			isa = PBXGroup;
 			children = (
+				1BFB4EF0265697FA00DE33E9 /* SpotifyStuff */,
 				1B067FDB2649443C00B7C23C /* DAO */,
 				1BB03B1A2640640000B6096F /* LANSettings */,
 				1BB03B192640637600B6096F /* ClassPod.entitlements */,
@@ -407,6 +418,15 @@
 				1BEDC63A264C0234008C88A7 /* Info.plist */,
 			);
 			path = ClassPodDebugUITests;
+			sourceTree = "<group>";
+		};
+		1BFB4EF0265697FA00DE33E9 /* SpotifyStuff */ = {
+			isa = PBXGroup;
+			children = (
+				1BFB4EF72656982000DE33E9 /* SpotifyDAO.h */,
+				1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */,
+			);
+			path = SpotifyStuff;
 			sourceTree = "<group>";
 		};
 		322B33DB2642A68E00ACD371 /* Helpers */ = {
@@ -663,6 +683,7 @@
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,
 				3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */,
+				1BFB4EF92656982000DE33E9 /* SpotifyDAO.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
@@ -694,6 +715,7 @@
 				1B067FE22649465F00B7C23C /* ClassPod.xcdatamodeld in Sources */,
 				1B067FFE2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
 				1B0680002649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
+				1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +939,10 @@
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -927,6 +953,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -942,6 +969,10 @@
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = ClassPod/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -952,6 +983,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = geomatix.cz.ClassPod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -964,6 +996,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ClassPodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -984,6 +1020,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ClassPodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
