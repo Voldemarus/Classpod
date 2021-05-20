@@ -121,7 +121,7 @@
 }
 - (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
 {
-    DLog(@"didFindDomain %@", domainString);
+    DLog(@"❓ didFindDomain %@", domainString); // Видимо не используем?
 }
 - (void) didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
@@ -176,9 +176,12 @@
     NSTableView* tableView = (NSTableView*)sender;
     NSInteger index = tableView.selectedRow;
     if (index >= 0 && index < teacherServiceList.count) {
+        NSNetService *service = teacherServiceList[index];
         if (connectedService) {
             // detach actual service
-            [self stopServiceConnection:index];
+            [self stopServiceConnection:service];
+        } else {
+            [self startServiceConnection:service];
         }
         [self.serviceTable reloadData];
     }
@@ -237,10 +240,16 @@
     [srl startBrowsing];
 }
 
-- (void) stopServiceConnection:(NSInteger)index
+- (void) startServiceConnection:(NSNetService*)service
+{
+    Student * studentSelf = [dao getOrCreateStudetnSelf];
+    NSData *dataPack = [dao dataPackForStudent:studentSelf];
+    
+}
+
+- (void) stopServiceConnection:(NSNetService*)service
 {
 
 }
-
 
 @end

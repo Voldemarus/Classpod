@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 // No need comment
 - (Teacher*) newTeacherWithService:(NSNetService *)service;
 
+// Получить или создать "студента" как свое устройство в префах. Для совместимости?
+//
+- (Student*) getOrCreateStudetnSelf;
+
 #pragma mark - Unified methods
 
 - (void)saveContext:(NSManagedObjectContext* _Nullable)context;

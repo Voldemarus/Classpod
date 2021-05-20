@@ -20,7 +20,7 @@
 
 @interface DAO ()
 {
-//    Preferences 	*prefs;
+    Preferences * prefs;
 }
 
 @end
@@ -39,7 +39,7 @@
 - (instancetype) init
 {
     if (self = [super init]) {
-//        prefs = [Preferences sharedPreferences];
+        prefs = [Preferences sharedPreferences];
         _persistentContainerQueue = [[NSOperationQueue alloc] init];
         _persistentContainerQueue.maxConcurrentOperationCount = 1;
      }
@@ -215,6 +215,20 @@
         newObj.name = service.name;
     }
     return newObj;
+}
+
+// Получить или создать "студента" как свое устройство в префах. Для совместимости?
+//
+- (Student*) getOrCreateStudetnSelf
+{
+    Student * student = [Student getStudentByUUID:prefs.personalUUID inMoc:self.moc];
+    if (!student) {
+        student = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(Student.class) inManagedObjectContext:self.moc];
+        student.name = prefs.myName;
+        student.uuid = prefs.personalUUID;
+        student.note = prefs.note;
+    }
+    return student;
 }
 
 
