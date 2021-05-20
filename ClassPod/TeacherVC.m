@@ -7,9 +7,11 @@
 
 #import "TeacherVC.h"
 #import "CellStudentList.h"
+#import "ServiceLocator.h"
 
 @interface TeacherVC ()
-<UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource,
+ServiceLocatorDelegate>
 {
     DAO *dao;
     Preferences *prefs;
@@ -31,12 +33,32 @@
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
     
+    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+    [nc addObserver:self selector:@selector(refreshStudentNotif:) name:@"ОбновилсяСтудент" object:nil];
+
     [self reloadAll];
+}
+
+- (void) refreshStudentNotif:(NSNotification*) notif
+{
+    Student *student = notif.object;
+    if (student) {
+        NSInteger row = [arrayStudents indexOfObject:student];
+        if (row != NSNotFound) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            [self.tableStudents reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+        } else {
+            [self reloadAll];
+        }
+    } else {
+        [self reloadAll];
+    }
 }
 
 - (void) reloadAll
 {
     arrayStudents = [dao studentsForCurrentTeacher];
+    [self.tableStudents reloadData];
 }
 
 - (IBAction) buttonMicrophonePressed:(id)sender
@@ -47,6 +69,11 @@
 - (IBAction) buttonMusicPressed:(id)sender
 {
     DLog(@"🐝 button Music Pressed");
+}
+
+- (void) changedStudent:(Student*) student
+{
+    [self reloadAll];
 }
 
 #pragma mark Table methods

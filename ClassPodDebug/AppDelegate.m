@@ -11,8 +11,13 @@
 #import "DAO.h"
 #import "ServiceLocator.h"
 
-@interface AppDelegate () <NSTableViewDelegate, ServiceLocatorDelegate,
-                            NSTableViewDataSource, NSTabViewDelegate>
+@interface AppDelegate ()
+<
+NSTableViewDelegate, NSTableViewDataSource,
+NSTabViewDelegate,
+ServiceLocatorDelegate,
+NSNetServiceDelegate
+>
 {
     Preferences *prefs;
     ServiceLocator *srl;
@@ -54,12 +59,6 @@
     dictSockets = [NSMutableDictionary new];
     
     [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
-
-    if (prefs.testerMode == TesterMode_Teacher) {
-        [self startService];
-    } else {
-        [self startBrowsing];
-    }
     
     self.studentUUID.stringValue = prefs.personalUUID;
     self.studentName.stringValue = prefs.myName;
@@ -67,7 +66,8 @@
     
     connectedService = nil;
 
-    [self updateUI];
+    [self selectNeedMode];
+//    [self updateUI];
 }
 
 - (void) updateUI
@@ -109,43 +109,12 @@
         NSLog(@"Error on disconnectig - %@", [error localizedDescription]);
     }
 }
-
-- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
+- (void) didChangedServises:(NSArray<NSNetService *> *)services
 {
-    DLog(@"Find Service: %@", service);
-    DLog(@"Find Service name: %@, type: %@, port: %ld", service.name, service.type, service.port);
-    
-    BOOL needAdd = YES;
-    for (NSNetService *serv in teacherServiceList) {
-        if ([serv.name isEqualToString:service.name]) {
-            needAdd = NO;
-            break;
-        }
-    }
-    if (needAdd) {
-        [teacherServiceList addObject:service];
-    }
+    teacherServiceList = services.mutableCopy;
 
     //    Teacher *newTeacher = [dao newTeacherWithService:service];
-    [self updateUI];
-}
-- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
-{
-    DLog(@"❓ didFindDomain %@", domainString); // Видимо не используем?
-}
-- (void) didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
-{
-    DLog(@"Remove Service: %@", service);
-    DLog(@"Remove Service name: %@, type: %@, port: %ld", service.name, service.type, service.port);
-//    Teacher *newTeacher = [dao te];
-    
-    for (NSNetService *serv in teacherServiceList) {
-        if ([serv.name isEqualToString:service.name]) {
-            [teacherServiceList removeObject:service];
-            break;
-        }
-    }
-    
+
     [self updateUI];
 }
 
@@ -187,29 +156,31 @@
     NSInteger index = tableView.selectedRow;
     if (index >= 0 && index < teacherServiceList.count) {
         NSNetService *service = teacherServiceList[index];
-        if (connectedService) {
-            // detach actual service
-            [self stopServiceConnection:service];
-        } else {
-            [self connectWithService:service];
-        }
-        [self.serviceTable reloadData];
-    }
-}
-//
-//- (IBAction) serviceListAction:(id)sender
-//{
-//    NSTableView* tableView = (NSTableView*)sender;
-//    NSInteger index = tableView.selectedRow;
-//    if (index >= 0 && index < teacherList.count) {
+        service.delegate = self;
+        [service resolveWithTimeout:30.0f];
 //        if (connectedService) {
 //            // detach actual service
-//            [self stopServiceConnection:index];
+//            [self stopServiceConnection:service];
+//        } else {
+//            [self connectWithService:service];
 //        }
 //        [self.serviceTable reloadData];
-//    }
-//}
+    }
+}
+#pragma mark - NSNetService delegate
 
+- (void) netServiceDidResolveAddress:(NSNetService *)service
+{
+    DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
+    [self connectWithService:service];
+//    if ([self connectWithService:service]) {
+//        DLog("Connected with server");
+//        NSString* str = [NSString stringWithFormat:@"Connected with %@", service.name];
+//        DLog(@"Device ");
+////        self.lblConnected.stringValue = str;
+////        self.lblConnected.textColor = NSColor.greenColor;
+//    }
+}
 
 
 #pragma mark - NSTabView delegate
@@ -218,7 +189,11 @@
 {
     BOOL studentMode = ([tabView indexOfTabViewItem:tabViewItem] == 0);
     prefs.testerMode = studentMode ? TesterMode_Student : TesterMode_Teacher;
-    
+    [self selectNeedMode];
+}
+
+- (void) selectNeedMode
+{
     if (prefs.testerMode == TesterMode_Student) {
         // service part
         [self stopServiceConnection:nil];
@@ -244,6 +219,12 @@
 
 }
 
+
+- (void) stopServiceConnection:(NSNetService*)service
+{
+
+}
+
 - (void) startBrowsing
 {
     srl.classProvider = NO;
@@ -259,10 +240,7 @@
         return NO;
     }
     
-    Student * studentSelf = [dao getOrCreateStudetnSelf];
-    NSData *dataPack = [dao dataPackForStudent:studentSelf];
-    
-    BOOL isConnected=NO;
+    BOOL isConnected = NO;
     
     NSArray* arrAddress = service.addresses.mutableCopy;
     
@@ -279,8 +257,11 @@
             NSError* error;
             if ([coSocket connectToAddress:address error:&error]) {
                 dictSockets[name] = coSocket;
-                isConnected=YES;
+                isConnected = YES;
                 DLog(@"Connected: %@", name);
+                
+                [self sendIfoToSocket:coSocket];
+                
             } else if (error) {
                 DLog(@"Unable to connect with Device %@ userinfo %@", error, error.userInfo);
             } else {
@@ -296,9 +277,13 @@
     
 }
 
-- (void) stopServiceConnection:(NSNetService*)service
+- (void) sendIfoToSocket:(GCDAsyncSocket*) socket
 {
+    Student * studentSelf = [dao getOrCreateStudetnSelf];
+    NSData *dataPack = [dao dataPackForStudent:studentSelf];
 
+    [socket writeData:dataPack withTimeout:-1.0f tag:0];
 }
+
 
 @end

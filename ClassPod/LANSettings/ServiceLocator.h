@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DAO.h"
 
 #import "GCDAsyncSocket.h"
 
@@ -19,9 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) newAbonentConnected:(GCDAsyncSocket *)newSocket;
 - (void) abonentDisconnected:(NSError  * _Nullable )error;
 
-- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing;
-- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing;
-- (void) didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing;
+- (void) didChangedServises:(NSArray<NSNetService *>*) services;
 
 @end
 
@@ -38,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
     name of the class, associated with user name/specialisation
  */
 @property (nonatomic, retain) NSString *name;
+
+/**
+ Dynamic array include all find NetService devices
+ */
+@property (nonatomic, retain) NSMutableArray <NSNetService*> * _Nonnull clientArray;
 
 @property (nonatomic, assign) id <ServiceLocatorDelegate> delegate;
 

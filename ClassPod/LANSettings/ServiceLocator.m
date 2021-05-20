@@ -8,7 +8,6 @@
 
 #import "ServiceLocator.h"
 #import "Preferences.h"
-#import "DAO.h"
 #import "DebugPrint.h"
 
 NSString * const VVVServiceType     =   @"_classpod._tcp";
@@ -25,7 +24,6 @@ NSString * const VVVserviceDomain   =   @"local.";
     NSMutableData *dataBuffer;
 }
 
-@property (nonatomic, retain) NSMutableArray *clientArray;
 @property (nonatomic, retain) NSNetService *service;
 @property (nonatomic, retain) NSNetServiceBrowser *browser;
 @property (nonatomic, retain) GCDAsyncSocket *socket;
@@ -96,35 +94,40 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 #pragma mark - NSNetServiceBrowser delegate
 
-- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
-{
-    DLog(@"Found domain - %@ (Есть еще: %@)", domainString, moreComing?@"ДА":@"НЕТ");
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didFindDomain:moreComing:)]) {
-        [self.delegate didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing];
-    }
-}
-
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
     DLog(@"Service found - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didFindService:moreComing:)]) {
-        [self.delegate didFindService:(NSNetService *)service moreComing:(BOOL)moreComing];
+    if (service) {
+        [self.clientArray addObject:service];
+    }
+    
+    if (!moreComing) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didChangedServises:)]) {
+            [self.delegate didChangedServises:self.clientArray];
+        }
     }
 }
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
-    DLog(@"Service removed - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didRemoveService:moreComing:)]) {
-        [self.delegate didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing];
+    if (service) {
+        [self.clientArray removeObject:service];
     }
 
+    DLog(@"Service removed - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
+    if (!moreComing) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didChangedServises:)]) {
+            [self.delegate didChangedServises:self.clientArray];
+        }
+    }
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *, NSNumber *> *)errorDict
 {
     DLog(@"didNotSearch: %@", errorDict);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didChangedServises:)]) {
+        [self.delegate didChangedServises:self.clientArray];
+    }
 }
-
 
 #pragma mark - Socket delegate
 
@@ -150,12 +153,12 @@ NSString * const VVVserviceDomain   =   @"local.";
      }
 }
 
--(void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
+- (void) socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
     NSLog(@"Write data is done");
 }
 
-
--(void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+- (void) socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     NSLog(@"Trying to read the data with tag - %ld",tag);
 
@@ -167,6 +170,7 @@ NSString * const VVVserviceDomain   =   @"local.";
         if (student) {
             NSLog(@"Student request accepted - %@", student);
             // process student here
+            [NSNotificationCenter.defaultCenter postNotificationName:@"ОбновилсяСтудент" object:student];
 
         } else {
             NSError *error = nil;
@@ -198,6 +202,23 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 
 #pragma mark - NSNetService delegate
+
+- (void) netServiceDidResolveAddress:(NSNetService *)sender{
+    DLog(@"netServiceDidResolveAddress %@", sender.name);
+//    if ([self connectWithServer:sender]) {
+//        DLog("Connected with server");
+//        NSString* str=[NSString stringWithFormat:@"Connected with %@", sender.name];
+//        DLog(@"Device ")
+//        self.lblConnected.stringValue=str ;
+//        self.lblConnected.textColor=[NSColor greenColor];
+//    }
+}
+
+- (void) netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
+{
+    DLog(@"Did not resolved: %@", errorDict);
+    sender.delegate = self;
+}
 
 - (void) netService: (NSNetService *) sender
       didNotPublish: (NSDictionary *) errorDict
