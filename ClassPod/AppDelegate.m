@@ -6,13 +6,11 @@
 //
 
 #import "AppDelegate.h"
-#import "ServiceLocator.h"
-#import "Preferences.h"
-#import "DAO.h"
+//#import "ServiceLocator.h"
 
-@interface AppDelegate ()  <ServiceLocatorDelegate>
+@interface AppDelegate ()  // <ServiceLocatorDelegate>
 {
-    ServiceLocator *srl;
+//    ServiceLocator *srl;
     Preferences *prefs;
     DAO *dao;
 }
@@ -27,13 +25,13 @@
     prefs = [Preferences sharedPreferences];
     dao = [DAO sharedInstance];
 
-    srl = [ServiceLocator sharedInstance];
-    srl.delegate = self;
-    if (prefs.teacherModeON) {
-        [self startService];
-    } else {
-        [self browseServices];
-    }
+//    srl = [ServiceLocator sharedInstance];
+//    srl.delegate = self;
+//    if (prefs.teacherModeON) {
+//        [self startService];
+//    } else {
+//        [self browseServices];
+//    }
 
     return YES;
 }
@@ -50,46 +48,38 @@
 }
 
 
-- (void) startService
-{
-    NSString *clName = [NSString stringWithFormat:@"Classpod %@",prefs.myName];
-    srl.classProvider = YES;
-    srl.name = clName;
-    [srl publishService];
-}
-
-- (void) browseServices
-{
-    srl.classProvider = NO;
-    srl.name = prefs.myName;
-    [srl startBrowsing];
-}
+//- (void) startService
+//{
+//    NSString *clName = [NSString stringWithFormat:@"Classpod %@",prefs.myName];
+//    srl.classProvider = YES;
+//    srl.name = clName;
+//    [srl publishService];
+//}
+//
+//- (void) browseServices
+//{
+//    srl.classProvider = NO;
+//    srl.name = prefs.myName;
+//    [srl startBrowsing];
+//}
 
 
 #pragma mark - ServiceLocator delegate -
 
 
-- (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
-{
-    NSLog(@">>> New Abbonent  connected to the class!");
-}
+//- (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
+//{
+//    NSLog(@">>> New Abbonent  connected to the class!");
+//}
+//
+//- (void) abonentDisconnected:(NSError *)error
+//{
+//    NSLog(@"Abonent disconnected");
+//    if (error) {
+//        NSLog(@"Error on disconnectig - %@", [error localizedDescription]);
+//    }
+//}
 
-- (void) abonentDisconnected:(NSError *)error
-{
-    NSLog(@"Abonent disconnected");
-    if (error) {
-        NSLog(@"Error on disconnectig - %@", [error localizedDescription]);
-    }
-}
-
-- (void) didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
-{
-    DLog(@"didFindService %@", service);
-}
-- (void) didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing
-{
-    DLog(@"didFindDomain %@", domainString);
-}
 
 #pragma mark - UISceneSession lifecycle
 

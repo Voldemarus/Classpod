@@ -6,17 +6,21 @@
 //
 
 #import "StudentVC.h"
-#import "CellTecherList.h"
 
 @interface StudentVC ()
-<UITableViewDelegate, UITableViewDataSource>
+<
+NSNetServiceDelegate
+>
 {
     DAO *dao;
     Preferences *prefs;
     NSArray <Teacher*>* arrayTeachers;
-}
+    NSMutableDictionary <NSString*, GCDAsyncSocket*> * dictSockets;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableTeachers;
+    __weak IBOutlet UILabel * labelHeader;
+    __weak IBOutlet UILabel * labelDetail;
+    __weak IBOutlet UIButton * buttonExit;
+}
 
 @property (weak, nonatomic) IBOutlet UISwitch *swTeacherAudio;
 @property (weak, nonatomic) IBOutlet UISwitch *swPersonalAudio;
@@ -32,12 +36,8 @@
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
     
-    [self reloadAll];
-}
-
-- (void) reloadAll
-{
-    arrayTeachers = [dao teachersList];
+    dictSockets = [NSMutableDictionary new];
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -49,52 +49,114 @@
 - (void) updateUI
 {
     [DAO runMainThreadBlock:^{
+        labelDetail.text = [NSString stringWithFormat:@"\
+Учитель: %@ \n\
+Курс:    %@ \n\
+оплата:  %.2f в час \n\
+uuid:    %@",
+                            self.teacher.name,
+                            self.teacher.courseName,
+                            self.teacher.hourRate,
+                            self.teacher.uuid
+                            ];
         self.swTeacherAudio.on = self->prefs.audioTeacherON;
         self.swPersonalAudio.on = self->prefs.audioPersonalON;
     }];
 }
 
+- (void) setTeacher:(Teacher *)teacher
+{
+    _teacher = teacher;
+    NSNetService *service = teacher.service;
+    service.delegate = self;
+    [service resolveWithTimeout:30.0f];
+
+    [self updateUI];
+}
+
+#pragma mark - NSNetService delegate
+
+- (void) netServiceDidResolveAddress:(NSNetService *)service
+{
+    DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
+    [self connectWithService:service];
+}
+
+- (BOOL) connectWithService:(NSNetService*)service
+{
+    NSString *name = service.name;
+    if (service.name.length < 1) {
+        DLog(@"❗️ нет имени: %@", service);
+        return NO;
+    }
+    
+    BOOL isConnected = NO;
+    
+    NSArray* arrAddress = service.addresses.mutableCopy;
+    
+    GCDAsyncSocket * coSocket= dictSockets[name];
+    
+    
+    if (!coSocket || !coSocket.isConnected) {
+        
+        GCDAsyncSocket * coSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        
+        //Connect
+        while (!isConnected && arrAddress.count) {
+            NSData* address= arrAddress[0];
+            NSError* error;
+            if ([coSocket connectToAddress:address error:&error]) {
+                dictSockets[name] = coSocket;
+                isConnected = YES;
+                DLog(@"Connected: %@", name);
+                
+                [self sendIfoToSocket:coSocket];
+                
+            } else if (error) {
+                DLog(@"Unable to connect with Device %@ userinfo %@", error, error.userInfo);
+            } else {
+                DLog(@"Непонятно что: %@", name);
+            }
+        }
+    } else {
+        isConnected = coSocket.isConnected;
+    }
+    
+    
+    return isConnected;
+    
+}
+
+- (void) sendIfoToSocket:(GCDAsyncSocket*) socket
+{
+    Student * studentSelf = [dao getOrCreateStudetnSelf];
+    NSData *dataPack = [dao dataPackForStudent:studentSelf];
+
+    [socket writeData:dataPack withTimeout:-1.0f tag:0];
+}
+
+#pragma mark - Button pressed
+
+- (IBAction) buttonExitPressed:(id)sender
+{
+    DLog(@"Exit pressed");
+    [self dismissViewControllerAnimated:YES completion:^{
+            //
+    }];
+}
+
+
 - (IBAction) switchPressed:(UISwitch*)sw
 {
     if (sw == self.swTeacherAudio) {
+        
         prefs.audioTeacherON = sw.on;
+        
     } else if (sw == self.swPersonalAudio) {
+        
         prefs.audioPersonalON = sw.on;
+        
     }
 }
-
-#pragma mark Table methods
-
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return arrayTeachers.count;
-}
-
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CellTecherList * cell = (CellTecherList*)[tableView dequeueReusableCellWithIdentifier:CellTecherListID forIndexPath:indexPath];
-
-    Teacher *teacher = arrayTeachers[indexPath.row];
-
-#warning Need Edit priznak cheked students
-    BOOL cheked = YES;
-
-
-    cell.name.text = teacher.courseName.length > 0 ? teacher.courseName : RStr(@"Unknow student");
-    cell.imageCheck.image = [UIImage imageNamed:cheked ? @"CheckOn" : @"CheckOff"];
-    
-    return cell;
-}
-
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Teacher *teacher = arrayTeachers[indexPath.row];
-}
-
 
 @end

@@ -208,15 +208,6 @@
 
 }
 
-- (Teacher*) newTeacherWithService:(NSNetService *)service
-{
-    Teacher *newObj = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(Teacher.class) inManagedObjectContext:self.moc];
-    if (newObj) {
-        newObj.name = service.name;
-    }
-    return newObj;
-}
-
 // Получить или создать "студента" как свое устройство в префах. Для совместимости?
 //
 - (Student*) getOrCreateStudetnSelf

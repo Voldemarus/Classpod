@@ -30,7 +30,7 @@
         if (prefs.teacherModeON) {
             [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"TeacherVC"] animated:NO completion:nil];
         } else {
-            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"StudentVC"] animated:NO completion:nil];
+            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"SelectTeacherVC"] animated:NO completion:nil];
         }
     });
 }

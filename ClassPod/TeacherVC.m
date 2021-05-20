@@ -15,6 +15,7 @@ ServiceLocatorDelegate>
 {
     DAO *dao;
     Preferences *prefs;
+    ServiceLocator *srl;
     NSArray <Student*>* arrayStudents;
 }
 
@@ -33,6 +34,13 @@ ServiceLocatorDelegate>
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
     
+    srl = [ServiceLocator sharedInstance];
+    srl.delegate = self;
+    srl.classProvider = YES;
+    NSString *clName = [NSString stringWithFormat:@"Classpod %@", prefs.myName];
+    srl.name = clName;
+    [srl publishService];
+
     NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
     [nc addObserver:self selector:@selector(refreshStudentNotif:) name:@"ОбновилсяСтудент" object:nil];
 
@@ -107,7 +115,6 @@ ServiceLocatorDelegate>
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Student *student = arrayStudents[indexPath.row];
-    
 }
 
 @end

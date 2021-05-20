@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StudentVC : UIViewController
 
+@property (nonatomic, retain) Teacher *teacher;
+
 @end
 
 NS_ASSUME_NONNULL_END

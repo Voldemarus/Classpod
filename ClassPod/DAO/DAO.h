@@ -50,9 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *) dataPackForStudent:(Student *)student;
 - (NSData *) dataPackForStudent:(Student *)student withTeacherID:(NSString *)tUUID;
 
-// No need comment
-- (Teacher*) newTeacherWithService:(NSNetService *)service;
-
 // Получить или создать "студента" как свое устройство в префах. Для совместимости?
 //
 - (Student*) getOrCreateStudetnSelf;

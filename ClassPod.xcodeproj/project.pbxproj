@@ -59,6 +59,7 @@
 		1BEDC689264C0275008C88A7 /* ClassPod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FDC2649446E00B7C23C /* ClassPod.xcdatamodeld */; };
 		1BEDC692264C0489008C88A7 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03F1F626454CD5007A9A3A /* GCDAsyncSocket.m */; };
 		1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
+		322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322215A826569B63004A38EE /* SelectTeacherVC.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
 		322B33E92642AC0B00ACD371 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
 		322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33EE2642ADE000ACD371 /* StudentVC.m */; };
@@ -162,6 +163,8 @@
 		1BEDC634264C0234008C88A7 /* ClassPodDebugUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassPodDebugUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEDC638264C0234008C88A7 /* ClassPodDebugUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodDebugUITests.m; sourceTree = "<group>"; };
 		1BEDC63A264C0234008C88A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		322215A726569B63004A38EE /* SelectTeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTeacherVC.h; sourceTree = "<group>"; };
+		322215A826569B63004A38EE /* SelectTeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTeacherVC.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		322B33D526427DE200ACD371 /* TeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherVC.h; sourceTree = "<group>"; };
 		322B33D626427DE200ACD371 /* TeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeacherVC.m; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 				322B33D626427DE200ACD371 /* TeacherVC.m */,
 				3253B980264BF73C00ACA5FE /* CellStudentList.h */,
 				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
+				322215A726569B63004A38EE /* SelectTeacherVC.h */,
+				322215A826569B63004A38EE /* SelectTeacherVC.m */,
 				322B33ED2642ADE000ACD371 /* StudentVC.h */,
 				322B33EE2642ADE000ACD371 /* StudentVC.m */,
 				3253B986264BFE2500ACA5FE /* CellTecherList.h */,
@@ -656,6 +661,7 @@
 				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
 				1B03F1F726454CD5007A9A3A /* GCDAsyncSocket.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
+				322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */,
 				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
 				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
 				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
