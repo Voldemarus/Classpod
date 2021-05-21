@@ -13,7 +13,7 @@
 NSString * const STUDENT_UUID     =   @"Studentuuid";
 NSString * const STUDENT_NAME     =   @"name";
 NSString * const STUDENT_NOTE     =   @"note";
-NSString * const STUDENT_TUIID    =   @"TeacherUUID";
+NSString * const STUDENT_TUUID    =   @"TeacherUUID";
 
 
 
@@ -30,7 +30,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
         STUDENT_NOTE    :   self.note,
     }];
     if (teacherId) {
-        d[STUDENT_TUIID] = teacherId;
+        d[STUDENT_TUUID] = teacherId;
     }
     NSError *error = nil;
     NSData *packedData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&error];
@@ -70,7 +70,7 @@ NSString * const STUDENT_TUIID    =   @"TeacherUUID";
             rec.uuid = stuid;
             rec.note = d[STUDENT_NOTE];
 
-            NSString *teachID = d[STUDENT_TUIID];
+            NSString *teachID = d[STUDENT_TUUID];
             if (teachID) {
                 // teacherID is non empty - add student to class for this teacher
                 *tUUID = teachID;

@@ -36,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
     List of teachers for student, Is filled during browsing and used to subscribe to particular teacher
  */
 
-- (NSArray <Teacher *> *) teachersList;
+//- (NSArray <Teacher *> *) teachersList;
+- (NSArray <Teacher *> *) teachersListWithService;
 
 /**
     Parse incoming packet as student, or return nil

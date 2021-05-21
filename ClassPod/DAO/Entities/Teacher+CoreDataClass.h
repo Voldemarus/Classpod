@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Teacher : NSManagedObject
 
 + (Teacher * _Nonnull) getOrCgeateWithService:(NSNetService *)service inMoc:(NSManagedObjectContext *)moc;
++ (Teacher* _Nonnull) getOrCgeateWithService:(NSNetService *)service withTXTData:(NSData*)data inMoc:(NSManagedObjectContext *)moc;
 + (Teacher * _Nullable) getByName:(NSString *)name inMoc:(NSManagedObjectContext *)moc;
 
 // Only RAM^ no need save to disk

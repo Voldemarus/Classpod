@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) didChangedServises:(NSArray<NSNetService *>*) services;
 
+- (void) didChangeTXTRecordData:(NSData *)data withServise:(NSNetService *)service;
+
 @end
 
 @interface ServiceLocator : NSObject

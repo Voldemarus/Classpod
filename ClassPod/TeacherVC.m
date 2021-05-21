@@ -35,6 +35,7 @@ ServiceLocatorDelegate>
     prefs = [Preferences sharedPreferences];
     
     srl = [ServiceLocator sharedInstance];
+    [srl stopService];
     srl.delegate = self;
     srl.classProvider = YES;
     NSString *clName = [NSString stringWithFormat:@"Classpod %@", prefs.myName];

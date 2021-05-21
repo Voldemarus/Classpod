@@ -9,9 +9,6 @@
 #import "ServiceLocator.h"
 
 @interface StudentVC ()
-<
-NSNetServiceDelegate
->
 {
     DAO *dao;
     Preferences *prefs;
@@ -38,7 +35,8 @@ NSNetServiceDelegate
     prefs = [Preferences sharedPreferences];
     
     dictSockets = [NSMutableDictionary new];
-    
+    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+    [nc addObserver:self selector:@selector(serviceDidResolveAddress:) name:@"netServiceDidResolveAddress" object:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -54,10 +52,12 @@ NSNetServiceDelegate
 Учитель: %@ \n\
 Курс:    %@ \n\
 оплата:  %.2f в час \n\
+Note:    %@\n\
 uuid:    %@",
                             self.teacher.name,
                             self.teacher.courseName,
                             self.teacher.hourRate,
+                            self.teacher.note,
                             self.teacher.uuid
                             ];
         self.swTeacherAudio.on = self->prefs.audioTeacherON;
@@ -68,17 +68,18 @@ uuid:    %@",
 - (void) setTeacher:(Teacher *)teacher
 {
     _teacher = teacher;
-    NSNetService *service = teacher.service;
-    service.delegate = self;
-    [service resolveWithTimeout:30.0f];
+//    NSNetService *service = teacher.service;
+//    service.delegate = self;
+//    [service resolveWithTimeout:30.0f];
 
     [self updateUI];
 }
 
-#pragma mark - NSNetService delegate
+#pragma mark - post notif from NSNetService delegate
 
-- (void) netServiceDidResolveAddress:(NSNetService *)service
+- (void) serviceDidResolveAddress:(NSNotification*)notif
 {
+    NSNetService *service = notif.object;
     DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
     [self connectWithService:service];
 }

@@ -29,9 +29,6 @@ ServiceLocatorDelegate
 
 @property (weak, nonatomic) IBOutlet UITableView *tableTeachers;
 
-@property (weak, nonatomic) IBOutlet UISwitch *swTeacherAudio;
-@property (weak, nonatomic) IBOutlet UISwitch *swPersonalAudio;
-
 @end
 
 @implementation SelectTeacherVC
@@ -43,7 +40,7 @@ ServiceLocatorDelegate
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
     
-    arrayTeachers = [dao teachersList].mutableCopy;
+    arrayTeachers = [dao teachersListWithService].mutableCopy;
     
     srl = [ServiceLocator sharedInstance];
     srl.delegate = self;
@@ -56,28 +53,13 @@ ServiceLocatorDelegate
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateUI];
+    [self reloadAllTeachers];
 }
 
-- (void) updateUI
+- (void) reloadAllTeachers
 {
-    
-    [DAO runMainThreadBlock:^{
-        self.swTeacherAudio.on = self->prefs.audioTeacherON;
-        self.swPersonalAudio.on = self->prefs.audioPersonalON;
-    }];
-    
-//    arrayTeachers = [dao teachersList].mutableCopy;
-    [self.tableTeachers reloadData];
-}
-
-- (IBAction) switchPressed:(UISwitch*)sw
-{
-    if (sw == self.swTeacherAudio) {
-        prefs.audioTeacherON = sw.on;
-    } else if (sw == self.swPersonalAudio) {
-        prefs.audioPersonalON = sw.on;
-    }
+        arrayTeachers = [dao teachersListWithService].mutableCopy;
+        [self.tableTeachers reloadData];
 }
 
 #pragma mark Table methods
@@ -105,7 +87,10 @@ ServiceLocatorDelegate
 //    cell.name.text = teacher.courseName.length > 0 ? teacher.courseName : RStr(@"Unknow student");
     cell.name.text = teacher.name.length > 0 ? teacher.name : RStr(@"Unknow student");
     cell.imageCheck.image = [UIImage imageNamed:cheked ? @"CheckOn" : @"CheckOff"];
-    
+    cell.courseName.text = teacher.courseName;
+    cell.note.text = teacher.note;
+    cell.hourRate.text = [NSString stringWithFormat:@"Rate of hour: %.2f", teacher.hourRate];
+
     return cell;
 }
 
@@ -132,13 +117,14 @@ ServiceLocatorDelegate
 {
     DLog(@"Abonent disconnected %@", error ? [NSString stringWithFormat:@"\nError on disconnectig - %@", error.localizedDescription] : @"");
 }
+
 - (void) didChangedServises:(NSArray<NSNetService *> *)serviceS
 {
 
     [arrayTeachers removeAllObjects];
     
-    for (Teacher *tea in [dao teachersList]) {
-        tea.service = nil;
+    for (Teacher *teacher in [dao teachersListWithService]) {
+        teacher.service = nil;
     }
     
     for (NSNetService * service in serviceS) {
@@ -146,7 +132,21 @@ ServiceLocatorDelegate
         [arrayTeachers addObject:teacher];
     }
     
-    [self updateUI];
+    [self reloadAllTeachers];
 }
+
+- (void) didChangeTXTRecordData:(NSData *)data withServise:(NSNetService *)service
+{
+    Teacher *teacher = [Teacher getOrCgeateWithService:service withTXTData:data inMoc:dao.moc];
+    
+    NSInteger row = [arrayTeachers indexOfObject:teacher];
+    if (row != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        [self.tableTeachers reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    } else {
+        [self reloadAllTeachers];
+    }
+}
+
 
 @end

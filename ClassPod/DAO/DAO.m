@@ -159,19 +159,37 @@
     return result;
 }
 
-- (NSArray <Teacher *> *) teachersList
+//- (NSArray <Teacher *> *) teachersList
+//{
+//    NSFetchRequest *req = [Teacher fetchRequest];
+//    NSError *error = nil;
+//    NSArray <Teacher *> *result = [self.moc executeFetchRequest:req error:&error];
+//    if (!result && error) {
+//        DLog(@"Cannot get data from Teacher entity - %@",[error localizedDescription]);
+//    }
+//    if (result.count > 1) {
+//        NSArray <Teacher *> *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(  Teacher  *obj1, Teacher *obj2) {
+//            return [obj1.name compare:obj2.name];
+//        }];
+//        return sortedArray;
+//    }
+//    return result;
+//}
+
+- (NSArray <Teacher *> *) teachersListWithService
 {
     NSFetchRequest *req = [Teacher fetchRequest];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     NSError *error = nil;
-    NSArray <Teacher *> *result = [self.moc executeFetchRequest:req error:&error];
+    NSMutableArray <Teacher *> *result = [self.moc executeFetchRequest:req error:&error].mutableCopy;
     if (!result && error) {
         DLog(@"Cannot get data from Teacher entity - %@",[error localizedDescription]);
     }
-    if (result.count > 1) {
-        NSArray <Teacher *> *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(  Teacher  *obj1, Teacher *obj2) {
-            return [obj1.name compare:obj2.name];
-        }];
-        return sortedArray;
+    for (NSInteger i = result.count - 1; i >=0 ; i--) {
+        Teacher *t = result[i];
+        if (!t.service) {
+            [result removeObject:t];
+        }
     }
     return result;
 }
