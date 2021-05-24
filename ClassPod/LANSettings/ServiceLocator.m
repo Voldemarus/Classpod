@@ -71,10 +71,10 @@ NSString * const VVVserviceDomain   =   @"local.";
             self.service = [[NSNetService alloc] initWithDomain:VVVserviceDomain type:VVVServiceType name:serviceName port:self.socket.localPort];
             
             NSDictionary *dict = @{
-                @"hourRate"     :   @(prefs.rate).stringValue,
-                @"note"         :   prefs.note,
-                @"uuid"         :   prefs.personalUUID,
-                @"courseName"   :   prefs.courseName,
+                TEACHER_RATE        :   @(prefs.rate).stringValue,
+                TEACHER_NOTE        :   prefs.note,
+                TEACHER_UUID        :   prefs.personalUUID,
+                TEACHER_COURSENAME  :   prefs.courseName,
             };
             NSData *data = [NSNetService dataFromTXTRecordDictionary:dict];
             [self.service setTXTRecordData:data];

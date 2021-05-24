@@ -16,10 +16,10 @@
 {
     
     NSDictionary * dict = [NSNetService dictionaryFromTXTRecordData:service.TXTRecordData];
-    NSString * uuid = [[NSString alloc] initWithData:dict[@"uuid"] encoding:NSUTF8StringEncoding];
-    NSString * hourRate = [[NSString alloc] initWithData:dict[@"hourRate"] encoding:NSUTF8StringEncoding];
-    NSString * note = [[NSString alloc] initWithData:dict[@"note"] encoding:NSUTF8StringEncoding];
-    NSString * courseName = [[NSString alloc] initWithData:dict[@"courseName"] encoding:NSUTF8StringEncoding];
+    NSString * uuid = [[NSString alloc] initWithData:dict[TEACHER_UUID] encoding:NSUTF8StringEncoding];
+    NSString * hourRate = [[NSString alloc] initWithData:dict[TEACHER_RATE] encoding:NSUTF8StringEncoding];
+    NSString * note = [[NSString alloc] initWithData:dict[TEACHER_NOTE] encoding:NSUTF8StringEncoding];
+    NSString * courseName = [[NSString alloc] initWithData:dict[TEACHER_COURSENAME] encoding:NSUTF8StringEncoding];
     NSString * name = service.name;
 
     Teacher * teacher;
@@ -49,10 +49,10 @@
 {
     
     NSDictionary * dict = [NSNetService dictionaryFromTXTRecordData:data];
-    NSString * uuid = [[NSString alloc] initWithData:dict[@"uuid"] encoding:NSUTF8StringEncoding];
-    NSString * hourRate = [[NSString alloc] initWithData:dict[@"hourRate"] encoding:NSUTF8StringEncoding];
-    NSString * note = [[NSString alloc] initWithData:dict[@"note"] encoding:NSUTF8StringEncoding];
-    NSString * courseName = [[NSString alloc] initWithData:dict[@"courseName"] encoding:NSUTF8StringEncoding];
+    NSString * uuid = [[NSString alloc] initWithData:dict[TEACHER_UUID] encoding:NSUTF8StringEncoding];
+    NSString * hourRate = [[NSString alloc] initWithData:dict[TEACHER_RATE] encoding:NSUTF8StringEncoding];
+    NSString * note = [[NSString alloc] initWithData:dict[TEACHER_NOTE] encoding:NSUTF8StringEncoding];
+    NSString * courseName = [[NSString alloc] initWithData:dict[TEACHER_COURSENAME] encoding:NSUTF8StringEncoding];
     NSString * name = service.name;
 
     Teacher * teacher;

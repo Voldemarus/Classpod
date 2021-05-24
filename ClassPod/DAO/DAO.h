@@ -16,6 +16,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString * const TEACHER_UUID       =   @"uuid";
+static NSString * const TEACHER_RATE       =   @"hourRate";
+static NSString * const TEACHER_NOTE       =   @"note";
+static NSString * const TEACHER_COURSENAME =   @"courseName";
+
 @interface DAO : NSObject
 
 @property (readonly, strong) NSPersistentContainer * persistentContainer; // Хранилище
