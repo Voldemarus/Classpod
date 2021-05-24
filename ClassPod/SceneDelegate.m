@@ -9,6 +9,7 @@
 #import "SceneDelegate.h"
 #import "AppDelegate.h"
 #import "SpotifyDAO.h"
+#import "RadioTransmitter.h"
 
 @interface SceneDelegate () <SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate>
 
@@ -25,6 +26,8 @@
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     self.spDao = [SpotifyDAO sharedInstance];
+
+    RadioTransmitter *rt = [RadioTransmitter sharedTransmitter];
 }
 
 // Spotify related callback
