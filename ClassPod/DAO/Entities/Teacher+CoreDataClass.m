@@ -8,6 +8,7 @@
 
 #import "Teacher+CoreDataClass.h"
 #import "DebugPrint.h"
+#import "DAO.h"
 
 @implementation Teacher
 
