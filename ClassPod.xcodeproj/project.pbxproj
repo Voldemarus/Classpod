@@ -65,6 +65,7 @@
 		1BFB4EF92656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
 		1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
 		1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */; };
+		1BFB4F80265BC06F00DE33E9 /* in_file.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */; };
 		25768132E2569D505CBE0F0C /* libPods-ClassPodTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F90F8209A48F3C0C46BFB155 /* libPods-ClassPodTests.a */; };
 		322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322215A826569B63004A38EE /* SelectTeacherVC.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
@@ -181,6 +182,7 @@
 		1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotifyDAO.m; sourceTree = "<group>"; };
 		1BFB4F2F2658FCF600DE33E9 /* RadioTransmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadioTransmitter.h; sourceTree = "<group>"; };
 		1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadioTransmitter.m; sourceTree = "<group>"; };
+		1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = in_file.mp3; sourceTree = "<group>"; };
 		322215A726569B63004A38EE /* SelectTeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTeacherVC.h; sourceTree = "<group>"; };
 		322215A826569B63004A38EE /* SelectTeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTeacherVC.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -472,10 +474,19 @@
 		1BFB4F2E2658FCCD00DE33E9 /* RadioTransmitter */ = {
 			isa = PBXGroup;
 			children = (
+				1BFB4F7E265BC05C00DE33E9 /* Media */,
 				1BFB4F2F2658FCF600DE33E9 /* RadioTransmitter.h */,
 				1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */,
 			);
 			path = RadioTransmitter;
+			sourceTree = "<group>";
+		};
+		1BFB4F7E265BC05C00DE33E9 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		322B33DB2642A68E00ACD371 /* Helpers */ = {
@@ -695,6 +706,7 @@
 				1BB03AF12640628D00B6096F /* LaunchScreen.storyboard in Resources */,
 				1BB03AEE2640628D00B6096F /* Assets.xcassets in Resources */,
 				1BB03AE92640628B00B6096F /* Main.storyboard in Resources */,
+				1BFB4F80265BC06F00DE33E9 /* in_file.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

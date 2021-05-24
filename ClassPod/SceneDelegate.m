@@ -94,6 +94,27 @@
 
 #pragma mark SPTAppRemote delegate -
 
+#warning Move to spDAO !!!
+
+- (void)appRemoteDidEstablishConnection:(SPTAppRemote *)appRemote
+{
+    DLog(@"Spotify Connection established!");
+}
+
+- (void)appRemote:(SPTAppRemote *)appRemote didFailConnectionAttemptWithError:(nullable NSError *)error
+{
+    DLog(@"Spotify connection failed with error - %@", [error localizedDescription]);
+}
+
+- (void)appRemote:(SPTAppRemote *)appRemote didDisconnectWithError:(nullable NSError *)error
+{
+    DLog(@"Spotify connected, with error - %@", [error localizedDescription]);
+}
+
+- (void)playerStateDidChange:(id<SPTAppRemotePlayerState>)playerState
+{
+    DLog(@"Spotify Player State Changed");
+}
 
 
 
