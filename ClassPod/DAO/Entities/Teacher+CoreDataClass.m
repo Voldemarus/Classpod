@@ -7,6 +7,7 @@
 //
 
 #import "Teacher+CoreDataClass.h"
+#import "DebugPrint.h"
 
 @implementation Teacher
 
