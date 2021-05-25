@@ -10,6 +10,7 @@
 #import "Preferences.h"
 #import "DAO.h"
 #import "ServiceLocator.h"
+#import "RadioTransmitter.h"
 
 @interface AppDelegate ()
 <
@@ -52,22 +53,29 @@ NSNetServiceDelegate
     prefs = [Preferences sharedPreferences];
     dao = [DAO sharedInstance];
 
-    srl = [ServiceLocator sharedInstance];
-    srl.delegate = self;
+    RadioTransmitter *rt = [RadioTransmitter sharedTransmitter];
 
-    teacherServiceList = [NSMutableArray new];
-    dictSockets = [NSMutableDictionary new];
-    
-    [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
-    
-    self.studentUUID.stringValue = prefs.personalUUID;
-    self.studentName.stringValue = prefs.myName;
-    self.studentNote.stringValue = prefs.note;
-    
-    connectedService = nil;
 
-    [self selectNeedMode];
+//
+//    srl = [ServiceLocator sharedInstance];
+//    srl.delegate = self;
+//
+//    teacherServiceList = [NSMutableArray new];
+//    dictSockets = [NSMutableDictionary new];
+//
+//
+//    [self.modeTabView selectTabViewItemAtIndex:prefs.testerMode];
+//    
+//    self.studentUUID.stringValue = prefs.personalUUID;
+//    self.studentName.stringValue = prefs.myName;
+//    self.studentNote.stringValue = prefs.note;
+//    
+//    connectedService = nil;
+//
+//    [self selectNeedMode];
 //    [self updateUI];
+
+
 }
 
 - (void) updateUI

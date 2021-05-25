@@ -15,6 +15,8 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
 
 @property (nonatomic, strong) PubNub *client;
 
+@property (nonatomic, readonly) NSArray <NSURL *> *localMedia;
+
 @end
 
 @implementation RadioTransmitter
@@ -46,6 +48,10 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
     return self;
 }
 
+/**
+    Add channel with given name to the list. If channel with given name just exists, add
+    suffix with total amount of channels with name as prefix.
+ */
 - (void) addchannel:(NSString *)name
 {
     if (!name) {
@@ -53,10 +59,47 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
     }
     if ([self.channels containsObject:name] == NO) {
         [self.channels addObject:name];
-        [self.client subscribeToChannels: @[name] withPresence:YES];
+    } else {
+        // Evaluate amount of channels with name
+
+        NSMutableSet *filteredSet = [[NSMutableSet alloc] initWithSet:self.channels];
+        [filteredSet filterUsingPredicate:[NSPredicate predicateWithFormat:@"BEGINSWITH[cd] %@",name]];
+        NSInteger count = filteredSet.count;
+        NSString *newChannelName = [name stringByAppendingFormat:@"_%ld",(long)count];
+        [self.channels addObject:newChannelName];
+        name = newChannelName;
     }
+    [self.client subscribeToChannels: @[name] withPresence:YES];
 }
 
+
+//
+// Pit all mp3 files from the bundle into array, used to init "Radio program"
+//
+- (NSArray <NSURL *> *) localMedia
+{
+    static NSMutableArray <NSURL *> *_lm = nil;
+    if (!_lm) {
+        NSBundle *mb = [NSBundle mainBundle];
+        _lm = [[NSMutableArray alloc] initWithCapacity:10];
+        NSString *directoryPath = mb.bundlePath;
+        // Enumerators are recursive
+        NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+
+        NSString *filePath;
+
+        while ((filePath = [enumerator nextObject]) != nil){
+            // If we have the right type of file, add it to the list
+            // Make sure to prepend the directory path
+            if([[filePath pathExtension] isEqualToString:@"mp3"]){
+                NSString *fullPath = [directoryPath stringByAppendingPathComponent:filePath];
+                NSURL *fileURL = [NSURL fileURLWithPath:fullPath];
+                [_lm addObject:fileURL];
+            }
+        }
+     }
+    return _lm;
+}
 
 
 #pragma mark - PubNub Delegate -
@@ -119,15 +162,17 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
 
                 // Select last object from list of channels and send message to it.
                 NSString *targetChannel = [client channels].lastObject;
-                [self.client publish: @{ @"msg": @"hello" }
+                [self.client publish: @{@"stationName" : @"Station Name", @"channelName" : @"ChannelName" }
                            toChannel: targetChannel withCompletion:^(PNPublishStatus *publishStatus) {
 
                     // Check whether request successfully completed or not.
                     if (!publishStatus.isError) {
-
+                        DLog(@"Music published");
                         // Message successfully published to specified channel.
                     }
                     else {
+                        PNStatusCategory pns = publishStatus.category;
+                        DLog("Error on publishing - %ld", (long) pns);
 
                         /**
                          Handle message publish error. Check 'category' property to find out
