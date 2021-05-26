@@ -6,6 +6,7 @@
 //
 
 #import "RadioTransmitter.h"
+#import <AVFoundation/AVFoundation.h>
 
 NSString * const PubNub_User    =   @"demo";
 NSString * const PubNub_Pass    =   @"demo";
@@ -14,7 +15,7 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
 @interface RadioTransmitter () <PNEventsListener>
 
 @property (nonatomic, strong) PubNub *client;
-
+@property (nonatomic, strong) AVQueuePlayer *player;
 @property (nonatomic, readonly) NSArray <NSURL *> *localMedia;
 
 @end
@@ -44,6 +45,8 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
 
         // Subscribe to demo channel with presence observation
         [self addchannel:@"demo"];
+
+        self.player = [[AVQueuePlayer alloc] init];
     }
     return self;
 }
@@ -168,8 +171,9 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
                     // Check whether request successfully completed or not.
                     if (!publishStatus.isError) {
                         DLog(@"Music published");
-                        // Message successfully published to specified channel.
-                    }
+                        [self.client subscribeToChannels:@[targetChannel] withPresence:YES];
+                        [self prepareAndStartTranslation];
+                     }
                     else {
                         PNStatusCategory pns = publishStatus.category;
                         DLog("Error on publishing - %ld", (long) pns);
@@ -223,6 +227,20 @@ NSString * const PubNub_UID     =   @"myUniqueUUID";
             }
         }
     }
+}
+
+- (void) prepareAndStartTranslation
+{
+    // Message successfully published to specified channel.
+    [self.player removeAllItems];
+    AVPlayerItem *lastItem = nil;
+#warning fix required! Order of URL's should be preserved
+    for (NSURL *url in [self localMedia]) {
+        AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:url];
+        [self.player insertItem:item afterItem:lastItem];
+        lastItem = item;
+    }
+    [self.player play];
 }
 
 @end

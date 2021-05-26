@@ -7,8 +7,15 @@
 
 #import "StudentVC.h"
 #import "ServiceLocator.h"
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface StudentVC ()
+#import "DebugPrint.h"
+
+
+NSString * const RADIO_URL = @"http://108.163.197.114:8155";
+
+@interface StudentVC () <AVPlayerViewControllerDelegate>
 {
     DAO *dao;
     Preferences *prefs;
@@ -20,8 +27,17 @@
     __weak IBOutlet UIButton * buttonExit;
 }
 
+@property (nonatomic, retain) AVPlayer *player;
+@property (nonatomic, retain) AVPlayerItem *playerItem;
+
 @property (weak, nonatomic) IBOutlet UISwitch *swTeacherAudio;
 @property (weak, nonatomic) IBOutlet UISwitch *swPersonalAudio;
+
+#warning Connect Me!
+@property (nonatomic, weak) IBOutlet UILabel *trackDetail;
+
+#warning  Connect me!
+- (IBAction) playPauseButtonClicked:(id) sender;
 
 @end
 
@@ -160,6 +176,52 @@ uuid:    %@",
         
         prefs.audioPersonalON = sw.on;
         
+    }
+}
+
+#pragma mark - AVPlayer receiver
+
+
+- (void) turnAudioOn
+{
+    [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
+    [self.player play];
+}
+
+- (void) turnAudioOff
+{
+    [self.player pause];
+    [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
+}
+
+- (IBAction) playPauseButtonClicked:(id) sender
+{
+    UIButton *button = (UIButton *)sender;
+    if (self.player.rate == 0.0) {
+        if (!self.player) {
+            NSURL *radioURL = [NSURL URLWithString:RADIO_URL];
+            self.playerItem = [[AVPlayerItem alloc] initWithURL:radioURL];
+            self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+         }
+        [self turnAudioOn];
+        [button setTitle:@"Pause" forState:UIControlStateNormal];
+    } else {
+        [self turnAudioOff];
+        [button setTitle:@"Play" forState:UIControlStateNormal];
+    }
+}
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"timedMetadata"]) {
+        AVPlayerItem *_playerItem = (AVPlayerItem *)object;
+        for (AVMetadataItem *mmd in _playerItem.timedMetadata) {
+            if ([[mmd.key description] isEqualToString:@"title"]) {
+                self.trackDetail.text = mmd.stringValue;
+            }
+        }
+    } else {
+        DLog(@"meta keyPath  - %@", keyPath);
     }
 }
 

@@ -66,6 +66,7 @@
 		1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
 		1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */; };
 		1BFB4F80265BC06F00DE33E9 /* in_file.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */; };
+		1BFB4FA1265E8ADA00DE33E9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */; };
 		25768132E2569D505CBE0F0C /* libPods-ClassPodTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F90F8209A48F3C0C46BFB155 /* libPods-ClassPodTests.a */; };
 		322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322215A826569B63004A38EE /* SelectTeacherVC.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
@@ -183,6 +184,7 @@
 		1BFB4F2F2658FCF600DE33E9 /* RadioTransmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadioTransmitter.h; sourceTree = "<group>"; };
 		1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadioTransmitter.m; sourceTree = "<group>"; };
 		1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = in_file.mp3; sourceTree = "<group>"; };
+		1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		322215A726569B63004A38EE /* SelectTeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTeacherVC.h; sourceTree = "<group>"; };
 		322215A826569B63004A38EE /* SelectTeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTeacherVC.m; sourceTree = "<group>"; };
 		322B33D12642709F00ACD371 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			files = (
 				1B03F20526454E07007A9A3A /* CoreMedia.framework in Frameworks */,
 				1BFB4EE2265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */,
+				1BFB4FA1265E8ADA00DE33E9 /* AVFoundation.framework in Frameworks */,
 				1B03F20726454E0F007A9A3A /* MediaPlayer.framework in Frameworks */,
 				1B03F20326454DFB007A9A3A /* Network.framework in Frameworks */,
 				0E55B80F999EE5CB68CCC2DB /* libPods-ClassPod.a in Frameworks */,
@@ -288,6 +291,7 @@
 		1B03F20126454DFB007A9A3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */,
 				1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */,
 				1B03F20626454E0F007A9A3A /* MediaPlayer.framework */,
 				1B03F20426454E07007A9A3A /* CoreMedia.framework */,
