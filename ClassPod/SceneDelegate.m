@@ -27,7 +27,7 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     self.spDao = [SpotifyDAO sharedInstance];
 
-    RadioTransmitter *rt = [RadioTransmitter sharedTransmitter];
+  //  RadioTransmitter *rt = [RadioTransmitter sharedTransmitter];
 }
 
 // Spotify related callback

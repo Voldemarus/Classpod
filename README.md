@@ -109,4 +109,11 @@ Client Secret 4267e80483584864aa2e4027c19410cb
 
 
 
+AVPlayer 
+
+Receiver Stream Radio 
+https://www.youtube.com/watch?v=3tDJYbp8Ehk
+https://www.youtube.com/watch?v=0x-byaeNqcw
+
+
 
