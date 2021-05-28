@@ -25,6 +25,7 @@ NSString * const RADIO_URL = @"http://108.163.197.114:8155";
     __weak IBOutlet UILabel * labelHeader;
     __weak IBOutlet UILabel * labelDetail;
     __weak IBOutlet UIButton * buttonExit;
+    __weak IBOutlet UIButton * buttonPlayStop;
 }
 
 @property (nonatomic, retain) AVPlayer *player;
@@ -33,11 +34,7 @@ NSString * const RADIO_URL = @"http://108.163.197.114:8155";
 @property (weak, nonatomic) IBOutlet UISwitch *swTeacherAudio;
 @property (weak, nonatomic) IBOutlet UISwitch *swPersonalAudio;
 
-#warning Connect Me!
 @property (nonatomic, weak) IBOutlet UILabel *trackDetail;
-
-#warning  Connect me!
-- (IBAction) playPauseButtonClicked:(id) sender;
 
 @end
 
@@ -49,6 +46,8 @@ NSString * const RADIO_URL = @"http://108.163.197.114:8155";
 
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
+    
+    self.trackDetail.text = @"";
     
     dictSockets = [NSMutableDictionary new];
     NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
@@ -209,10 +208,13 @@ uuid:    %@",
             self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
          }
         [self turnAudioOn];
-        [button setTitle:@"Pause" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"BT_Pause"] forState:UIControlStateNormal];
+//        [button setTitle:@"Pause" forState:UIControlStateNormal];
     } else {
         [self turnAudioOff];
-        [button setTitle:@"Play" forState:UIControlStateNormal];
+//        self.trackDetail.text = @"Waiting play...";
+        [button setImage:[UIImage imageNamed:@"BT_Play"] forState:UIControlStateNormal];
+//        [button setTitle:@"Play" forState:UIControlStateNormal];
     }
 }
 

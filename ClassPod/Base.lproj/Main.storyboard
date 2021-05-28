@@ -585,7 +585,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="55" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14m-C1-M2A">
-                                <rect key="frame" x="91" y="80" width="193" height="81.5"/>
+                                <rect key="frame" x="116.5" y="80" width="142" height="101.5"/>
                                 <string key="text">Avaliable teachers 
 asfas sdgdsgsd
 asdfdsAvaliable teachers 
@@ -594,8 +594,26 @@ asfas sdgdsgsd</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Laf-He-p90">
+                                <rect key="frame" x="155.5" y="396.5" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="9CE-UZ-4fz"/>
+                                    <constraint firstAttribute="width" constant="64" id="nsg-YE-UvN"/>
+                                </constraints>
+                                <state key="normal" image="BT_Play"/>
+                                <connections>
+                                    <action selector="playPauseButtonClicked:" destination="Dcz-oF-v6D" eventType="touchUpInside" id="yeN-ou-o2b"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="url radio" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="55" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJ9-uY-ebU">
+                                <rect key="frame" x="152" y="352.5" width="71.5" height="24"/>
+                                <color key="backgroundColor" red="0.71335605500089083" green="0.97814417827830802" blue="1" alpha="0.21366652397260275" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohv-JX-eqG">
-                                <rect key="frame" x="149" y="397.5" width="77" height="63"/>
+                                <rect key="frame" x="278" y="80" width="77" height="63"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="77" id="1wP-tu-Tr1"/>
                                     <constraint firstAttribute="height" constant="63" id="a42-tI-R6z"/>
@@ -609,27 +627,36 @@ asfas sdgdsgsd</string>
                         <viewLayoutGuide key="safeArea" id="I9f-ua-WzB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Laf-He-p90" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="1PJ-nZ-mmV"/>
+                            <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="ohv-JX-eqG" secondAttribute="trailing" constant="20" id="2wZ-vb-2eZ"/>
+                            <constraint firstItem="Laf-He-p90" firstAttribute="top" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="bottom" constant="20" id="6fh-fc-TLQ"/>
                             <constraint firstItem="14m-C1-M2A" firstAttribute="top" secondItem="I9f-ua-WzB" secondAttribute="top" constant="80" id="FBm-3G-mpz"/>
+                            <constraint firstItem="uJ9-uY-ebU" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="GkB-xd-6s3"/>
+                            <constraint firstItem="wd1-kE-8ME" firstAttribute="top" secondItem="Laf-He-p90" secondAttribute="bottom" constant="20" id="JfS-Zb-jIc"/>
+                            <constraint firstItem="ohv-JX-eqG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="trailing" constant="10" id="KzF-hm-nLF"/>
                             <constraint firstItem="14m-C1-M2A" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="PNm-US-Gqf"/>
                             <constraint firstItem="wd1-kE-8ME" firstAttribute="leading" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="RPe-ji-QOa"/>
-                            <constraint firstItem="ohv-JX-eqG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="bottom" constant="20" id="S1n-Y2-2aE"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="bottom" secondItem="wd1-kE-8ME" secondAttribute="bottom" constant="44" id="W5x-bq-ofQ"/>
                             <constraint firstItem="14m-C1-M2A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="WQu-Bf-CUg"/>
+                            <constraint firstItem="ohv-JX-eqG" firstAttribute="top" secondItem="14m-C1-M2A" secondAttribute="top" id="WZg-oN-Dfs"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="bottom" constant="210" id="Yzj-Zu-3QN"/>
-                            <constraint firstItem="ohv-JX-eqG" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="cvy-1l-aj9"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="d4X-ia-ipX"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="d9M-Jm-6Ij"/>
+                            <constraint firstItem="uJ9-uY-ebU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="mNZ-Or-yjX"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="top" secondItem="I9f-ua-WzB" secondAttribute="top" constant="20" id="nhf-vN-FL8"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="wd1-kE-8ME" secondAttribute="trailing" constant="20" id="pDN-Nt-6CY"/>
-                            <constraint firstItem="wd1-kE-8ME" firstAttribute="top" secondItem="ohv-JX-eqG" secondAttribute="bottom" constant="20" id="wk3-R8-H4B"/>
+                            <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="ohv-JX-eqG" secondAttribute="trailing" constant="20" id="rho-Kv-6I4"/>
+                            <constraint firstItem="Laf-He-p90" firstAttribute="top" secondItem="uJ9-uY-ebU" secondAttribute="bottom" constant="20" id="tqJ-0Y-Zzw"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonExit" destination="ohv-JX-eqG" id="eOh-H6-58T"/>
+                        <outlet property="buttonPlayStop" destination="Laf-He-p90" id="hDS-UP-4ub"/>
                         <outlet property="labelDetail" destination="14m-C1-M2A" id="LIe-4a-Ri6"/>
                         <outlet property="labelHeader" destination="sQo-uN-HCl" id="0me-kj-u22"/>
                         <outlet property="swPersonalAudio" destination="a3R-dh-mDH" id="b8i-vy-iUf"/>
                         <outlet property="swTeacherAudio" destination="Z86-fJ-X4X" id="46v-Mg-qoJ"/>
+                        <outlet property="trackDetail" destination="uJ9-uY-ebU" id="cWt-1G-xBU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gwa-yY-9Sh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -638,6 +665,7 @@ asfas sdgdsgsd</string>
         </scene>
     </scenes>
     <resources>
+        <image name="BT_Play" width="128" height="128"/>
         <image name="CheckOn" width="128" height="128"/>
         <image name="Exit" width="256" height="256"/>
         <image name="MicrophoneRed" width="128" height="128"/>

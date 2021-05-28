@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "button-round-play-icon.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
