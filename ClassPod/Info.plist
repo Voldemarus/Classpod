@@ -46,6 +46,8 @@
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Network access required to share audio in class</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Required for communication between teacher and student</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

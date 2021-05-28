@@ -178,7 +178,7 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
 
-    NSLog(@"%@", error.userInfo);
+    NSLog(@"socketDidDisconnect error:%@", error.userInfo);
 
     if (self.socket == socket) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(abonentDisconnected:)]) {
@@ -203,6 +203,7 @@ NSString * const VVVserviceDomain   =   @"local.";
         Student *student = [dao studentWithData:dataBuffer forTeacher:&teacherUUID];
         if (student) {
             NSLog(@"Student request accepted - %@", student);
+            student.socket = sock;
             // process student here
             [NSNotificationCenter.defaultCenter postNotificationName:@"ОбновилсяСтудент" object:student];
 

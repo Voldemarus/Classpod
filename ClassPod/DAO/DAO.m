@@ -81,6 +81,12 @@
     }
 
 #ifdef DEBUG
+#warning !!!!!!!!!! TEMPORALY disable write context !!!!
+    DLog(@" 🌹🌹🌹🌹🌹🌹🌹🌹 ЗАПИСЬ отключена!");
+    return;
+    
+    
+    
     if (context == self.persistentContainer.viewContext) {
         DLog(@" 🌹🌹 Сохраненяется Основной контекст");
     } else {
@@ -187,7 +193,7 @@
     }
     for (NSInteger i = result.count - 1; i >=0 ; i--) {
         Teacher *t = result[i];
-        if (!t.service) {
+        if (!t.service || t.uuid.length < 1) {
             [result removeObject:t];
         }
     }

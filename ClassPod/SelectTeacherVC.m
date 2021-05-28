@@ -39,7 +39,7 @@ ServiceLocatorDelegate
 
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
-    
+
     arrayTeachers = [dao teachersListWithService].mutableCopy;
     
     srl = [ServiceLocator sharedInstance];
@@ -88,7 +88,8 @@ ServiceLocatorDelegate
     cell.name.text = teacher.name.length > 0 ? teacher.name : RStr(@"Unknow student");
     cell.imageCheck.image = [UIImage imageNamed:cheked ? @"CheckOn" : @"CheckOff"];
     cell.courseName.text = teacher.courseName;
-    cell.note.text = teacher.note;
+//    cell.note.text = teacher.note;
+    cell.note.text = [teacher.note stringByAppendingString:teacher.uuid];
     cell.hourRate.text = [NSString stringWithFormat:@"Rate of hour: %.2f", teacher.hourRate];
 
     return cell;
@@ -96,6 +97,8 @@ ServiceLocatorDelegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (!studentVC) {
         studentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StudentVC"];
     }

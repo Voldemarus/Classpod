@@ -8,6 +8,8 @@
 #import "TeacherVC.h"
 #import "CellStudentList.h"
 #import "ServiceLocator.h"
+#import "RadioTransmitter.h"
+#import "LDRTPServer.h"
 
 @interface TeacherVC ()
 <UITableViewDelegate, UITableViewDataSource,
@@ -17,6 +19,7 @@ ServiceLocatorDelegate>
     Preferences *prefs;
     ServiceLocator *srl;
     NSArray <Student*>* arrayStudents;
+    Student * selectedStudent;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableStudents;
@@ -33,7 +36,7 @@ ServiceLocatorDelegate>
     
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
-    
+
     srl = [ServiceLocator sharedInstance];
     [srl stopService];
     srl.delegate = self;
@@ -77,7 +80,21 @@ ServiceLocatorDelegate>
 
 - (IBAction) buttonMusicPressed:(id)sender
 {
+    if (!selectedStudent) {
+        DLog(@"Нет Выбранного студента!");
+    }
+
+#warning ! Need edit selected student
+    Student *student = selectedStudent;
+    UInt32 port = student.socket.localPort;
+//    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
     DLog(@"🐝 button Music Pressed");
+    LDRTPServer *server = LDRTPServer.sharedRTPServer;
+    [server open];
+
+    [server initialSocketPort:port];
+//    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
+//    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
 }
 
 - (void) changedStudent:(Student*) student
@@ -115,7 +132,7 @@ ServiceLocatorDelegate>
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Student *student = arrayStudents[indexPath.row];
+    selectedStudent = arrayStudents[indexPath.row];
 }
 
 @end

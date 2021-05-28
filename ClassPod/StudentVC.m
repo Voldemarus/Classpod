@@ -128,7 +128,7 @@ uuid:    %@",
                 isConnected = YES;
                 DLog(@"Connected: %@", name);
                 
-                [self sendIfoToSocket:coSocket];
+                [self sendInfoToSocket:coSocket];
                 
             } else if (error) {
                 DLog(@"Unable to connect with Device %@ userinfo %@", error, error.userInfo);
@@ -145,9 +145,10 @@ uuid:    %@",
     
 }
 
-- (void) sendIfoToSocket:(GCDAsyncSocket*) socket
+- (void) sendInfoToSocket:(GCDAsyncSocket*) socket
 {
     Student * studentSelf = [dao getOrCreateStudetnSelf];
+    studentSelf.socket = socket;
     NSData *dataPack = [dao dataPackForStudent:studentSelf];
 
     [socket writeData:dataPack withTimeout:-1.0f tag:0];
@@ -158,7 +159,11 @@ uuid:    %@",
 - (IBAction) buttonExitPressed:(id)sender
 {
     DLog(@"Exit pressed");
-    [ServiceLocator.sharedInstance stopService];
+    Student * studentSelf = [dao getOrCreateStudetnSelf];
+    [studentSelf.socket disconnect];
+    studentSelf.socket = nil;
+    
+//    [ServiceLocator.sharedInstance stopService];
     
     [self dismissViewControllerAnimated:YES completion:^{
             

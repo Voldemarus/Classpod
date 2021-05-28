@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Student : NSManagedObject
 
-@property (nonatomic, retain) GCDAsyncSocket *socket;
+@property (nonatomic, retain) GCDAsyncSocket * _Nullable socket;
 
 /**
     Scan local database and return record about Student from data packet
