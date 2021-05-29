@@ -90,6 +90,7 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 - (void) stopService
 {
+    DLog(@"stopService [%@]", self.service.name);
     if (self.service) {
         [self.service stop];
         self.service = nil;
@@ -107,6 +108,7 @@ NSString * const VVVserviceDomain   =   @"local.";
 - (void) netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
     DLog(@"Service found - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
+    
     if (service) {
         [self.clientArray addObject:service];
         service.delegate = self;
@@ -123,12 +125,13 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 - (void) netServiceBrowser:(NSNetServiceBrowser *)browser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing
 {
+    DLog(@"Service removed - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
+
     if (service) {
         [self.clientArray removeObject:service];
         [service stopMonitoring];
     }
 
-    DLog(@"Service removed - %@ (Есть еще: %@)", service.name, moreComing?@"ДА":@"НЕТ");
     if (!moreComing) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(didChangedServises:)]) {
             [self.delegate didChangedServises:self.clientArray];
@@ -139,10 +142,13 @@ NSString * const VVVserviceDomain   =   @"local.";
 - (void) netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *, NSNumber *> *)errorDict
 {
     DLog(@"didNotSearch: %@", errorDict);
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(didChangedServises:)]) {
         [self.delegate didChangedServises:self.clientArray];
     }
 }
+
+#pragma mark - NSNetService Delegate
 
 - (void) netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data
 {
@@ -163,10 +169,52 @@ NSString * const VVVserviceDomain   =   @"local.";
     
 }
 
+- (void) netServiceDidResolveAddress:(NSNetService *)sender
+{
+    DLog(@"netService [%@] DidResolve [%ld] Addresses", sender.name, sender.addresses.count);
+    
+    [NSNotificationCenter.defaultCenter postNotificationName:@"netServiceDidResolveAddress" object:sender];
+}
+
+- (void) netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
+{
+    DLog(@"Did not resolved: %@", errorDict);
+    
+    sender.delegate = self;
+}
+
+- (void) netService: (NSNetService *) sender
+      didNotPublish: (NSDictionary *) errorDict
+{
+    NSLog(@"Failed to publish service - %@",sender.name);
+    NSLog(@"Error : %@", errorDict);
+}
+
+- (void)netServiceDidPublish:(NSNetService *)sender
+{
+    servicePort = sender.port;
+
+#ifdef DEBUG
+    DLog(@"Service    : %@", sender.name);
+    ALog(@"Type       : %@", sender.type);
+    ALog(@"Domain     : %@", sender.domain);
+    ALog(@"Host       : %@", sender.hostName);
+    ALog(@"Port No    : %ld", (long)servicePort);
+    NSDictionary * dict = [NSNetService dictionaryFromTXTRecordData:sender.TXTRecordData];
+    for (NSString *key in dict.allKeys) {
+        NSData *d = dict[key];
+        NSString * s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+        ALog(@"%10s : %@", key.UTF8String, s);
+    }
+#endif
+    
+}
+
 #pragma mark - Socket delegate
 
--(void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket{
-    self.socket= newSocket;
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+    self.socket = newSocket;
 
     [self.socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0f tag:0];
     if (self.delegate && [self.delegate respondsToSelector:@selector(newAbonentConnected:)]) {
@@ -175,10 +223,9 @@ NSString * const VVVserviceDomain   =   @"local.";
      NSLog(@"Accepted the new socked");
 }
 
+- (void) socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
-
-    NSLog(@"socketDidDisconnect error:%@", error.userInfo);
+    DLog(@"socket [%@] DidDisconnect with error:%@", socket, error.userInfo);
 
     if (self.socket == socket) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(abonentDisconnected:)]) {
@@ -234,49 +281,6 @@ NSString * const VVVserviceDomain   =   @"local.";
 //    return  [self.dictSockets objectForKey:coService.name];
 //
 //}
-
-
-#pragma mark - NSNetService delegate
-
-- (void) netServiceDidResolveAddress:(NSNetService *)sender
-{
-    DLog(@"netServiceDidResolveAddress %@", sender.name);
-    [NSNotificationCenter.defaultCenter postNotificationName:@"netServiceDidResolveAddress" object:sender];
-}
-
-- (void) netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
-{
-    DLog(@"Did not resolved: %@", errorDict);
-    sender.delegate = self;
-}
-
-- (void) netService: (NSNetService *) sender
-      didNotPublish: (NSDictionary *) errorDict
-{
-    NSLog(@"Failed to publish service - %@",sender.name);
-    NSLog(@"Error : %@", errorDict);
-}
-
-- (void)netServiceDidPublish:(NSNetService *)sender
-{
-    servicePort = sender.port;
-    DLog(@"Service    : %@", sender.name);
-    ALog(@"Type       : %@", sender.type);
-    ALog(@"Domain     : %@", sender.domain);
-    ALog(@"Host       : %@", sender.hostName);
-    ALog(@"Port No    : %ld", (long)servicePort);
-    
-#ifdef DEBUG
-    NSDictionary * dict = [NSNetService dictionaryFromTXTRecordData:sender.TXTRecordData];
-    for (NSString *key in dict.allKeys) {
-        NSData *d = dict[key];
-        NSString * s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
-        ALog(@"%10s : %@", key.UTF8String, s);
-    }
-#endif
-    
-}
-
 
 
 @end

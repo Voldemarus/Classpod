@@ -61,6 +61,14 @@ NSString * const RADIO_URL = @"https://dl.dropboxusercontent.com/s/jcq74691pet09
     [self updateUI];
 }
 
+- (void) setTeacher:(Teacher *)teacher
+{
+    _teacher = teacher;
+    NSNetService *service = teacher.service;
+    [self connectWithService:service];
+    [self updateUI];
+}
+
 - (void) updateUI
 {
     [DAO runMainThreadBlock:^{
@@ -81,27 +89,19 @@ uuid:    %@",
     }];
 }
 
-- (void) setTeacher:(Teacher *)teacher
-{
-    _teacher = teacher;
-//    NSNetService *service = teacher.service;
-//    service.delegate = self;
-//    [service resolveWithTimeout:30.0f];
-
-    [self updateUI];
-}
-
 #pragma mark - post notif from NSNetService delegate
 
 - (void) serviceDidResolveAddress:(NSNotification*)notif
 {
     NSNetService *service = notif.object;
-    DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
     [self connectWithService:service];
 }
 
 - (BOOL) connectWithService:(NSNetService*)service
 {
+
+    DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
+
     NSString *name = service.name;
     if (service.name.length < 1) {
         DLog(@"❗️ нет имени: %@", service);
@@ -126,7 +126,7 @@ uuid:    %@",
             if ([coSocket connectToAddress:address error:&error]) {
                 dictSockets[name] = coSocket;
                 isConnected = YES;
-                DLog(@"Connected: %@", name);
+                DLog(@"Connected: %@ [:%ld]", name, service.port);
                 
                 [self sendInfoToSocket:coSocket];
                 

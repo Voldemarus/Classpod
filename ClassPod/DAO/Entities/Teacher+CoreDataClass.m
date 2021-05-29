@@ -79,6 +79,7 @@
     
     return teacher;
 }
+
 + (Teacher * _Nullable) getByName:(NSString *)name inMoc:(NSManagedObjectContext *)moc
 {
     if (name.length < 1) {

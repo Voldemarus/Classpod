@@ -146,23 +146,30 @@
 
 #pragma mark - Custom methods
 
-- (NSArray <Student *> *) studentsForCurrentTeacher
+- (NSArray <Student *> * _Nonnull) studentsForCurrentTeacherOnlyConnected:(BOOL)onlyConnected
 {
     NSFetchRequest *req = [Student fetchRequest];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     // all students in teacher mode belongs to the current teacher
     // as we fill database when clients subscribe to the service
     NSError *error = nil;
     NSArray <Student *> *result = [self.moc executeFetchRequest:req error:&error];
     if (!result && error) {
-        DLog(@"Cannot get data from Student entity - %@",[error localizedDescription]);
-     }
-    if (result.count > 1) {
-        NSArray <Student *> *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(  Student *obj1, Student *obj2) {
-            return [obj1.name compare:obj2.name];
-        }];
-        return sortedArray;
+        DLog(@"Cannot get data from Student entity - %@", error.localizedDescription);
     }
-    return result;
+    
+    if (onlyConnected) {
+        NSMutableArray *arrayConnected = [NSMutableArray new];
+        for (Student *student in result) {
+            if ([student.socket isConnected]) {
+                [arrayConnected addObject:student];
+            }
+        }
+        return arrayConnected;
+    }
+    
+    return result ? result : @[];
+    
 }
 
 //- (NSArray <Teacher *> *) teachersList

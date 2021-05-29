@@ -29,8 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
     Returns record for given UUID or nil, if no such record is present in the database
  */
 
-+ (Student *) getStudentByUUID:(NSString *)aUUID
-                         inMoc:(NSManagedObjectContext *)moc;
++ (Student * _Nullable) getStudentByUUID:(NSString *)aUUID
+                                   inMoc:(NSManagedObjectContext *)moc;
+
++ (Student* _Nullable) getFromUuidInTXTData:(NSData*)data
+                                      inMoc:(NSManagedObjectContext *)moc;
 
 /**
  Packs current Studen' data into packet to stream.  if TeacherID is not empty, field with

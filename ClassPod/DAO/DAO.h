@@ -34,8 +34,7 @@ static NSString * const TEACHER_COURSENAME =   @"courseName";
 /**
     List of students, assigned to current teacher
  */
-- (NSArray <Student *> *) studentsForCurrentTeacher;
-
+- (NSArray <Student *> * _Nonnull) studentsForCurrentTeacherOnlyConnected:(BOOL)onlyConnected;
 
 /**
     List of teachers for student, Is filled during browsing and used to subscribe to particular teacher

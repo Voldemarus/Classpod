@@ -80,7 +80,7 @@ NSString * const STUDENT_TUUID    =   @"TeacherUUID";
     return rec;
 }
 
-+ (Student *) getStudentByUUID:(NSString *)aUid inMoc:(NSManagedObjectContext *)moc
++ (Student * _Nullable) getStudentByUUID:(NSString *)aUid inMoc:(NSManagedObjectContext *)moc
 {
     NSFetchRequest *req = [Student fetchRequest];
     req.predicate = [NSPredicate predicateWithFormat:@"uuid = %@", aUid];
@@ -94,6 +94,29 @@ NSString * const STUDENT_TUUID    =   @"TeacherUUID";
     } else {
         return nil;
     }
+}
+
++ (Student* _Nullable) getFromUuidInTXTData:(NSData*)data inMoc:(NSManagedObjectContext *)moc
+{
+    if (!data) {
+        return nil;
+    }
+    NSDictionary * dict = [NSNetService dictionaryFromTXTRecordData:data];
+    NSDictionary * dictUuid = dict[STUDENT_UUID];
+    
+    if (!dictUuid || ![STUDENT_UUID isKindOfClass:NSDictionary.class]) {
+        return nil;
+    }
+    
+    NSString * uuid = [[NSString alloc] initWithData:dict[TEACHER_UUID] encoding:NSUTF8StringEncoding];
+    
+    if (uuid.length < 1) {
+        return nil;
+    }
+    
+    Student * student = [Student getStudentByUUID:uuid inMoc:moc];
+    
+    return student;
 }
 
 @end
