@@ -9,6 +9,8 @@
 #import "ServiceLocator.h"
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "LDRTPServer.h" // 🐜
+
 
 #import "DebugPrint.h"
 
@@ -112,7 +114,7 @@ uuid:    %@",
     
     NSArray* arrAddress = service.addresses.mutableCopy;
     
-    GCDAsyncSocket * coSocket= dictSockets[name];
+    GCDAsyncSocket * coSocket = dictSockets[name];
     
     
     if (!coSocket || !coSocket.isConnected) {
@@ -232,5 +234,20 @@ uuid:    %@",
         DLog(@"meta keyPath  - %@", keyPath);
     }
 }
+
+- (IBAction) buttonMusicPressed:(id)sender
+{
+    UInt32 port = (UInt32) self.teacher.service.port;
+    DLog(@"🐝 TEST button Pressed");
+    LDRTPServer *server = LDRTPServer.sharedRTPServer;
+    
+    [server open];
+    [server initialSocketPort:port];
+    
+    
+//    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
+//    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+}
+
 
 @end

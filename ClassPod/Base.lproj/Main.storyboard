@@ -585,7 +585,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="55" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14m-C1-M2A">
-                                <rect key="frame" x="116.5" y="80" width="142" height="101.5"/>
+                                <rect key="frame" x="20" y="80" width="248" height="81.5"/>
                                 <string key="text">Avaliable teachers 
 asfas sdgdsgsd
 asdfdsAvaliable teachers 
@@ -623,6 +623,17 @@ asfas sdgdsgsd</string>
                                     <action selector="buttonExitPressed:" destination="Dcz-oF-v6D" eventType="touchUpInside" id="sFX-Lt-oyh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHD-lD-A3J">
+                                <rect key="frame" x="284" y="170" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Onm-Cy-61T"/>
+                                    <constraint firstAttribute="height" constant="64" id="gw5-QN-M35"/>
+                                </constraints>
+                                <state key="normal" image="MicrophoneRed"/>
+                                <connections>
+                                    <action selector="buttonMusicPressed:" destination="Dcz-oF-v6D" eventType="touchUpInside" id="aNo-5v-Rrf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="I9f-ua-WzB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -633,17 +644,18 @@ asfas sdgdsgsd</string>
                             <constraint firstItem="14m-C1-M2A" firstAttribute="top" secondItem="I9f-ua-WzB" secondAttribute="top" constant="80" id="FBm-3G-mpz"/>
                             <constraint firstItem="uJ9-uY-ebU" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="GkB-xd-6s3"/>
                             <constraint firstItem="wd1-kE-8ME" firstAttribute="top" secondItem="Laf-He-p90" secondAttribute="bottom" constant="20" id="JfS-Zb-jIc"/>
-                            <constraint firstItem="ohv-JX-eqG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="trailing" constant="10" id="KzF-hm-nLF"/>
-                            <constraint firstItem="14m-C1-M2A" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="PNm-US-Gqf"/>
+                            <constraint firstItem="ohv-JX-eqG" firstAttribute="leading" secondItem="14m-C1-M2A" secondAttribute="trailing" constant="10" id="KzF-hm-nLF"/>
                             <constraint firstItem="wd1-kE-8ME" firstAttribute="leading" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="RPe-ji-QOa"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="bottom" secondItem="wd1-kE-8ME" secondAttribute="bottom" constant="44" id="W5x-bq-ofQ"/>
-                            <constraint firstItem="14m-C1-M2A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="WQu-Bf-CUg"/>
+                            <constraint firstItem="14m-C1-M2A" firstAttribute="leading" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="WQu-Bf-CUg"/>
                             <constraint firstItem="ohv-JX-eqG" firstAttribute="top" secondItem="14m-C1-M2A" secondAttribute="top" id="WZg-oN-Dfs"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="14m-C1-M2A" secondAttribute="bottom" constant="210" id="Yzj-Zu-3QN"/>
+                            <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="yHD-lD-A3J" secondAttribute="trailing" constant="27" id="ccn-pZ-E9k"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="d4X-ia-ipX"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="centerX" secondItem="HMV-VD-4X0" secondAttribute="centerX" id="d9M-Jm-6Ij"/>
                             <constraint firstItem="uJ9-uY-ebU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I9f-ua-WzB" secondAttribute="leading" constant="20" id="mNZ-Or-yjX"/>
                             <constraint firstItem="sQo-uN-HCl" firstAttribute="top" secondItem="I9f-ua-WzB" secondAttribute="top" constant="20" id="nhf-vN-FL8"/>
+                            <constraint firstItem="yHD-lD-A3J" firstAttribute="top" secondItem="ohv-JX-eqG" secondAttribute="bottom" constant="27" id="nxy-x6-eBY"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="wd1-kE-8ME" secondAttribute="trailing" constant="20" id="pDN-Nt-6CY"/>
                             <constraint firstItem="I9f-ua-WzB" firstAttribute="trailing" secondItem="ohv-JX-eqG" secondAttribute="trailing" constant="20" id="rho-Kv-6I4"/>
                             <constraint firstItem="Laf-He-p90" firstAttribute="top" secondItem="uJ9-uY-ebU" secondAttribute="bottom" constant="20" id="tqJ-0Y-Zzw"/>

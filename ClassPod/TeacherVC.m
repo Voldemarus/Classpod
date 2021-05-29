@@ -70,15 +70,15 @@ ServiceLocatorDelegate>
 
 #warning ! Need edit selected student
     Student *student = selectedStudent;
-//    UInt32 port = student.socket.localPort;
-    UInt32 port = 51001;
+    UInt32 port = student.socket.connectedPort;
+//    UInt32 port = 51001;
 //    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
     DLog(@"🐝 button Music Pressed");
     LDRTPServer *server = LDRTPServer.sharedRTPServer;
     
-    [server open];
     [server initialSocketPort:port];
-    
+    [server open];
+
     
 //    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
 //    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);

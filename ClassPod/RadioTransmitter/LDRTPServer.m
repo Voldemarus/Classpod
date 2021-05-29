@@ -6,6 +6,7 @@
 //
 
 #import "LDRTPServer.h"
+#import "ServiceLocator.h"
 #import "AVFoundation/AVCaptureSession.h"
 //#import "AVFoundation/AVCaptureDevice.h"
 #import "AVFoundation/AVCaptureInput.h"
@@ -16,14 +17,17 @@
 #import "arpa/inet.h"
 
 @interface LDRTPServer()
-<AVCaptureAudioDataOutputSampleBufferDelegate,
-NSStreamDelegate>
+<AVCaptureAudioDataOutputSampleBufferDelegate
+,NSStreamDelegate
+//,ServiceLocatorDelegate
+>
 {
     BOOL isConnect;
     AVCaptureSession * m_capture;
     NSInputStream * iStream;
     NSOutputStream * oStream;
     NSMutableData * globalData;
+    GCDAsyncSocket * socket;
 }
 
 @end
@@ -89,38 +93,82 @@ NSStreamDelegate>
 
 - (void) captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-//    DLog(@"sizeof(sampleBuffer) = %lu", sizeof(sampleBuffer));
-#warning ENCODE need h.264?
-    // MARK: - Надо закодировать сжать и отправить сжатое а не поток PCM
-    char szBuf[450];
-    int  nSize = sizeof(szBuf);
+    
+    CMFormatDescriptionRef formatDesc = CMSampleBufferGetFormatDescription(sampleBuffer);
+    CMMediaType mediaType = CMFormatDescriptionGetMediaType(formatDesc);
+    
+    // write the audio data if it's from the audio connection
+    if (mediaType == kCMMediaType_Audio ) {
+        // DLog(@"media type is audio");
+        //Dont do any audio processing for photo
+        
+        //    DLog(@"sizeof(sampleBuffer) = %lu", sizeof(sampleBuffer));
+        #warning ENCODE need h.264?
+            // MARK: - Надо закодировать сжать и отправить сжатое а не поток PCM
+            char szBuf[5] = {1, 2, 3, 4, 5};
+            int  nSize = 5;
 
-    if (isConnect == YES) {
-//        if ([self encoderAAC:sampleBuffer aacData:szBuf aacLen:&nSize] == YES) {
-            [self sendAudioData:szBuf len:nSize channel:0];
+            if (isConnect == YES) {
+        //        if ([self encoderAAC:sampleBuffer aacData:szBuf aacLen:&nSize] == YES) {
+                    [self sendAudioData:szBuf len:nSize channel:0];
+        //        }
+
+            }
+        
+//        CMFormatDescriptionRef tmpDesc = _currentAudioSampleBufferFormatDescription;
+//        _currentAudioSampleBufferFormatDescription = formatDesc;
+//        CFRetain(_currentAudioSampleBufferFormatDescription);
+//
+//        if (tmpDesc)
+//            CFRelease(tmpDesc);
+//
+//        // we need to retain the sample buffer to keep it alive across the different queues (threads)
+//        if (_assetWriter &&
+//            _assetWriterAudioInput.readyForMoreMediaData &&
+//            ![_assetWriterAudioInput appendSampleBuffer:sampleBuffer]) {
+//            [self _showAlertViewWithMessage:RStr(@"Cannot write audio data, recording aborted")];
+//            [self _abortWriting];
 //        }
-
+//        return;
     }
+    
+    
+    
+    
+    
+    
+
 }
 
 - (void) initialSocketPort:(UInt32) port 
 {
     //Use socket
 
+
     CFReadStreamRef readStream = NULL;
     CFWriteStreamRef writeStream = NULL;
     
-    NSString *ip = [self getIPAddress]; // @"192.168.1.167";   //Your IP Address
+    NSString *ip = [self getIPAddress]; //
+//    ip = @"localhost";//@"http://192.168.1.167";   //Your IP Address
 //    UInt32 * port = 22133;
-//    UInt32 port = 22133;
+//    UInt32
+//    port = 22133;
 
-    DLog("initialSocket ip:%@, port:%u", ip, (unsigned int)port);
+
+//    socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    socket.delegate = self;
+//    port = socket.localPort;
+    
+    DLog("🐜 initialSocket ip:%@, port:%u", ip, (unsigned int)port);
 
     CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (__bridge CFStringRef)ip, port, &readStream,  &writeStream);
+//    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)ip, port, &readStream,  &writeStream);
     if (readStream && writeStream) {
         CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
         CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
-        
+//        CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanFalse);
+//        CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanFalse);
+
         iStream = (__bridge NSInputStream *)readStream;
         [iStream setDelegate:self];
         [iStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -133,9 +181,41 @@ NSStreamDelegate>
     }
 }
 
+//- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+//{
+////    self.socket = newSocket;
+////
+////    [self.socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0f tag:0];
+////    if (self.delegate && [self.delegate respondsToSelector:@selector(newAbonentConnected:)]) {
+////        [self.delegate newAbonentConnected:newSocket];
+////    }
+//     DLog(@"🐜 Accepted the new socked");
+//}
+
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
-    DLog(@"stream: %ld, eventCode:%ld", aStream.streamStatus, eventCode);
+    printf("🐜 stream: %ld(%ld): ", aStream.streamStatus, eventCode);
+    //    NSLog("Receieve stream event: %d", eventCode.rawValue);
+    switch (eventCode){
+        case NSStreamEventErrorOccurred:
+            ALog(@"🐜 ErrorOccurred");
+            break;
+        case NSStreamEventEndEncountered:
+            ALog(@"🐜 EndEncountered");
+            break;
+        case NSStreamEventHasBytesAvailable:
+            ALog(@"🐜 HasBytesAvaible");
+            break;
+        case NSStreamEventOpenCompleted:
+            ALog(@"🐜 OpenCompleted");
+            break;
+        case NSStreamEventHasSpaceAvailable:
+            ALog(@"🐜 HasSpaceAvailable");
+            break;
+        default: // NSStreamEventNone
+            ALog(@"🐜 default reached. unknown stream event");
+            break;
+    }
 }
 
 - (void) sendAudioData: (char *)buffer len:(int)len channel:(UInt32)channel
