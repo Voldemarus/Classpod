@@ -1,132 +1,115 @@
 <?php
 
-//in brouser type:  https://classpod.ildd.ru/?type=music
+// Исходники: https://sourceforge.net/projects/getid3/
 
-$type = $_GET["type"];
+//in brouser type:  https://classpod.ildd.ru/
+
 //set variables
+
 $settings = array(
-    'name' => 'ElectroAddict',
-    'genre' => 'Electronic',
-    'url' => $_SERVER['HTTP_HOST'],
-    'bitrate' => 160,
-    'music_directory' => $type.'/',
-    'database_file' => 'Database/'.$type.'.db',
-    'buffer_size' => 16384,
-    'max_listen_time' => 14400,
-    'randomize_seed' => 31337,
+    'name' => 'Название вашей радиостанции', // Название вашей радиостанции.
+    'genre' => 'Electronic', // Не обязательно должен быть в формате MP3, может быть любым.
+    'url' => $_SERVER['HTTP_HOST'], // URL станции, автоматически генерируется PHP.
+    'bitrate' => 160, // Битрейт передачи в кбит / с. Все аудио, но должны быть перекодированы до этого битрейта.
+    'music_directory' => "music/", // Папка, в которой находится звук.
+    'database_file' => "music.db", // Имя файла кэша метаданных аудио.
+    'buffer_size' => 16384, // Размер буфера ледяных данных, не очень важно.
+                            // Чем больше буфер, тем меньше обновлений текущего названия песни.
+    'max_listen_time' => 14400, // Максимальное время прослушивания пользователя в секундах. Установите 4 часа.
+    'randomize_seed' => 31337,     // Начальное число псевдослучайного списка воспроизведения.
+                                // Должен быть установлен на contant, иначе клиенты не будут синхронизироваться. );
+                                // The seed of the pseudo random playlist.
+                                // Must be set to a contant otherwise the clients won't be in sync. );
 );
 
-//set_time_limit(0);
-require_once 'getid3/getid3.php';
-require_once 'includes/directoryIteratorSubclasses.php';
+
+set_time_limit(0);
+require_once("getid3/getid3.php");
 $getID3 = new getID3();
 
 //load playlist
-if (!file_exists($settings['database_file'])) {
-    $filenames = array();
 
-    $fileinfos = new RecursiveIteratorIterator(
-        new FilesOnlyFilter(
-            new VisibleOnlyFilter(
-                new RecursiveDirectoryIterator(
-                    $settings['music_directory'],
-                    FilesystemIterator::SKIP_DOTS
-                        | FilesystemIterator::UNIX_PATHS
-                )
-            )
-        ),
-        RecursiveIteratorIterator::LEAVES_ONLY,
-        RecursiveIteratorIterator::CATCH_GET_CHILD
-    );
+if(!file_exists($settings["database_file"])) {
+    $filenames = array_slice(scandir($settings["music_directory"]), 2);
+    foreach($filenames as $filename) {
+        $id3 = $getID3->analyze($settings["music_directory"].$filename);
 
-    foreach ($fileinfos as $pathname => $fileinfo) {
-        array_push($filenames, $fileinfos->getSubPathname());
-    }
-
-    foreach ($filenames as $filename) {
-        $id3 = $getID3->analyze($settings['music_directory'].$filename);
-        if ($id3['fileformat'] == 'mp3') {
+        if($id3["fileformat"] == "mp3") {
             $playfile = array(
-                'filename' => $filename,
-                // 'filename' => $id3['filename'],
-                'filesize' => $id3['filesize'],
-                'playtime' => $id3['playtime_seconds'],
-                'audiostart' => $id3['avdataoffset'],
-                'audioend' => $id3['avdataend'],
-                'audiolength' => $id3['avdataend'] - $id3['avdataoffset'],
-                'artist' => $id3['tags']['id3v2']['artist'][0],
-                'title' => $id3['tags']['id3v2']['title'][0],
+                "filename" => $id3["filename"],
+                "filesize" => $id3["filesize"],
+                "playtime" => $id3["playtime_seconds"],
+                "audiostart" => $id3["avdataoffset"],
+                "audioend" => $id3["avdataend"],
+                "audiolength" => $id3["avdataend"] - $id3["avdataoffset"],
+                "artist" => $id3["tags"]["id3v2"]["artist"][0],
+                "title" => $id3["tags"]["id3v2"]["title"][0]
             );
-            if (empty($playfile['artist']) || empty($playfile['title'])) {
-                list($playfile['artist'], $playfile['title']) = explode(' - ', substr($playfile['filename'], 0, -4));
-            }
+            if(empty($playfile["artist"]) || empty($playfile["title"]))
+                list($playfile["artist"], $playfile["title"]) = explode(" - ", substr($playfile["filename"], 0 , -4));
             $playfiles[] = $playfile;
         }
     }
 
-    file_put_contents($settings['database_file'], serialize($playfiles));
+    file_put_contents($settings["database_file"], serialize($playfiles));
 } else {
-    $playfiles = unserialize(file_get_contents($settings['database_file']));
+    $playfiles = unserialize(file_get_contents($settings["database_file"]));
 }
 
 //user agents
 $icy_data = false;
-foreach (array('iTunes', 'VLC', 'Winamp') as $agent) {
-    if (substr($_SERVER['HTTP_USER_AGENT'], 0, strlen($agent)) == $agent) {
+foreach(array("iTunes", "VLC", "Winamp") as $agent)
+    if(substr($_SERVER["HTTP_USER_AGENT"], 0, strlen($agent)) == $agent)
         $icy_data = true;
-    }
-}
 
 //set playlist
 $start_time = microtime(true);
-srand($settings['randomize_seed']);
+srand($settings["randomize_seed"]);
 shuffle($playfiles);
 
 //sum playtime
-foreach ($playfiles as $playfile) {
-    $total_playtime += $playfile['playtime'];
-}
+foreach($playfiles as $playfile)
+    $total_playtime += $playfile["playtime"];
 
 //calculate the current song
 $play_pos = $start_time % $total_playtime;
-foreach ($playfiles as $i => $playfile) {
-    $play_sum += $playfile['playtime'];
-    if ($play_sum > $play_pos) {
+foreach($playfiles as $i=>$playfile) {
+    $play_sum += $playfile["playtime"];
+    if($play_sum > $play_pos)
         break;
-    }
 }
-$track_pos = ($playfiles[$i]['playtime'] - $play_sum + $play_pos) * $playfiles[$i]['audiolength'] / $playfiles[$i]['playtime'];
+$track_pos = ($playfiles[$i]["playtime"] - $play_sum + $play_pos) * $playfiles[$i]["audiolength"] / $playfiles[$i]["playtime"];
 
 //output headers
-header('Content-type: audio/mpeg');
-if ($icy_data) {
-    header('icy-name: '.$settings['name']);
-    header('icy-genre: '.$settings['genre']);
-    header('icy-url: '.$settings['url']);
-    header('icy-metaint: '.$settings['buffer_size']);
-    header('icy-br: '.$settings['bitrate']);
-    header('Content-Length: '.$settings['max_listen_time'] * $settings['bitrate'] * 128); //suppreses chuncked transfer-encoding
+header("Content-type: audio/mpeg");
+if($icy_data) {
+    header("icy-name: ".$settings["name"]);
+    header("icy-genre: ".$settings["genre"]);
+    header("icy-url: ".$settings["url"]);
+    header("icy-metaint: ".$settings["buffer_size"]);
+    header("icy-br: ".$settings["bitrate"]);
+    header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"] * 128); //suppreses chuncked transfer-encoding
 }
 
 //play content
 $o = $i;
-$old_buffer = substr(file_get_contents($settings['music_directory'].$playfiles[$i]['filename']), $playfiles[$i]['audiostart'] + $track_pos, $playfiles[$i]['audiolength'] - $track_pos);
-while (time() - $start_time < $settings['max_listen_time']) {
+$old_buffer = substr(file_get_contents($settings["music_directory"].$playfiles[$i]["filename"]), $playfiles[$i]["audiostart"] + $track_pos, $playfiles[$i]["audiolength"] - $track_pos);
+while(time() - $start_time < $settings["max_listen_time"]) {
     $i = ++$i % count($playfiles);
-    $buffer = $old_buffer.substr(file_get_contents($settings['music_directory'].$playfiles[$i]['filename']), $playfiles[$i]['audiostart'], $playfiles[$i]['audiolength']);
-
-    for ($j = 0; $j < floor(strlen($buffer) / $settings['buffer_size']); ++$j) {
-        if ($icy_data) {
-            if ($i == $o + 1 && ($j * $settings['buffer_size']) <= strlen($old_buffer)) {
-                $payload = "StreamTitle='{$playfiles[$o]['artist']} - {$playfiles[$o]['title']}';".chr(0);
-            } else {
-                $payload = "StreamTitle='{$playfiles[$i]['artist']} - {$playfiles[$i]['title']}';".chr(0);
-            }
+    $buffer = $old_buffer.substr(file_get_contents($settings["music_directory"].$playfiles[$i]["filename"]), $playfiles[$i]["audiostart"], $playfiles[$i]["audiolength"]);
+        
+    for($j = 0; $j < floor(strlen($buffer) / $settings["buffer_size"]); $j++) {
+        if($icy_data) {
+            if($i == $o + 1 && ($j * $settings["buffer_size"]) <= strlen($old_buffer))
+                $payload = "StreamTitle='{$playfiles[$o]["artist"]} - {$playfiles[$o]["title"]}';".chr(0);
+            else
+                $payload = "StreamTitle='{$playfiles[$i]["artist"]} - {$playfiles[$i]["title"]}';".chr(0);
 
             $metadata = chr(ceil(strlen($payload) / 16)).$payload.str_repeat(chr(0), 16 - (strlen($payload) % 16));
         }
-        echo substr($buffer, $j * $settings['buffer_size'], $settings['buffer_size']).$metadata;
+        echo substr($buffer, $j * $settings["buffer_size"], $settings["buffer_size"]).$metadata;
     }
     $o = $i;
-    $old_buffer = substr($buffer, $j * $settings['buffer_size']);
+    $old_buffer = substr($buffer, $j * $settings["buffer_size"]);
 }
+?>

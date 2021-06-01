@@ -214,20 +214,7 @@
 		32788CAD264C22D900FC087E /* ProfileEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileEditVC.h; sourceTree = "<group>"; };
 		32788CAE264C22D900FC087E /* ProfileEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditVC.m; sourceTree = "<group>"; };
 		32AD036201A6D00EFEAFE862 /* Pods-ClassPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassPodTests.debug.xcconfig"; path = "Target Support Files/Pods-ClassPodTests/Pods-ClassPodTests.debug.xcconfig"; sourceTree = "<group>"; };
-		32EC1C6B26665956003BB7DF /* directoryIteratorSubclasses.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = directoryIteratorSubclasses.php; sourceTree = "<group>"; };
-		32EC1C6D26665957003BB7DF /* temp.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = temp.db; sourceTree = "<group>"; };
-		32EC1C6E26665957003BB7DF /* Crichy Crich x King Tutt - SIN$ (Official Music Video).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Crichy Crich x King Tutt - SIN$ (Official Music Video).mp3"; sourceTree = "<group>"; };
-		32EC1C6F26665957003BB7DF /* Alan Walker - Faded (Sep Remix).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Alan Walker - Faded (Sep Remix).mp3"; sourceTree = "<group>"; };
-		32EC1C7026665957003BB7DF /* Adele - Hello (Larcy Cover) [Wildfellaz & Arman Cekin Remix].mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Adele - Hello (Larcy Cover) [Wildfellaz & Arman Cekin Remix].mp3"; sourceTree = "<group>"; };
-		32EC1C7126665957003BB7DF /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		32EC1C7526665959003BB7DF /* index.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = index.php; sourceTree = "<group>"; };
-		32EC1C792666595A003BB7DF /* shela 7amase.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "shela 7amase.mp3"; sourceTree = "<group>"; };
-		32EC1C7A2666595A003BB7DF /* shela tarab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "shela tarab.mp3"; sourceTree = "<group>"; };
-		32EC1C7E2666595C003BB7DF /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		32EC1C7F2666595C003BB7DF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		32EC1C812666595C003BB7DF /* getid3.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = getid3.php; sourceTree = "<group>"; };
-		32EC1C852666595D003BB7DF /* music.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = music.db; sourceTree = "<group>"; };
-		32EC1C862666595D003BB7DF /* sh3by.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = sh3by.db; sourceTree = "<group>"; };
 		42E29EED7BDF76F7EA5F5CB9 /* Pods-ClassPodDebugTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassPodDebugTests.debug.xcconfig"; path = "Target Support Files/Pods-ClassPodDebugTests/Pods-ClassPodDebugTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4C1D876DC9E9796A01BAB8FD /* libPods-ClassPodDebugTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassPodDebugTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		580C81C84791175BD8E8817C /* Pods-ClassPod-ClassPodDebugUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassPod-ClassPodDebugUITests.debug.xcconfig"; path = "Target Support Files/Pods-ClassPod-ClassPodDebugUITests/Pods-ClassPod-ClassPodDebugUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -543,62 +530,9 @@
 		32EC1C682666591F003BB7DF /* PHP Streeming Server */ = {
 			isa = PBXGroup;
 			children = (
-				32EC1C6C26665957003BB7DF /* music */,
-				32EC1C782666595A003BB7DF /* sh3by */,
-				32EC1C842666595D003BB7DF /* Database */,
-				32EC1C802666595C003BB7DF /* getid3 */,
-				32EC1C6A26665956003BB7DF /* includes */,
 				32EC1C7526665959003BB7DF /* index.php */,
-				32EC1C7126665957003BB7DF /* image.png */,
-				32EC1C7E2666595C003BB7DF /* LICENSE */,
-				32EC1C7F2666595C003BB7DF /* README.md */,
 			);
 			path = "PHP Streeming Server";
-			sourceTree = "<group>";
-		};
-		32EC1C6A26665956003BB7DF /* includes */ = {
-			isa = PBXGroup;
-			children = (
-				32EC1C6B26665956003BB7DF /* directoryIteratorSubclasses.php */,
-			);
-			path = includes;
-			sourceTree = "<group>";
-		};
-		32EC1C6C26665957003BB7DF /* music */ = {
-			isa = PBXGroup;
-			children = (
-				32EC1C6D26665957003BB7DF /* temp.db */,
-				32EC1C6E26665957003BB7DF /* Crichy Crich x King Tutt - SIN$ (Official Music Video).mp3 */,
-				32EC1C6F26665957003BB7DF /* Alan Walker - Faded (Sep Remix).mp3 */,
-				32EC1C7026665957003BB7DF /* Adele - Hello (Larcy Cover) [Wildfellaz & Arman Cekin Remix].mp3 */,
-			);
-			path = music;
-			sourceTree = "<group>";
-		};
-		32EC1C782666595A003BB7DF /* sh3by */ = {
-			isa = PBXGroup;
-			children = (
-				32EC1C792666595A003BB7DF /* shela 7amase.mp3 */,
-				32EC1C7A2666595A003BB7DF /* shela tarab.mp3 */,
-			);
-			path = sh3by;
-			sourceTree = "<group>";
-		};
-		32EC1C802666595C003BB7DF /* getid3 */ = {
-			isa = PBXGroup;
-			children = (
-				32EC1C812666595C003BB7DF /* getid3.php */,
-			);
-			path = getid3;
-			sourceTree = "<group>";
-		};
-		32EC1C842666595D003BB7DF /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				32EC1C852666595D003BB7DF /* music.db */,
-				32EC1C862666595D003BB7DF /* sh3by.db */,
-			);
-			path = Database;
 			sourceTree = "<group>";
 		};
 		C26DC5302B3EDCC3E551B503 /* Pods */ = {

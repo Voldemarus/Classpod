@@ -17,7 +17,7 @@
 
 //NSString * const RADIO_URL = @"http://108.163.197.114:8155";
 //NSString * const RADIO_URL = @"https://dl.dropboxusercontent.com/s/jcq74691pet09d9/Chumbawamba%20-%20Tubthumping%20HD.mp3?dl=0";
-NSString * const RADIO_URL = @"https://classpod.ildd.ru/?type=music"; // LD: my PHP server
+NSString * const RADIO_URL = @"https://classpod.ildd.ru/"; // LD: my PHP server
 
 @interface StudentVC () <AVPlayerViewControllerDelegate>
 {
