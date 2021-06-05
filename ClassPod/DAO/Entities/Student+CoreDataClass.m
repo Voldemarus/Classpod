@@ -8,6 +8,7 @@
 
 #import "Student+CoreDataClass.h"
 #import "DebugPrint.h"
+#import "DAO.h"
 
 
 NSString * const STUDENT_UUID     =   @"Studentuuid";

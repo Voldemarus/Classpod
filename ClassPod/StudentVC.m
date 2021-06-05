@@ -15,9 +15,17 @@
 #import "DebugPrint.h"
 
 
+#warning TEMPORALY link! Edit next time!
 //NSString * const RADIO_URL = @"http://108.163.197.114:8155";
 //NSString * const RADIO_URL = @"https://dl.dropboxusercontent.com/s/jcq74691pet09d9/Chumbawamba%20-%20Tubthumping%20HD.mp3?dl=0";
-NSString * const RADIO_URL = @"https://classpod.ildd.ru/"; // LD: my PHP server
+NSString * const RADIO_URL = @"https://classpod.spintip.com/?type=mymusic"; // LD: my PHP server
+/**
+ Musik in mp3 file must downloded in classpod.spintip.com in folder music
+ After downlodede need delete file music.db in root folder classpod.spintip.com/
+ this file rebuld autocreate index in fierst access from any client
+ but this action best nee after download from teacher iPhone
+ */
+
 
 @interface StudentVC () <AVPlayerViewControllerDelegate>
 {
@@ -194,33 +202,49 @@ uuid:    %@",
 {
     [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
     [self.player play];
+    [buttonPlayStop setImage:[UIImage imageNamed:@"BT_Pause"] forState:UIControlStateNormal];
 }
 
 - (void) turnAudioOff
 {
     [self.player pause];
     [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
+        self.player = nil;
+        self.playerItem = nil;
+//    self.trackDetail.text = @"Waiting play...";
+    [buttonPlayStop setImage:[UIImage imageNamed:@"BT_Play"] forState:UIControlStateNormal];
 }
 
 - (IBAction) playPauseButtonClicked:(id) sender
 {
-    UIButton *button = (UIButton *)sender;
     if (self.player.rate == 0.0) {
         if (!self.player) {
             NSURL *radioURL = [NSURL URLWithString:RADIO_URL];
             self.playerItem = [[AVPlayerItem alloc] initWithURL:radioURL];
+//            AVAsset *asset = [AVAsset assetWithURL:radioURL];
+//            self.playerItem = [AVPlayerItem playerItemWithAsset:asset];// automaticallyLoadedAssetKeys:@[ @"status", @"timedMetadata"]];
+////            AVPlayerItemOutput *output = [[AVPlayerItemOutput alloc] init];
+//
+//            AVPlayerItemMetadataOutput * output = [[AVPlayerItemMetadataOutput alloc] initWithIdentifiers:@[AVMetadataCommonIdentifierTitle, AVMetadataID3MetadataKeyTime]];
+//            [output setDelegate:self queue:dispatch_get_main_queue()];
+//            [self.playerItem addOutput:output];
             self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-         }
+        }
         [self turnAudioOn];
-        [button setImage:[UIImage imageNamed:@"BT_Pause"] forState:UIControlStateNormal];
-//        [button setTitle:@"Pause" forState:UIControlStateNormal];
     } else {
         [self turnAudioOff];
-//        self.trackDetail.text = @"Waiting play...";
-        [button setImage:[UIImage imageNamed:@"BT_Play"] forState:UIControlStateNormal];
-//        [button setTitle:@"Play" forState:UIControlStateNormal];
     }
 }
+//- (void) outputSequenceWasFlushed:(AVPlayerItemOutput *)output
+//{
+//    DLog(@"🐜 outputSequenceWasFlushed:%@", output);
+//}
+//
+//- (void) metadataOutput:(AVPlayerItemMetadataOutput *)output didOutputTimedMetadataGroups:(NSArray<AVTimedMetadataGroup *> *)groups fromPlayerItemTrack:(AVPlayerItemTrack *)track
+//{
+//    DLog(@"🐜 fromPlayerItemTrack:%@", track);
+//}
+ 
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
@@ -233,7 +257,7 @@ uuid:    %@",
             }
         }
     } else {
-        DLog(@"2->meta keyPath  - %@", keyPath);
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

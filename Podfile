@@ -10,23 +10,25 @@ target 'ClassPod' do
 	pod "PubNub", "~> 4"
 	pod "Toast"
 
-  target 'ClassPodDebugTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'ClassPodDebugUITests' do
-    # Pods for testing
-  end
-
-  target 'ClassPodTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'ClassPodUITests' do
-    # Pods for testing
-  end
 
 end
 
+target 'ClassPodDebugTests' do
+  inherit! :search_paths
+  # Pods for testing
+end
+
+target 'ClassPodDebugUITests' do
+  # Pods for testing
+end
+
+target 'ClassPodTests' do
+  inherit! :search_paths
+  pod "PubNub", "~> 4"
+
+  # Pods for testing
+end
+
+target 'ClassPodUITests' do
+  # Pods for testing
+end

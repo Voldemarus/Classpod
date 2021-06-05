@@ -493,6 +493,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3f-Jz-VQp">
+                                <rect key="frame" x="310" y="42" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ТЕСТ!!!"/>
+                                <connections>
+                                    <segue destination="Dcz-oF-v6D" kind="show" id="z8L-RW-5gL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hAz-aZ-viu"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -524,11 +532,11 @@
             <objects>
                 <viewController storyboardIdentifier="StudentVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dcz-oF-v6D" customClass="StudentVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HMV-VD-4X0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wd1-kE-8ME">
-                                <rect key="frame" x="20" y="480.5" width="335" height="142.5"/>
+                                <rect key="frame" x="20" y="460.5" width="335" height="142.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listen/Mute the teachers’ audio stream" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-Wq-NCN">
                                         <rect key="frame" x="10" y="10" width="219.5" height="45.5"/>
@@ -595,7 +603,7 @@ asfas sdgdsgsd</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Laf-He-p90">
-                                <rect key="frame" x="155.5" y="396.5" width="64" height="64"/>
+                                <rect key="frame" x="155.5" y="376.5" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="9CE-UZ-4fz"/>
                                     <constraint firstAttribute="width" constant="64" id="nsg-YE-UvN"/>
@@ -606,7 +614,7 @@ asfas sdgdsgsd</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="url radio" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="55" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJ9-uY-ebU">
-                                <rect key="frame" x="152" y="352.5" width="71.5" height="24"/>
+                                <rect key="frame" x="152" y="332.5" width="71.5" height="24"/>
                                 <color key="backgroundColor" red="0.71335605500089083" green="0.97814417827830802" blue="1" alpha="0.21366652397260275" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -661,6 +669,7 @@ asfas sdgdsgsd</string>
                             <constraint firstItem="Laf-He-p90" firstAttribute="top" secondItem="uJ9-uY-ebU" secondAttribute="bottom" constant="20" id="tqJ-0Y-Zzw"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="xbB-cj-nxc"/>
                     <connections>
                         <outlet property="buttonExit" destination="ohv-JX-eqG" id="eOh-H6-58T"/>
                         <outlet property="buttonPlayStop" destination="Laf-He-p90" id="hDS-UP-4ub"/>
