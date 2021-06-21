@@ -69,6 +69,9 @@
 		1BFB4FA1265E8ADA00DE33E9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */; };
 		25768132E2569D505CBE0F0C /* libPods-ClassPodTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F90F8209A48F3C0C46BFB155 /* libPods-ClassPodTests.a */; };
 		3168CA1ED2DF2460E129F2E3 /* libPods-ClassPodUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E16924E1D3C540E506F7D72 /* libPods-ClassPodUITests.a */; };
+		3202ED4B26809D5D009A3583 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3202ED4926809D5D009A3583 /* Utils.m */; };
+		3202ED5A2680A65B009A3583 /* CellMusic.m in Sources */ = {isa = PBXBuildFile; fileRef = 3202ED592680A65B009A3583 /* CellMusic.m */; };
+		3202ED632680C401009A3583 /* LDWWWTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3202ED612680C401009A3583 /* LDWWWTools.m */; };
 		322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322215A826569B63004A38EE /* SelectTeacherVC.m */; };
 		322216BC265FFFDE004A38EE /* LDRTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 322216BB265FFFDE004A38EE /* LDRTPServer.m */; };
 		322B33D726427DE200ACD371 /* TeacherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33D626427DE200ACD371 /* TeacherVC.m */; };
@@ -189,6 +192,12 @@
 		1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadioTransmitter.m; sourceTree = "<group>"; };
 		1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = in_file.mp3; sourceTree = "<group>"; };
 		1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3202ED4926809D5D009A3583 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		3202ED4A26809D5D009A3583 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		3202ED582680A65B009A3583 /* CellMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellMusic.h; sourceTree = "<group>"; };
+		3202ED592680A65B009A3583 /* CellMusic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellMusic.m; sourceTree = "<group>"; };
+		3202ED612680C401009A3583 /* LDWWWTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDWWWTools.m; sourceTree = "<group>"; };
+		3202ED622680C401009A3583 /* LDWWWTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDWWWTools.h; sourceTree = "<group>"; };
 		322215A726569B63004A38EE /* SelectTeacherVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTeacherVC.h; sourceTree = "<group>"; };
 		322215A826569B63004A38EE /* SelectTeacherVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTeacherVC.m; sourceTree = "<group>"; };
 		32221643265EADFD004A38EE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -409,6 +418,8 @@
 				322B33D626427DE200ACD371 /* TeacherVC.m */,
 				32F4B0E72680904A00BB2DC0 /* PlayListMakerVC.h */,
 				32F4B0E82680904A00BB2DC0 /* PlayListMakerVC.m */,
+				3202ED582680A65B009A3583 /* CellMusic.h */,
+				3202ED592680A65B009A3583 /* CellMusic.m */,
 				3253B980264BF73C00ACA5FE /* CellStudentList.h */,
 				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
 				322215A726569B63004A38EE /* SelectTeacherVC.h */,
@@ -522,6 +533,10 @@
 			isa = PBXGroup;
 			children = (
 				322B33DC2642A6A300ACD371 /* DebugPrint.h */,
+				3202ED4A26809D5D009A3583 /* Utils.h */,
+				3202ED4926809D5D009A3583 /* Utils.m */,
+				3202ED622680C401009A3583 /* LDWWWTools.h */,
+				3202ED612680C401009A3583 /* LDWWWTools.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -915,6 +930,7 @@
 				1B03F1F726454CD5007A9A3A /* GCDAsyncSocket.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
 				322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */,
+				3202ED5A2680A65B009A3583 /* CellMusic.m in Sources */,
 				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
 				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
 				1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */,
@@ -928,10 +944,12 @@
 				32F4B0E92680904A00BB2DC0 /* PlayListMakerVC.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
+				3202ED4B26809D5D009A3583 /* Utils.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
 				322B33D726427DE200ACD371 /* TeacherVC.m in Sources */,
 				1B067FFF2649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
 				1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,
+				3202ED632680C401009A3583 /* LDWWWTools.m in Sources */,
 				32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */,
 				1B0680032649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */,
 				322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */,
