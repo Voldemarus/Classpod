@@ -10,6 +10,7 @@
 #import "ServiceLocator.h"
 #import "RadioTransmitter.h"
 #import "LDRTPServer.h"
+#import "PlayListMakerVC.h"
 
 @interface TeacherVC ()
 <UITableViewDelegate, UITableViewDataSource,
@@ -20,11 +21,14 @@ ServiceLocatorDelegate>
     ServiceLocator *srl;
     NSArray <Student*>* arrayStudents;
     Student * selectedStudent;
+    PlayListMakerVC * playListMakerVC;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableStudents;
 @property (weak, nonatomic) IBOutlet UIButton *buttonMusic;
 @property (weak, nonatomic) IBOutlet UIButton *buttonMicrophone;
+@property (weak, nonatomic) IBOutlet UIButton *buttonPlaylistCreate;
+
 
 @end
 
@@ -82,6 +86,11 @@ ServiceLocatorDelegate>
     
 //    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
 //    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+}
+
+- (IBAction) buttonPlaylistCreatePressed:(id)sender
+{
+    [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"PlayListMakerVC"] animated:NO completion:nil];
 }
 
 - (void) changedStudent:(Student*) student

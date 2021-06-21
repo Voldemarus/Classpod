@@ -171,8 +171,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeF-g5-CMT">
-                                <rect key="frame" x="123" y="40" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="40" y="41" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="RadioBlack"/>
                                 <connections>
                                     <action selector="buttonMusicPressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="vCX-W7-gud"/>
@@ -233,9 +233,9 @@
                                     <action selector="buttonMicrophonePressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="8rv-WA-dQ6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Музыка для отмеченных" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-do-Z40">
-                                <rect key="frame" x="89" y="20" width="196" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-do-Z40">
+                                <rect key="frame" x="63" y="20" width="82" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -254,6 +254,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvh-8c-KnY">
+                                <rect key="frame" x="207" y="49" width="128" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="MusicList"/>
+                                <connections>
+                                    <action selector="buttonPlaylistCreatePressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="Y29-js-6lv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Playlist create" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRo-h0-gfb">
+                                <rect key="frame" x="218" y="20" width="106" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ojp-ij-Wwe"/>
                         <color key="backgroundColor" red="0.84181675226982311" green="0.86594956772857912" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -268,12 +283,39 @@
                     <connections>
                         <outlet property="buttonMicrophone" destination="ACP-ek-sIA" id="lzG-yf-ks8"/>
                         <outlet property="buttonMusic" destination="MeF-g5-CMT" id="kNH-nX-axt"/>
+                        <outlet property="buttonPlaylistCreate" destination="qvh-8c-KnY" id="cvs-BO-Ib4"/>
                         <outlet property="tableStudents" destination="3i5-eA-g9H" id="uKG-ok-WCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXh-l2-h09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="-538.38080959520244"/>
+        </scene>
+        <!--Play List MakerVC-->
+        <scene sceneID="vPV-NZ-WlZ">
+            <objects>
+                <viewController storyboardIdentifier="PlayListMakerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hUf-vm-1Eg" customClass="PlayListMakerVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AC4-Tf-InD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Uu-L1-RiN">
+                                <rect key="frame" x="320" y="20" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closePressed:" destination="hUf-vm-1Eg" eventType="touchUpInside" id="uue-Fp-cJP"/>
+                                    <action selector="closePressed:" destination="vNR-WR-GNK" eventType="touchUpInside" id="zqe-pN-qvU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Klx-BF-Q9L"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mUV-qp-zVU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="-538"/>
         </scene>
         <!--Profile EditVC-->
         <scene sceneID="YTQ-Qw-n1L">
@@ -391,7 +433,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhm-em-tga" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1781.5999999999999" y="-875.71214392803608"/>
+            <point key="canvasLocation" x="972" y="-1268"/>
         </scene>
         <!--Select TeacherVC-->
         <scene sceneID="Sc8-S0-I0I">
@@ -690,6 +732,7 @@ asfas sdgdsgsd</string>
         <image name="CheckOn" width="128" height="128"/>
         <image name="Exit" width="256" height="256"/>
         <image name="MicrophoneRed" width="128" height="128"/>
+        <image name="MusicList" width="256" height="256"/>
         <image name="RadioBlack" width="128" height="128"/>
         <image name="rectangle.and.pencil.and.ellipsis" catalog="system" width="128" height="81"/>
         <systemColor name="labelColor">
