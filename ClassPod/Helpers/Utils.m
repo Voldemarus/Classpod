@@ -9,7 +9,7 @@
 #import <netinet/in.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
 #import <CommonCrypto/CommonDigest.h>
-
+#import "ExtAudioConverter.h"
 
 // Картинка на обложку альбома по умолчанию
 #define IMAGE_ALBUB_TEMPLATE @"CoverAlbumTemlate"
@@ -122,13 +122,35 @@ NSString* mySoundFile(NSString * _Nonnull name)
 //    // *****
     
     // А теперь экспортируем файл
+#ifdef DEBUG
+            NSTimeInterval ti0 = NSDate.date.timeIntervalSince1970;
+#endif
     [exporter exportAsynchronouslyWithCompletionHandler:^{
 
         if (exporter.status == AVAssetExportSessionStatusCompleted) {
-                if (completion) completion(fileName, exportFile);
+#ifdef DEBUG
+            NSTimeInterval ti1 = NSDate.date.timeIntervalSince1970;
+            DLog (@"🐞 Время записи файла из библиотеки:  %.3f", ti1 - ti0);
+#endif
+            ExtAudioConverter* converter = [[ExtAudioConverter alloc] init];
+            converter.inputFile =  exportFile;
+            NSString *exportFileMP3 = [exportFile stringByAppendingPathExtension:@"mp3"];
+            converter.outputFile = exportFileMP3;
+            converter.outputFormatID = kAudioFormatMPEGLayer3;
+            converter.outputFileType = kAudioFileMP3Type;
+            converter.outputBitDepth = BitDepth_16;
+            [converter convert];
+
+#ifdef DEBUG
+            NSTimeInterval ti2 = NSDate.date.timeIntervalSince1970;
+            DLog (@"🐞 Время конвертации файла в MP3:  %.3f", ti2 - ti1);
+            DLog (@"🐞 Время конвертации общее: %.3f", ti2 - ti0);
+#endif
+
+                if (completion) completion(fileName, exportFileMP3);
                 return;
         } else {
-            DLog (@"‼️ Ошибка экспорта фала:  %ld", exporter.status);
+            DLog (@"🐞 Ошибка экспорта фала:  %ld", exporter.status);
             if (completion) completion(nil, nil);
             return;
         }
@@ -136,6 +158,51 @@ NSString* mySoundFile(NSString * _Nonnull name)
     }];
     
 }
+
+//- (void) qqq
+//{
+//    @try
+//    {
+//        int read, write;
+//        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source
+//        fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
+//
+//        mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output
+//        const int PCM_SIZE = 8192*3;
+//        const int MP3_SIZE = 8192*3;
+//        short int pcm_buffer[PCM_SIZE*2];
+//        unsigned char mp3_buffer[MP3_SIZE];
+//
+//        lame_t lame = lame_init();
+//        lame_set_in_samplerate(lame, 11025*2);
+//        lame_set_VBR(lame, vbr_default);
+//        lame_init_params(lame);
+//
+//        int nTotalRead=0;
+//
+//        do {
+//            read = fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
+//
+//            nTotalRead+=read*4;
+//
+//            if (read == 0)
+//                write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
+//            else
+//                write = lame_encode_buffer_interleaved(lame,pcm_buffer, read, mp3_buffer, MP3_SIZE);
+//            // write = lame_encode_buffer(lame, pcm_buffer,pcm_buffer, read, mp3_buffer, MP3_SIZE);
+//
+//            fwrite(mp3_buffer, write, 1, mp3);
+//        } while (read != 0);
+//
+//        lame_close(lame);
+//        fclose(mp3);
+//        fclose(pcm);
+//    }
+//    @catch (NSException *exception)
+//    {
+//        NSLog(@"%@",[exception description]);
+//    }
+//}
 
 #pragma mark - Аудио из медиатеки
 
