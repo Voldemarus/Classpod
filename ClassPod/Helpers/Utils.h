@@ -32,7 +32,7 @@ NSString* mySoundFile(NSString * _Nonnull name);
 // Записать файл из библиотеки локально и обрезать на 30 секунд,
 // в блок вернем имя(не путь!) файла в Library/Sounds/fileName или имя мелодии по умолчанию
 + (void) createMP3FromMediaItem:(MPMediaItem*)song
-                     completion:(void (^)(NSString * _Nullable fileName, NSString * _Nullable fileWithPath))completion;
+                     completion:(void (^)(NSString * _Nullable fileWithPath))completion;
 
 // Картинка обложки песни(или альбома) с заданным размером
 + (UIImage*) imageCoverSong:(MPMediaItem*)song size:(CGSize)size;
@@ -44,8 +44,8 @@ NSString* mySoundFile(NSString * _Nonnull name);
 + (BOOL) hasInternet;
 + (BOOL) hasInternetBezAlerta;
 
-+ (void) alertInfoTitle:(NSString*)title message:(NSString*)message;
-+ (void) alertError:(NSError*)error;
++ (void) alertInfoTitle:(NSString*)title message:(NSString*)message target:(UIViewController* _Nullable)viewController;
++ (void) alertError:(NSError*)error target:(UIViewController* _Nullable)viewController;
 
 // Блок в главном потоке
 + (void) runMainThreadBlock:(void (^)(void))block;

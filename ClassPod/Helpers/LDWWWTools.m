@@ -73,7 +73,7 @@
         ALog(@"🦋 = cursor = %ld ==>%@<==", cursor, otvet);
         
         if ([otvet hasPrefix:@"OK"] && statusCode == 200) {
-            ALog(@"На сервер успешно вызружено %ld из %ld файлов", cursor + lenght, count);
+            ALog(@"🦋 На сервер успешно вызружено %ld из %ld файлов", cursor + lenght, count);
             // увеличить курсор и рекурсивно вызвать себя же
             [self saveToWWWFilesWithUrls:urls cursor:cursor+max error:errorTotal completion:completion];
         } else if ([otvet hasPrefix:@"errorhash"] && statusCode == 200) {

@@ -10,6 +10,8 @@
 #import <SystemConfiguration/SCNetworkReachability.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "ExtAudioConverter.h"
+#import "lame.h"
+
 
 // Картинка на обложку альбома по умолчанию
 #define IMAGE_ALBUB_TEMPLATE @"CoverAlbumTemlate"
@@ -51,15 +53,15 @@ NSString* mySoundFile(NSString * _Nonnull name)
 #pragma mark - Работа с аудио файлом
 
 /*
- Записать файл из библиотеки локально и обрезать на 30 секунд,
+ Записать файл из библиотеки локально (// и обрезать на 30 секунд, - отключено)
  в копмплетион имя валидного файла в Library/Sounds или имя по умолчанию
 */
 
 + (void) createMP3FromMediaItem:(MPMediaItem*)song
-                     completion:(void (^)(NSString * _Nullable fileName, NSString * _Nullable fileWithPath))completion
+                     completion:(void (^)(NSString * _Nullable fileWithPath))completion
 {
     if (!song) {
-        if (completion) completion(nil, nil);
+        if (completion) completion(nil);
         DLog (@"‼️ Song пустой!");
         return;
     }
@@ -76,13 +78,13 @@ NSString* mySoundFile(NSString * _Nonnull name)
     if (openErr) {
 		NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:openErr userInfo:nil];
         DLog (@"‼️ Core Audio не может открыть URL: %@  OSStatus: %@", assetURL, error);
-        if (completion) completion(nil, nil);
+        if (completion) completion(nil);
         return;
     }
 
     if (![[AVAssetExportSession exportPresetsCompatibleWithAsset:songAsset] containsObject:AVAssetExportPresetAppleM4A]) {
         DLog (@"‼️ Недопустимый формат AVAssetExportPresetAppleM4A для songAsset. Доступны только: %@", [AVAssetExportSession exportPresetsCompatibleWithAsset:songAsset]);
-        if (completion) completion(nil, nil);
+        if (completion) completion(nil);
         return;
     }
     
@@ -90,27 +92,20 @@ NSString* mySoundFile(NSString * _Nonnull name)
  
     if (![exporter.supportedFileTypes containsObject:AVFileTypeAppleM4A]) {
         DLog (@"‼️ Недопустимый формат AVFileTypeAppleM4A для exporter. Доступны только: %@", exporter.supportedFileTypes);
-        if (completion) completion(nil, nil);
+        if (completion) completion(nil);
         return;
     }
 
-    exporter.outputFileType = AVFileTypeAppleM4A; // AVFileTypeMPEGLayer3 // AVFileTypeAppleM4A
+    exporter.outputFileType = AVFileTypeAppleM4A; // AVFileTypeMPEGLayer3 - запрещен эплом
     
-    // TODO: файл с расширением .mp3 не записывается! защита эпл:)))
-    NSString *fileName = [NSString stringWithFormat:@"%llu", song.persistentID];// NSUUID.UUID.UUIDString;
-    if (fileName.length < 1) {
-        DLog (@"‼️ Не верный persistentID: %llu", song.persistentID);
-        if (completion) completion(nil, nil);
-        return;
-    }
-    NSString *exportFile = mySoundFile(fileName);
+    NSString *fileM4A = mySoundFile(@"exportTempFileM4A");
     NSFileManager *fm = NSFileManager.defaultManager;
-    if ([fm fileExistsAtPath:exportFile]) {
-        DLog (@"Файл был, удалим его: %@", fileName);
-        [fm removeItemAtPath:exportFile error:nil];
+    if ([fm fileExistsAtPath:fileM4A]) {
+        // DLog (@"Файл был, удалим его: %@", fileName);
+        [fm removeItemAtPath:fileM4A error:nil];
     }
     
-    exporter.outputURL = [NSURL fileURLWithPath:exportFile];
+    exporter.outputURL = [NSURL fileURLWithPath:fileM4A];
     
 //    // **** Обрезать файл до 30 секунд
 //    float startTrimTime = 0; // mySlider.leftValue;
@@ -125,7 +120,17 @@ NSString* mySoundFile(NSString * _Nonnull name)
 #ifdef DEBUG
             NSTimeInterval ti0 = NSDate.date.timeIntervalSince1970;
 #endif
+    
+    NSString *persistentID = [NSString stringWithFormat:@"%llu", song.persistentID];// NSUUID.UUID.UUIDString;
+    if (persistentID.length < 1) {
+        DLog (@"‼️ Не верный persistentID: %llu", song.persistentID);
+        if (completion) completion(nil);
+        return;
+    }
+    NSString *fileMP3 = mySoundFile(persistentID);
+
     [exporter exportAsynchronouslyWithCompletionHandler:^{
+        // TODO: файл с расширением .mp3 не записывается в exportAsynchronouslyWithCompletionHandler! защита эпл:)))
 
         if (exporter.status == AVAssetExportSessionStatusCompleted) {
 #ifdef DEBUG
@@ -133,12 +138,14 @@ NSString* mySoundFile(NSString * _Nonnull name)
             DLog (@"🐞 Время записи файла из библиотеки:  %.3f", ti1 - ti0);
 #endif
             ExtAudioConverter* converter = [[ExtAudioConverter alloc] init];
-            converter.inputFile =  exportFile;
-            NSString *exportFileMP3 = [exportFile stringByAppendingPathExtension:@"mp3"];
-            converter.outputFile = exportFileMP3;
+            converter.inputFile =  fileM4A;
+            converter.outputFile = fileMP3;
             converter.outputFormatID = kAudioFormatMPEGLayer3;
             converter.outputFileType = kAudioFileMP3Type;
             converter.outputBitDepth = BitDepth_16;
+            // 🐞 Время записи файла из библиотеки:  0.792
+            // 🐞 Время конвертации файла в MP3:  11.189
+            // 🐞 Время конвертации общее: 11.981
             [converter convert];
 
 #ifdef DEBUG
@@ -147,64 +154,17 @@ NSString* mySoundFile(NSString * _Nonnull name)
             DLog (@"🐞 Время конвертации общее: %.3f", ti2 - ti0);
 #endif
 
-                if (completion) completion(fileName, exportFileMP3);
-                return;
+            if (completion) completion(fileMP3);
+            return;
         } else {
             DLog (@"🐞 Ошибка экспорта фала:  %ld", exporter.status);
-            if (completion) completion(nil, nil);
+            if (completion) completion(nil);
             return;
         }
         
     }];
     
 }
-
-//- (void) qqq
-//{
-//    @try
-//    {
-//        int read, write;
-//        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source
-//        fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
-//
-//        mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output
-//        const int PCM_SIZE = 8192*3;
-//        const int MP3_SIZE = 8192*3;
-//        short int pcm_buffer[PCM_SIZE*2];
-//        unsigned char mp3_buffer[MP3_SIZE];
-//
-//        lame_t lame = lame_init();
-//        lame_set_in_samplerate(lame, 11025*2);
-//        lame_set_VBR(lame, vbr_default);
-//        lame_init_params(lame);
-//
-//        int nTotalRead=0;
-//
-//        do {
-//            read = fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
-//
-//            nTotalRead+=read*4;
-//
-//            if (read == 0)
-//                write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
-//            else
-//                write = lame_encode_buffer_interleaved(lame,pcm_buffer, read, mp3_buffer, MP3_SIZE);
-//            // write = lame_encode_buffer(lame, pcm_buffer,pcm_buffer, read, mp3_buffer, MP3_SIZE);
-//
-//            fwrite(mp3_buffer, write, 1, mp3);
-//        } while (read != 0);
-//
-//        lame_close(lame);
-//        fclose(mp3);
-//        fclose(pcm);
-//    }
-//    @catch (NSException *exception)
-//    {
-//        NSLog(@"%@",[exception description]);
-//    }
-//}
-
-#pragma mark - Аудио из медиатеки
 
 // Картинка обложки песни(или альбома) с заданным размером
 + (UIImage*) imageCoverSong:(MPMediaItem*)song size:(CGSize)size
@@ -246,14 +206,13 @@ NSString* mySoundFile(NSString * _Nonnull name)
     
 }
 
+#pragma mark -
+
 + (BOOL) hasInternet
 {
     BOOL otvet  = [Utils hasInternetBezAlerta];
     if (!otvet) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка сети" message:[NSString stringWithFormat:@"Интернет недоступен. Если используется Сотовая сеть, то проверьте, разрешено ли программе ее использовать в настройке телефона(планшета) (нажмите кнопку \"Home\", найдите иконку \"Настройки\", далее: \"Сотовые данные\", найдите группу \"Сотовые данные для ПО\" и включите переключатель для программы %@)", NSBundle.mainBundle.infoDictionary[@"CFBundleName"]] preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        }]];
-        [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        [self alertInfoTitle:RStr(@"Network error") message:[NSString stringWithFormat:@"Интернет недоступен. Если используется Сотовая сеть, то проверьте, разрешено ли программе ее использовать в настройке телефона(планшета) (нажмите кнопку \"Home\", найдите иконку \"Настройки\", далее: \"Сотовые данные\", найдите группу \"Сотовые данные для ПО\" и включите переключатель для программы %@)", NSBundle.mainBundle.infoDictionary[@"CFBundleName"]] target:nil];
     }
     return otvet;
 }
@@ -272,19 +231,32 @@ NSString* mySoundFile(NSString * _Nonnull name)
     return ( (flags & kSCNetworkFlagsReachable) && !(flags & kSCNetworkFlagsConnectionRequired) ) ? YES : NO;
 }
 
-+ (void) alertInfoTitle:(NSString*)title message:(NSString*)message
++ (void) alertInfoTitle:(NSString*)title message:(NSString*)message target:(UIViewController* _Nullable)viewController
 {
     [self runMainThreadBlock:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:RStr(@"Close") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         }]];
-        [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+                
+        id rootViewController = viewController;
+        if (!viewController) {
+            rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
+            if ([rootViewController isKindOfClass:UITabBarController.class]) {
+                rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
+            } else if ([rootViewController isKindOfClass:UINavigationController.class]) {
+                rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
+            } else {
+                DLog(@"‼️ Не верный контроллер для отображения алерта");
+            }
+        }
+        
+        [rootViewController presentViewController:alertController animated:YES completion:nil];
     }];
 }
 
-+ (void) alertError:(NSError*)error
++ (void) alertError:(NSError*)error target:(UIViewController* _Nullable)viewController
 {
-    [self alertInfoTitle:RStr(@"Error") message:error.localizedDescription];
+    [self alertInfoTitle:RStr(@"Error") message:error.localizedDescription target:viewController];
 }
 
 // Блок в главном потоке

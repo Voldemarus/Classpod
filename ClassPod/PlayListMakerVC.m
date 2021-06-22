@@ -97,9 +97,9 @@ MPMediaPickerControllerDelegate>
         
         DLog(@"\n🐝 title: %llu\n🐝 title: %@\n🐝 artist: %@\n🐝 album: %@", song.persistentID, song.title, song.artist, song.albumTitle);
         
-        [Utils createMP3FromMediaItem:song completion:^(NSString * _Nullable fileName, NSString * _Nullable fileWithPath) {
+        [Utils createMP3FromMediaItem:song completion:^(NSString * _Nullable fileWithPath) {
 
-            DLog(@"🐝 файл: %@,  %@(%@)", fileName, song.title, song.artist );
+            DLog(@"🐝 файл: %@,  %@(%@)", fileWithPath, song.title, song.artist );
 
 //            self.wakeUp.alarmMelody = filName;
 //            self.wakeUp.alarmMelodyPersistentID = song.persistentID;
@@ -130,19 +130,20 @@ MPMediaPickerControllerDelegate>
         NSString *fileWithPath =  mySoundFile([NSString stringWithFormat:@"%llu", arrayMediaItems[i].persistentID]);
         NSURL *url = [NSURL fileURLWithPath:fileWithPath];
         if (url && [NSFileManager.defaultManager fileExistsAtPath:fileWithPath]) {
-            DLog(@"‼️ файл: %@  %@", fileWithPath, url);
+            DLog(@"🦋 добавлен файл: %@", url.lastPathComponent);
             [urls addObject:url];
         }
     }
-    DLog(@"‼️ Выгрузка на сайт файлов: %ld", urls.count);
+    DLog(@"🦋 Выгрузка на сайт файлов: %ld", urls.count);
     
     [LDWWWTools.sharedInstance saveToWWWFilesWithUrls:urls cursor:0 error:nil completion:^(NSError *error) {
         
         if (error) {
             DLog(@"‼️ Ошибка выгрузки прайса");
-            [Utils alertError:error];
+            [Utils alertError:error target:self];
         } else {
-            [Utils alertInfoTitle:RStr(@"Upload audio completed") message:[NSString stringWithFormat:RStr(@"All audio files uploaded to server")]];
+            ALog(@"🦋 Выгрузка всех файлов на сервер завершена. ‼️ Теперь надо уведомить девайсы учеников перезапустить плеер");
+            [Utils alertInfoTitle:RStr(@"Upload audio completed") message:[NSString stringWithFormat:RStr(@"All audio files uploaded to server")] target:self];
         }
 
     }];
