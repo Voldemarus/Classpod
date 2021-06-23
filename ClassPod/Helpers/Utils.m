@@ -58,7 +58,7 @@ NSString* mySoundFile(NSString * _Nonnull name)
 */
 
 + (void) createMP3FromMediaItem:(MPMediaItem*)song
-                     completion:(void (^)(NSString * _Nullable fileWithPath))completion
+                     completion:(void (^ _Nullable)(NSString * _Nullable fileWithPath))completion
 {
     if (!song) {
         if (completion) completion(nil);
@@ -163,6 +163,46 @@ NSString* mySoundFile(NSString * _Nonnull name)
         
     }];
     
+}
+
++ (void) createMP3FromMediaItems:(NSArray <MPMediaItem*>* _Nullable)arraySongs
+                blockCurrentFile:(void (^ _Nullable)(NSString * _Nullable fileWithPath))blockCurrentFile
+                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls))completion
+{
+    __block NSInteger count = arraySongs.count;
+    NSMutableArray <NSURL*>* urls = [NSMutableArray new];
+    
+    if (count < 1) {
+        if (completion) completion(urls);
+        return;
+    }
+    
+    for (NSInteger i = 0; i < arraySongs.count; i++) {
+       
+        MPMediaItem * song = arraySongs[i];
+        
+        [self createMP3FromMediaItem:song completion:^(NSString * _Nullable fileWithPath) {
+            
+            if (blockCurrentFile) blockCurrentFile(fileWithPath);
+            
+            if (fileWithPath) {
+                NSURL *url = [NSURL fileURLWithPath:fileWithPath];
+                if (url) {
+                    [urls addObject:url];
+                } else {
+                    count--;
+                }
+            } else {
+                count--;
+            }
+            
+            if (urls.count >= count) {
+                if (completion) completion(urls);
+            }
+            
+        }];
+        
+    }
 }
 
 // Картинка обложки песни(или альбома) с заданным размером

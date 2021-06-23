@@ -23,6 +23,7 @@ MPMediaPickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *buttonMusicSelect;
 @property (weak, nonatomic) IBOutlet UIButton *buttonUpload;
 @property (weak, nonatomic) IBOutlet UITableView *tableMusic;
+@property (weak, nonatomic) IBOutlet UIView *activityView;
 
 @end
 
@@ -31,6 +32,8 @@ MPMediaPickerControllerDelegate>
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    self.tableMusic.editing = YES;
+    self.activityView.alpha = 0.0;
 }
 
 - (IBAction) closePressed:(id)sender
@@ -69,6 +72,46 @@ MPMediaPickerControllerDelegate>
     //
 }
 
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(nonnull NSIndexPath *)fromIndexPath toIndexPath:(nonnull NSIndexPath *)toIndexPath
+{
+    
+//    if (fromIndexPath && toIndexPath) {
+        MPMediaItem *item = arrayMediaItems[fromIndexPath.row];
+        
+        [arrayMediaItems removeObject:item];
+        [arrayMediaItems insertObject:item atIndex:toIndexPath.row];
+//    }
+    
+    
+    
+}
+
+- (UISwipeActionsConfiguration*) tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:RStr(@"Delete") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+//        MPMediaItem *item = arrayMediaItems[indexPath.row];
+        [arrayMediaItems removeObjectAtIndex:row];
+        [self.tableMusic reloadData];
+        
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    
+    UISwipeActionsConfiguration *swipeActions = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    swipeActions.performsFirstActionWithFullSwipe = NO;
+    return swipeActions;
+}
+
 #pragma mark - Выбор треков для плейлиста
 
 - (IBAction) selectMusicPressed:(id)sender
@@ -86,28 +129,7 @@ MPMediaPickerControllerDelegate>
 - (void) mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
     arrayMediaItems = mediaItemCollection.items.mutableCopy;
-    
-//    if (arrayMediaItems .count < 1) {
-//        return;
-//    }
-    
-    for (NSInteger i = 0; i < arrayMediaItems.count; i++) {
         
-        MPMediaItem *song = arrayMediaItems[i];
-        
-        DLog(@"\n🐝 persistentID: %llu\n🐝 title: %@\n🐝 artist: %@\n🐝 album: %@", song.persistentID, song.title, song.artist, song.albumTitle);
-        
-        [Utils createMP3FromMediaItem:song completion:^(NSString * _Nullable fileWithPath) {
-
-            DLog(@"🐝 файл: %@,  %@(%@)", fileWithPath.lastPathComponent, song.title, song.artist );
-
-//            self.wakeUp.alarmMelody = filName;
-//            self.wakeUp.alarmMelodyPersistentID = song.persistentID;
-
-        }];
-        
-    }
-    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.tableMusic reloadData];
@@ -119,21 +141,45 @@ MPMediaPickerControllerDelegate>
     
     DLog(@"🐝 mediaPickerDidCancel %@", mediaPicker);
 
-    [self dismissViewControllerAnimated:YES completion:nil ];
-    //CODE
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction) buttonUploadPressed:(id)sender
 {
-    NSMutableArray <NSURL *>* urls = [NSMutableArray new];
+    
+    DLog(@"🐝 Запуск конвертирования %ld файлов", arrayMediaItems.count);
+    
+    self.activityView.alpha = 1.0;
+    
+#warning need Edit!
+        // TODO: На сервер надо так же передать плейлист по образу из php
+        //       пока он создается на сервере и не учитывает последовательность в папке ./music/
+
+    NSMutableSet <MPMediaItem *>* tempSet = [NSMutableSet new];
+    NSMutableArray <MPMediaItem *>* newArray = [NSMutableArray new];
     for (NSInteger i = 0; i < arrayMediaItems.count; i++) {
-        NSString *fileWithPath =  mySoundFile([NSString stringWithFormat:@"%llu", arrayMediaItems[i].persistentID]);
-        NSURL *url = [NSURL fileURLWithPath:fileWithPath];
-        if (url && [NSFileManager.defaultManager fileExistsAtPath:fileWithPath]) {
-            DLog(@"🦋 добавлен файл: %@", url.lastPathComponent);
-            [urls addObject:url];
+        MPMediaItem * obj = arrayMediaItems[i];
+        if (![tempSet containsObject:obj]) {
+            [tempSet addObject:obj];
+            [newArray addObject:obj];
         }
     }
+    
+    [Utils createMP3FromMediaItems:newArray blockCurrentFile:^(NSString * _Nullable fileWithPath) {
+    
+        DLog(@"🦋 добавлен файл: %@", fileWithPath.lastPathComponent);
+        
+    } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls) {
+        
+        DLog(@"🐝 готовы все %ld из %ld%@", arrayUrls.count, newArray.count, arrayUrls.count != newArray.count ? @" ‼️ Не все обработались ‼️":@"");
+        
+
+        [self uploadUrls:arrayUrls];
+    }];
+}
+
+- (void) uploadUrls:(NSArray*)urls
+{
     DLog(@"🦋 Выгрузка на сайт файлов: %ld", urls.count);
     
     [LDWWWTools.sharedInstance saveToWWWFilesWithUrls:urls cursor:0 error:nil completion:^(NSError *error) {
@@ -142,6 +188,10 @@ MPMediaPickerControllerDelegate>
             DLog(@"‼️ Ошибка выгрузки прайса");
             [Utils alertError:error target:self];
         } else {
+            [Utils runMainThreadBlock:^{
+                self.activityView.alpha = 0.0;
+            }];
+            
             ALog(@"🦋 Выгрузка всех файлов на сервер завершена. ‼️ Теперь надо уведомить девайсы учеников перезапустить плеер");
             [Utils alertInfoTitle:RStr(@"Upload audio completed") message:[NSString stringWithFormat:RStr(@"All audio files uploaded to server")] target:self];
         }
