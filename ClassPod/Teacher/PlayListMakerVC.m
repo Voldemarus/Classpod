@@ -95,11 +95,11 @@ MPMediaPickerControllerDelegate>
         
         MPMediaItem *song = arrayMediaItems[i];
         
-        DLog(@"\n🐝 title: %llu\n🐝 title: %@\n🐝 artist: %@\n🐝 album: %@", song.persistentID, song.title, song.artist, song.albumTitle);
+        DLog(@"\n🐝 persistentID: %llu\n🐝 title: %@\n🐝 artist: %@\n🐝 album: %@", song.persistentID, song.title, song.artist, song.albumTitle);
         
         [Utils createMP3FromMediaItem:song completion:^(NSString * _Nullable fileWithPath) {
 
-            DLog(@"🐝 файл: %@,  %@(%@)", fileWithPath, song.title, song.artist );
+            DLog(@"🐝 файл: %@,  %@(%@)", fileWithPath.lastPathComponent, song.title, song.artist );
 
 //            self.wakeUp.alarmMelody = filName;
 //            self.wakeUp.alarmMelodyPersistentID = song.persistentID;

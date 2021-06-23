@@ -413,6 +413,8 @@
 				322B33DD2642A7A300ACD371 /* PrefixHeader.pch */,
 				322B33DB2642A68E00ACD371 /* Helpers */,
 				322B34002642B44500ACD371 /* Prefs */,
+				3287CD9C268306650096D2CE /* Teacher */,
+				3287CDB52683069D0096D2CE /* Student */,
 				1BB03ADE2640628A00B6096F /* AppDelegate.h */,
 				1BB03ADF2640628A00B6096F /* AppDelegate.m */,
 				1BB03AE12640628A00B6096F /* SceneDelegate.h */,
@@ -421,20 +423,6 @@
 				1BB03AE52640628A00B6096F /* ViewController.m */,
 				1BB03AE72640628B00B6096F /* Main.storyboard */,
 				1BB03AED2640628D00B6096F /* Assets.xcassets */,
-				322B33D526427DE200ACD371 /* TeacherVC.h */,
-				322B33D626427DE200ACD371 /* TeacherVC.m */,
-				32F4B0E72680904A00BB2DC0 /* PlayListMakerVC.h */,
-				32F4B0E82680904A00BB2DC0 /* PlayListMakerVC.m */,
-				3202ED582680A65B009A3583 /* CellMusic.h */,
-				3202ED592680A65B009A3583 /* CellMusic.m */,
-				3253B980264BF73C00ACA5FE /* CellStudentList.h */,
-				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
-				322215A726569B63004A38EE /* SelectTeacherVC.h */,
-				322215A826569B63004A38EE /* SelectTeacherVC.m */,
-				322B33ED2642ADE000ACD371 /* StudentVC.h */,
-				322B33EE2642ADE000ACD371 /* StudentVC.m */,
-				3253B986264BFE2500ACA5FE /* CellTecherList.h */,
-				3253B987264BFE2500ACA5FE /* CellTecherList.m */,
 				1BB03AEF2640628D00B6096F /* LaunchScreen.storyboard */,
 				1BB03AF22640628D00B6096F /* Info.plist */,
 				1BB03AF32640628D00B6096F /* main.m */,
@@ -573,6 +561,34 @@
 				32788CAE264C22D900FC087E /* ProfileEditVC.m */,
 			);
 			path = Prefs;
+			sourceTree = "<group>";
+		};
+		3287CD9C268306650096D2CE /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				322B33D526427DE200ACD371 /* TeacherVC.h */,
+				322B33D626427DE200ACD371 /* TeacherVC.m */,
+				32F4B0E72680904A00BB2DC0 /* PlayListMakerVC.h */,
+				32F4B0E82680904A00BB2DC0 /* PlayListMakerVC.m */,
+				3202ED582680A65B009A3583 /* CellMusic.h */,
+				3202ED592680A65B009A3583 /* CellMusic.m */,
+				3253B980264BF73C00ACA5FE /* CellStudentList.h */,
+				3253B981264BF73C00ACA5FE /* CellStudentList.m */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		3287CDB52683069D0096D2CE /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				322215A726569B63004A38EE /* SelectTeacherVC.h */,
+				322215A826569B63004A38EE /* SelectTeacherVC.m */,
+				322B33ED2642ADE000ACD371 /* StudentVC.h */,
+				322B33EE2642ADE000ACD371 /* StudentVC.m */,
+				3253B986264BFE2500ACA5FE /* CellTecherList.h */,
+				3253B987264BFE2500ACA5FE /* CellTecherList.m */,
+			);
+			path = Student;
 			sourceTree = "<group>";
 		};
 		32EC1C682666591F003BB7DF /* PHP Streeming Server */ = {

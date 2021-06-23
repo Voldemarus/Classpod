@@ -113,16 +113,17 @@ ServiceLocatorDelegate
 
 - (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
 {
-    DLog(@">>> New Abbonent  connected to the class!");
+    DLog(@"👩🏻‍🎓 New Abbonent  connected to the class, port: %hu", newSocket.connectedPort);
 }
 
 - (void) abonentDisconnected:(NSError *)error
 {
-    DLog(@"Abonent disconnected %@", error ? [NSString stringWithFormat:@"\nError on disconnectig - %@", error.localizedDescription] : @"");
+    DLog(@"👩🏻‍🎓 Abonent disconnected %@", error ? [NSString stringWithFormat:@"\nError on disconnectig - %@", error.localizedDescription] : @"");
 }
 
 - (void) didChangedServises:(NSArray<NSNetService *> *)serviceS
 {
+    DLog(@"👩🏻‍🎓 didChangedServises numbers: withServise: %ld", serviceS.count);
 
     [arrayTeachers removeAllObjects];
     
@@ -140,8 +141,10 @@ ServiceLocatorDelegate
 
 - (void) didChangeTXTRecordData:(NSData *)data withServise:(NSNetService *)service
 {
-    Teacher *teacher = [Teacher getOrCgeateWithService:service withTXTData:data inMoc:dao.moc];
+    DLog(@"👩🏻‍🎓 didChangeTXTRecordData withServise: %@", service.name);
     
+    Teacher *teacher = [Teacher getOrCgeateWithService:service withTXTData:data inMoc:dao.moc];
+
     NSInteger row = [arrayTeachers indexOfObject:teacher];
     if (row != NSNotFound) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];

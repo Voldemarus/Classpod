@@ -98,7 +98,15 @@ NSString* mySoundFile(NSString * _Nonnull name)
 
     exporter.outputFileType = AVFileTypeAppleM4A; // AVFileTypeMPEGLayer3 - запрещен эплом
     
-    NSString *fileM4A = mySoundFile(@"exportTempFileM4A");
+    NSString *persistentID = [NSString stringWithFormat:@"%llu", song.persistentID];// NSUUID.UUID.UUIDString;
+    if (persistentID.length < 1) {
+        DLog (@"‼️ Не верный persistentID: %llu", song.persistentID);
+        if (completion) completion(nil);
+        return;
+    }
+    NSString *fileMP3 = mySoundFile(persistentID);
+
+    NSString *fileM4A = [fileMP3 stringByAppendingString:@"_tempExport"];
     NSFileManager *fm = NSFileManager.defaultManager;
     if ([fm fileExistsAtPath:fileM4A]) {
         // DLog (@"Файл был, удалим его: %@", fileName);
@@ -121,14 +129,6 @@ NSString* mySoundFile(NSString * _Nonnull name)
             NSTimeInterval ti0 = NSDate.date.timeIntervalSince1970;
 #endif
     
-    NSString *persistentID = [NSString stringWithFormat:@"%llu", song.persistentID];// NSUUID.UUID.UUIDString;
-    if (persistentID.length < 1) {
-        DLog (@"‼️ Не верный persistentID: %llu", song.persistentID);
-        if (completion) completion(nil);
-        return;
-    }
-    NSString *fileMP3 = mySoundFile(persistentID);
-
     [exporter exportAsynchronouslyWithCompletionHandler:^{
         // TODO: файл с расширением .mp3 не записывается в exportAsynchronouslyWithCompletionHandler! защита эпл:)))
 
@@ -153,13 +153,12 @@ NSString* mySoundFile(NSString * _Nonnull name)
             DLog (@"🐞 Время конвертации файла в MP3:  %.3f", ti2 - ti1);
             DLog (@"🐞 Время конвертации общее: %.3f", ti2 - ti0);
 #endif
+            [fm removeItemAtPath:fileM4A error:nil];
 
             if (completion) completion(fileMP3);
-            return;
         } else {
             DLog (@"🐞 Ошибка экспорта фала:  %ld", exporter.status);
             if (completion) completion(nil);
-            return;
         }
         
     }];

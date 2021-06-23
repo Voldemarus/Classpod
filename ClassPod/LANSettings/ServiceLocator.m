@@ -214,13 +214,14 @@ NSString * const VVVserviceDomain   =   @"local.";
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
+    DLog(@"Accepted the new socked");
+    
     self.socket = newSocket;
 
     [self.socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0f tag:0];
     if (self.delegate && [self.delegate respondsToSelector:@selector(newAbonentConnected:)]) {
         [self.delegate newAbonentConnected:newSocket];
     }
-     NSLog(@"Accepted the new socked");
 }
 
 - (void) socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
@@ -249,7 +250,7 @@ NSString * const VVVserviceDomain   =   @"local.";
         NSString *teacherUUID = nil;
         Student *student = [dao studentWithData:dataBuffer forTeacher:&teacherUUID];
         if (student) {
-            NSLog(@"Student request accepted - %@", student);
+            DLog(@"Student request accepted - %@", student);
             student.socket = sock;
             // process student here
             [NSNotificationCenter.defaultCenter postNotificationName:@"ОбновилсяСтудент" object:student];

@@ -22,6 +22,7 @@ ServiceLocatorDelegate>
     NSArray <Student*>* arrayStudents;
     Student * selectedStudent;
     PlayListMakerVC * playListMakerVC;
+    BOOL musicPlaying;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableStudents;
@@ -40,6 +41,8 @@ ServiceLocatorDelegate>
     
     dao = [DAO sharedInstance];
     prefs = [Preferences sharedPreferences];
+    
+    musicPlaying = NO;
 
     srl = [ServiceLocator sharedInstance];
     [srl stopService];
@@ -55,11 +58,20 @@ ServiceLocatorDelegate>
     [self reloadAllStudents];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [srl stopService];
+    srl = nil;
+    [super viewWillDisappear:animated];
+}
+
 - (void) reloadAllStudents
 {
     arrayStudents = [dao studentsForCurrentTeacherOnlyConnected:YES];
     [self.tableStudents reloadData];
 }
+
+#pragma mark - Button actions
 
 - (IBAction) buttonMicrophonePressed:(id)sender
 {
@@ -68,24 +80,37 @@ ServiceLocatorDelegate>
 
 - (IBAction) buttonMusicPressed:(id)sender
 {
-    if (!selectedStudent) {
-        DLog(@"Нет Выбранного студента!");
+//    if (!selectedStudent) {
+//        DLog(@"Нет Выбранного студента!");
+//    }
+    
+    musicPlaying = !musicPlaying;
+    
+    NSString * imageName = musicPlaying ? @"RadioBlack" : @"RadioBlackOff";
+    [self.buttonMusic setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    
+    for (Student * student in arrayStudents) {
+        // Послать сообщение студенту на воспроизведение/остановку музыки
+        NSData *dataPlay = [dao packetDataPlayMusic:musicPlaying];
+        [student.socket writeData:dataPlay withTimeout:-1.0f tag:0];
     }
-
-#warning ! Need edit selected student
-    Student *student = selectedStudent;
-    UInt32 port = student.socket.connectedPort;
-//    UInt32 port = 51001;
-//    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
-    DLog(@"🐝 button Music Pressed");
-    LDRTPServer *server = LDRTPServer.sharedRTPServer;
     
-    [server initialSocketPort:port];
-    [server open];
 
-    
-//    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
-//    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+//
+//#warning ! Need edit selected student
+//    Student *student = selectedStudent;
+//    UInt32 port = student.socket.connectedPort;
+////    UInt32 port = 51001;
+////    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
+//    DLog(@"🐝 button Music Pressed");
+//    LDRTPServer *server = LDRTPServer.sharedRTPServer;
+//
+//    [server initialSocketPort:port];
+//    [server open];
+//
+//
+////    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
+////    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
 }
 
 - (IBAction) buttonPlaylistCreatePressed:(id)sender
@@ -98,7 +123,7 @@ ServiceLocatorDelegate>
     [self reloadAllStudents];
 }
 
-#pragma mark Table methods
+#pragma mark - Table methods
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -137,7 +162,7 @@ ServiceLocatorDelegate>
 {
     Student *student = notif.object;
 
-    DLog(@">>> Notif @\"ОбновилсяСтудент\" recaved servise: [%@]" , student.name);
+    DLog(@"🍏 Notif @\"ОбновилсяСтудент\" recaved servise: [%@]" , student.name);
 
     if (student) {
         NSInteger row = [arrayStudents indexOfObject:student];
@@ -154,19 +179,19 @@ ServiceLocatorDelegate>
 
 - (void) newAbonentConnected:(GCDAsyncSocket *)newSocket
 {
-    DLog(@">>> New Abbonent  connected to the class!");
+    DLog(@"🍏 New Abbonent  connected to the class! socket port: %hu", newSocket.localPort);
 }
 
 - (void) abonentDisconnected:(NSError *)error
 {
-    DLog(@"Abonent disconnected wish Message: %@", error.localizedDescription);
+    DLog(@"🍏 Abonent disconnected wish Message: %@", error.localizedDescription);
     
     [self reloadAllStudents];
 }
 
 - (void) didChangedServises:(NSArray<NSNetService *> *)serviceS
 {
-    DLog(@">>> didChangedServises: [%ld]", serviceS.count);
+    DLog(@"🍏 didChangedServises: [%ld]", serviceS.count);
 
 //    [arrayTeachers removeAllObjects];
 //
@@ -184,7 +209,7 @@ ServiceLocatorDelegate>
 
 - (void) didChangeTXTRecordData:(NSData *)data withServise:(NSNetService *)service
 {
-    DLog(@">>> didChangeTXTRecordData withServise name: [%@]", service.name);
+    DLog(@"🍏 didChangeTXTRecordData withServise name: [%@]", service.name);
     
     Student *student = [Student getFromUuidInTXTData:data inMoc:dao.moc];
     

@@ -27,7 +27,10 @@ NSString * const RADIO_URL = @"https://classpod.spintip.com/?type=mymusic"; // L
  */
 
 
-@interface StudentVC () <AVPlayerViewControllerDelegate>
+@interface StudentVC () <
+AVPlayerViewControllerDelegate,
+ServiceLocatorDelegate
+>
 {
     DAO *dao;
     Preferences *prefs;
@@ -105,13 +108,17 @@ uuid:    %@",
 - (void) serviceDidResolveAddress:(NSNotification*)notif
 {
     NSNetService *service = notif.object;
+    if (![service isKindOfClass:NSNetService.class]) {
+        DLog(@"serviceDidResolveAddress not valid object!");
+    }
+    DLog(@"serviceDidResolveAddress %@: %@", service.name, service.addresses);
     [self connectWithService:service];
 }
 
 - (BOOL) connectWithService:(NSNetService*)service
 {
 
-    DLog(@"netServiceDidResolveAddress %@: %@", service.name, service.addresses);
+    DLog(@"connectWithService %@: %@", service.name, service.addresses);
 
     NSString *name = service.name;
     if (service.name.length < 1) {

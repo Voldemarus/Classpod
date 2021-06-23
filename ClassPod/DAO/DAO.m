@@ -254,5 +254,22 @@
     return student;
 }
 
+/**
+ Send play/stop command to student
+ */
+- (NSData *) packetDataPlayMusic:(BOOL)playMusic
+{
+    NSDictionary *d = @{
+        STUDENT_PLAYMUSIC   :   @(playMusic),
+    };
+    NSError *error = nil;
+    NSData *packedData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&error];
+    if (error) {
+        DLog(@"cannot pack data - %@",d);
+        DLog(@"Error returned - %@", [error localizedDescription]);
+        return nil;
+    }
+    return packedData;
+}
 
 @end

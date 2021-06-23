@@ -21,6 +21,8 @@ static NSString * const TEACHER_RATE       =   @"hourRate";
 static NSString * const TEACHER_NOTE       =   @"note";
 static NSString * const TEACHER_COURSENAME =   @"courseName";
 
+static NSString * const STUDENT_PLAYMUSIC  =   @"playMusic";
+
 @interface DAO : NSObject
 
 @property (readonly, strong) NSPersistentContainer * persistentContainer; // Хранилище
@@ -58,6 +60,13 @@ static NSString * const TEACHER_COURSENAME =   @"courseName";
 // Получить или создать "студента" как свое устройство в префах. Для совместимости?
 //
 - (Student*) getOrCreateStudetnSelf;
+
+#pragma mark - Data for send commands
+
+/**
+ Send play/stop command to student
+ */
+- (NSData *) packetDataPlayMusic:(BOOL)playMusic;
 
 #pragma mark - Unified methods
 
