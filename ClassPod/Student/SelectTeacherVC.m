@@ -56,6 +56,12 @@ ServiceLocatorDelegate
     [self reloadAllTeachers];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [srl stopBrowsing];
+    srl = nil;
+    [super viewWillDisappear:animated];
+}
 - (void) reloadAllTeachers
 {
         arrayTeachers = [dao teachersListWithService].mutableCopy;

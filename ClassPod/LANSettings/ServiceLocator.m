@@ -103,6 +103,11 @@ NSString * const VVVserviceDomain   =   @"local.";
     [self.browser searchForServicesOfType:VVVServiceType inDomain:VVVserviceDomain];
 }
 
+- (void) stopBrowsing
+{
+    [self.browser stop];
+}
+
 #pragma mark - NSNetServiceBrowser delegate
 
 - (void) netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing
