@@ -68,6 +68,7 @@ ServiceLocatorDelegate>
 - (void) reloadAllStudents
 {
     arrayStudents = [dao studentsForCurrentTeacherOnlyConnected:YES];
+//    arrayStudents = [dao studentsForCurrentTeacherOnlyConnected:NO];
     [self.tableStudents reloadData];
 }
 
@@ -185,7 +186,7 @@ ServiceLocatorDelegate>
 - (void) abonentDisconnected:(NSError *)error
 {
     DLog(@"🍏 Abonent disconnected wish Message: %@", error.localizedDescription);
-    
+
     [self reloadAllStudents];
 }
 

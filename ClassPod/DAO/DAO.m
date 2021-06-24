@@ -211,7 +211,7 @@
 // Returns student instance from the data packet, receiced from
 // remote client, and places it into local CoreData database
 //
-- (Student *) studentWithData:(NSData *)aData forTeacher:(NSString **)tUUID
+- (Student *) studentWithData:(NSData *)aData forTeacherUUID:(NSString **)tUUID
 {
     if (!aData) {
         return nil;

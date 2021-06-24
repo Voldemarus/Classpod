@@ -62,6 +62,7 @@ ServiceLocatorDelegate
     srl = nil;
     [super viewWillDisappear:animated];
 }
+
 - (void) reloadAllTeachers
 {
         arrayTeachers = [dao teachersListWithService].mutableCopy;
@@ -108,10 +109,10 @@ ServiceLocatorDelegate
     if (!studentVC) {
         studentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StudentVC"];
     }
-    Teacher *teacher = arrayTeachers[indexPath.row];
-    studentVC.teacher = teacher;
+    
     [self presentViewController:studentVC animated:YES completion:^{
-        //
+        Teacher *teacher = arrayTeachers[indexPath.row];
+        studentVC.teacher = teacher;
     }];
 }
 

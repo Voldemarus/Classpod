@@ -48,7 +48,7 @@ static NSString * const STUDENT_PLAYMUSIC  =   @"playMusic";
 /**
     Parse incoming packet as student, or return nil
  */
-- (Student *) studentWithData:(NSData *)aData forTeacher:(NSString *_Nullable*_Nullable)tUUID;
+- (Student *) studentWithData:(NSData *)aData forTeacherUUID:(NSString *_Nullable*_Nullable)tUUID;
 
 
 /**
