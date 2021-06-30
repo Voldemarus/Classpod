@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) Teacher *teacher;
 @property (nullable, nonatomic, retain) NSSet<Student *> *students;
 @property (nullable, nonatomic, retain) NSSet<Music *> *music;
-
+@property (nullable, nonatomic, retain) NSSet<Audiochat *> *audios;
 @end
 
 @interface ClassPod (CoreDataGeneratedAccessors)
@@ -35,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeMusicObject:(Music *)value;
 - (void)addMusic:(NSSet<Music *> *)values;
 - (void)removeMusic:(NSSet<Music *> *)values;
+
+- (void)addAudiosObject:(Audiochat *)value;
+- (void)removeAudiosObject:(Audiochat *)value;
+- (void)addAudios:(NSSet<Audiochat *> *)values;
+- (void)removeAudios:(NSSet<Audiochat *> *)values;
 
 @end
 

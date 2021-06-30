@@ -13,6 +13,7 @@
 #import "Student+CoreDataClass.h"
 #import "Music+CoreDataClass.h"
 #import "ClassPod+CoreDataClass.h"
+#import "Audiochat+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

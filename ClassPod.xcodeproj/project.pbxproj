@@ -31,6 +31,10 @@
 		1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680202649759D00B7C23C /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
+		1B54E5EC268C944A002DC117 /* GMAudioCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */; };
+		1B54E5FD268C975C002DC117 /* Audiochat+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5FA268C975B002DC117 /* Audiochat+CoreDataProperties.m */; };
+		1B54E5FE268C975C002DC117 /* Audiochat+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5FC268C975C002DC117 /* Audiochat+CoreDataClass.m */; };
+		1B54E626268C9B3C002DC117 /* GMAudioCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B54E625268C9B3C002DC117 /* GMAudioCellViewController.xib */; };
 		1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1B751DA82642B083001D86B6 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03ADF2640628A00B6096F /* AppDelegate.m */; };
@@ -153,6 +157,13 @@
 		1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassPod+CoreDataClass.h"; sourceTree = "<group>"; };
 		1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataClass.m"; sourceTree = "<group>"; };
 		1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B54E5EA268C944A002DC117 /* GMAudioCellViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMAudioCellViewController.h; sourceTree = "<group>"; };
+		1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMAudioCellViewController.m; sourceTree = "<group>"; };
+		1B54E5F9268C975B002DC117 /* Audiochat+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Audiochat+CoreDataClass.h"; sourceTree = "<group>"; };
+		1B54E5FA268C975B002DC117 /* Audiochat+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Audiochat+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B54E5FB268C975B002DC117 /* Audiochat+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Audiochat+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1B54E5FC268C975C002DC117 /* Audiochat+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Audiochat+CoreDataClass.m"; sourceTree = "<group>"; };
+		1B54E625268C9B3C002DC117 /* GMAudioCellViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GMAudioCellViewController.xib; sourceTree = "<group>"; };
 		1B751DA52642B083001D86B6 /* ServiceLocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		1B751DA62642B083001D86B6 /* ServiceLocator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		1B751DB02642B500001D86B6 /* chatterclient-bonjour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "chatterclient-bonjour.m"; sourceTree = "<group>"; };
@@ -362,6 +373,10 @@
 		1B06800C2649483C00B7C23C /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				1B54E5F9268C975B002DC117 /* Audiochat+CoreDataClass.h */,
+				1B54E5FA268C975B002DC117 /* Audiochat+CoreDataProperties.m */,
+				1B54E5FB268C975B002DC117 /* Audiochat+CoreDataProperties.h */,
+				1B54E5FC268C975C002DC117 /* Audiochat+CoreDataClass.m */,
 				1B067FEA2649482000B7C23C /* Student+CoreDataClass.h */,
 				1B067FEB2649482000B7C23C /* Student+CoreDataClass.m */,
 				1B067FE92649482000B7C23C /* Student+CoreDataProperties.h */,
@@ -380,6 +395,16 @@
 				1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		1B54E5E9268C9413002DC117 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				1B54E5EA268C944A002DC117 /* GMAudioCellViewController.h */,
+				1B54E625268C9B3C002DC117 /* GMAudioCellViewController.xib */,
+				1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		1BB03AD22640628A00B6096F = {
@@ -414,6 +439,7 @@
 		1BB03ADD2640628A00B6096F /* ClassPod */ = {
 			isa = PBXGroup;
 			children = (
+				1B54E5E9268C9413002DC117 /* UIComponents */,
 				1BFB4F2E2658FCCD00DE33E9 /* RadioTransmitter */,
 				1BFB4EF0265697FA00DE33E9 /* SpotifyStuff */,
 				1B067FDB2649443C00B7C23C /* DAO */,
@@ -813,6 +839,7 @@
 				1BB03AEE2640628D00B6096F /* Assets.xcassets in Resources */,
 				1BB03AE92640628B00B6096F /* Main.storyboard in Resources */,
 				1BFB4F80265BC06F00DE33E9 /* in_file.mp3 in Resources */,
+				1B54E626268C9B3C002DC117 /* GMAudioCellViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,6 +1002,7 @@
 			files = (
 				1BB03AF42640628D00B6096F /* main.m in Sources */,
 				32610BAB268C62C60070B1F1 /* SelectClassPodVC.m in Sources */,
+				1B54E5FE268C975C002DC117 /* Audiochat+CoreDataClass.m in Sources */,
 				3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */,
 				32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */,
 				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
@@ -983,6 +1011,7 @@
 				322215A926569B63004A38EE /* SelectTeacherVC.m in Sources */,
 				3202ED5A2680A65B009A3583 /* CellMusic.m in Sources */,
 				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
+				1B54E5FD268C975C002DC117 /* Audiochat+CoreDataProperties.m in Sources */,
 				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
 				1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */,
 				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
@@ -1010,6 +1039,7 @@
 				322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */,
 				1B067FDE2649446E00B7C23C /* ClassPod.xcdatamodeld in Sources */,
 				322B33E92642AC0B00ACD371 /* DAO.m in Sources */,
+				1B54E5EC268C944A002DC117 /* GMAudioCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
