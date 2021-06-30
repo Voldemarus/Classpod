@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "GCDAsyncSocket.h"
 
-@class ClassPod;
+@class ClassPod, Audiochat;
 
 NS_ASSUME_NONNULL_BEGIN
 

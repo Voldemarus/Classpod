@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Music, Student, Teacher;
+@class Music, Student, Teacher, Audiochat;
 
 NS_ASSUME_NONNULL_BEGIN
 

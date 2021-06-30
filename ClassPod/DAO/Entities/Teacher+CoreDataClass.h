@@ -12,7 +12,7 @@
     #import <UIKit/UIKit.h>
 #endif
 
-@class ClassPod;
+@class ClassPod, Audiochat;
 
 NS_ASSUME_NONNULL_BEGIN
 
