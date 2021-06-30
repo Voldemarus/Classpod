@@ -6,36 +6,27 @@ if ($p != "mymusic") {
     exit(13);
 }
 
-// Исходники: https://sourceforge.net/projects/getid3/
-
-//in brouser type:  https://classpod.ildd.ru/
+//in brouser type:  https://classpod.spintip.com/?type=mymusic
 
 //set variables
-function mb_unserialize($string) {
-    $string = preg_replace_callback('/!s:(\d+):"(.*?)";!se/', function($matches) { return 's:'.strlen($matches[1]).':"'.$matches[1].'";'; }, $string);
-    return unserialize($string);
-}
-
 $settings = array(
-    'name' => 'Name radiostation', // Название вашей радиостанции.
-    'genre' => 'Electronic', // Не обязательно должен быть в формате MP3, может быть любым.
+    'name' => 'Name radiostation',     // Название вашей радиостанции.
+    'genre' => 'Electronic',         // Не обязательно должен быть в формате MP3, может быть любым.
     'url' => $_SERVER['HTTP_HOST'], // URL станции, автоматически генерируется PHP.
-    'bitrate' => 128, // Битрейт передачи в кбит / с. Все аудио, но должны быть перекодированы до этого битрейта.
-    'music_directory' => "music/", // Папка, в которой находится звук.
-    'database_file' => "music.db", // Имя файла кэша метаданных аудио.
-    'buffer_size' => 16384, // Размер буфера ледяных данных, не очень важно.
-                            // Чем больше буфер, тем меньше обновлений текущего названия песни.
-    'max_listen_time' => 14400, // Максимальное время прослушивания пользователя в секундах. Установите 4 часа.
-    'randomize_seed' => 0, // 31337,     // Начальное число псевдослучайного списка воспроизведения.
-                                // Должен быть установлен на contant, иначе клиенты не будут синхронизироваться. );
-                                // The seed of the pseudo random playlist.
-                                // Must be set to a contant otherwise the clients won't be in sync. );
+    'bitrate' => 128,                 // Битрейт передачи в кбит / с. Все аудио, но должны быть перекодированы до этого битрейта.
+    'music_directory' => "music/",     // Папка, в которой находится звук.
+    'database_file' => "music.db",     // Имя файла кэша метаданных аудио.
+    'buffer_size' => 16384,         // Размер буфера ледяных данных, не очень важно.
+                                    // Чем больше буфер, тем меньше обновлений текущего названия песни.
+    'max_listen_time' => 14400,     // Максимальное время прослушивания пользователя в секундах. Установите 4 часа.
+    'randomize_seed' => 0,             // 31337,     // Начальное число псевдослучайного списка воспроизведения.
+                                    // Должен быть установлен на contant, иначе клиенты не будут синхронизироваться. );
+                                    // The seed of the pseudo random playlist.
+                                    // Must be set to a contant otherwise the clients won't be in sync. );
 );
 
 
 set_time_limit(0);
-require_once("getid3/getid3.php");
-$getID3 = new getID3();
 
 //load playlist
 
@@ -47,6 +38,7 @@ $total_playtime = 0;
 $start_time = microtime(true);
 srand($settings["randomize_seed"]);
 // shuffle($playfiles);
+
 //sum playtime
 foreach($playfiles as $playfile) {
     $total_playtime += $playfile["playtime"];
