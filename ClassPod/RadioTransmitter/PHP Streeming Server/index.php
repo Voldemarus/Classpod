@@ -1,4 +1,10 @@
-<?php
+<?
+
+$p = $_GET["type"];
+if ($p != "mymusic") {
+    echo "Not support parameters... Better Call Saul...";
+    exit(13);
+}
 
 // Исходники: https://sourceforge.net/projects/getid3/
 
@@ -7,16 +13,16 @@
 //set variables
 
 $settings = array(
-    'name' => 'Название вашей радиостанции', // Название вашей радиостанции.
+    'name' => 'Name radiostation', // Название вашей радиостанции.
     'genre' => 'Electronic', // Не обязательно должен быть в формате MP3, может быть любым.
     'url' => $_SERVER['HTTP_HOST'], // URL станции, автоматически генерируется PHP.
-    'bitrate' => 160, // Битрейт передачи в кбит / с. Все аудио, но должны быть перекодированы до этого битрейта.
+    'bitrate' => 128, // Битрейт передачи в кбит / с. Все аудио, но должны быть перекодированы до этого битрейта.
     'music_directory' => "music/", // Папка, в которой находится звук.
     'database_file' => "music.db", // Имя файла кэша метаданных аудио.
     'buffer_size' => 16384, // Размер буфера ледяных данных, не очень важно.
                             // Чем больше буфер, тем меньше обновлений текущего названия песни.
     'max_listen_time' => 14400, // Максимальное время прослушивания пользователя в секундах. Установите 4 часа.
-    'randomize_seed' => 31337,     // Начальное число псевдослучайного списка воспроизведения.
+    'randomize_seed' => 0, // 31337,     // Начальное число псевдослучайного списка воспроизведения.
                                 // Должен быть установлен на contant, иначе клиенты не будут синхронизироваться. );
                                 // The seed of the pseudo random playlist.
                                 // Must be set to a contant otherwise the clients won't be in sync. );
@@ -33,8 +39,10 @@ if(!file_exists($settings["database_file"])) {
     $filenames = array_slice(scandir($settings["music_directory"]), 2);
     foreach($filenames as $filename) {
         $id3 = $getID3->analyze($settings["music_directory"].$filename);
+//                 echo "->".$id3["playtime_seconds"]."<--";
+// exit;
 
-        if($id3["fileformat"] == "mp3") {
+//         if($id3["fileformat"] == "mp3") {
             $playfile = array(
                 "filename" => $id3["filename"],
                 "filesize" => $id3["filesize"],
@@ -45,10 +53,11 @@ if(!file_exists($settings["database_file"])) {
                 "artist" => $id3["tags"]["id3v2"]["artist"][0],
                 "title" => $id3["tags"]["id3v2"]["title"][0]
             );
-            if(empty($playfile["artist"]) || empty($playfile["title"]))
+            if(empty($playfile["artist"]) || empty($playfile["title"])) {
                 list($playfile["artist"], $playfile["title"]) = explode(" - ", substr($playfile["filename"], 0 , -4));
+            }
             $playfiles[] = $playfile;
-        }
+//         }
     }
 
     file_put_contents($settings["database_file"], serialize($playfiles));
@@ -80,15 +89,32 @@ foreach($playfiles as $i=>$playfile) {
 }
 $track_pos = ($playfiles[$i]["playtime"] - $play_sum + $play_pos) * $playfiles[$i]["audiolength"] / $playfiles[$i]["playtime"];
 
+
+
+// echo "artist: [".$playfile["artist"]."]<br>\n";
+// echo "title: [".$playfile["title"]."]<br>\n";
+//
+// echo "icy-name: [".$settings["name"]."]<br>\n";
+// echo "icy-genre: [".$settings["genre"]."]<br>\n";
+// echo "icy-url: [".$settings["url"]."]<br>\n";
+// echo "icy-metaint: [".$settings["buffer_size"]."]<br>\n";
+// echo "icy-br: [".$settings["bitrate"]."]<br>\n";
+// echo "max_listen_time: [".$settings["max_listen_time"]."]<br>\n";
+// // echo "max_listen_time: [".$settings["max_listen_time"]."]<br>\n";
+// echo "Content-Length: [".($settings["max_listen_time"] * $settings["bitrate"] * 128)."]<br>\n";
+// exit;
+//
 //output headers
 header("Content-type: audio/mpeg");
+// header("Content-type: audio/mp4");
+
 if($icy_data) {
     header("icy-name: ".$settings["name"]);
     header("icy-genre: ".$settings["genre"]);
     header("icy-url: ".$settings["url"]);
     header("icy-metaint: ".$settings["buffer_size"]);
     header("icy-br: ".$settings["bitrate"]);
-    header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"] * 128); //suppreses chuncked transfer-encoding
+    header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"]); // * 128); //suppreses chuncked transfer-encoding
 }
 
 //play content
