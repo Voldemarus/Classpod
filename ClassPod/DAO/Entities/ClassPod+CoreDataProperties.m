@@ -20,5 +20,6 @@
 @dynamic teacher;
 @dynamic students;
 @dynamic music;
+@dynamic audios;
 
 @end

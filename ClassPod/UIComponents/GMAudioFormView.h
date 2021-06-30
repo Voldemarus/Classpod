@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UIColor *lineColor;
 @property (nonatomic, retain) UIColor *centerColor;
 
-@property (nonatomic, retain) NSMutableArray *dataArray;;
+@property (nonatomic, retain) NSMutableArray *dataArray;
 
 @end
 
