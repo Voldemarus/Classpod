@@ -1,6 +1,7 @@
 <?
 
 $p = $_GET["type"];
+$offset_from_current_time = $_GET["offset"]; // Установит сдвиг от начала с текущего времени
 if ($p != "mymusic") {
     echo "Not support parameters... Better Call Saul...";
     exit(13);
@@ -19,10 +20,6 @@ $settings = array(
     'buffer_size' => 16384,         // Размер буфера ледяных данных, не очень важно.
                                     // Чем больше буфер, тем меньше обновлений текущего названия песни.
     'max_listen_time' => 14400,     // Максимальное время прослушивания пользователя в секундах. Установите 4 часа.
-    'randomize_seed' => 0,             // 31337,     // Начальное число псевдослучайного списка воспроизведения.
-                                    // Должен быть установлен на contant, иначе клиенты не будут синхронизироваться. );
-                                    // The seed of the pseudo random playlist.
-                                    // Must be set to a contant otherwise the clients won't be in sync. );
 );
 
 
@@ -35,9 +32,10 @@ $playfiles = json_decode(file_get_contents($settings["database_file"]), true);
 $total_playtime = 0;
 
 //set playlist
-$start_time = microtime(true);
-srand($settings["randomize_seed"]);
-// shuffle($playfiles);
+
+$file_popravka = "popravka.txt";
+$popravka = file_get_contents($file_popravka);
+$start_time = microtime(true) - $popravka;
 
 //sum playtime
 foreach($playfiles as $playfile) {
@@ -47,24 +45,39 @@ foreach($playfiles as $playfile) {
 //calculate the current song
 $play_pos = $start_time % $total_playtime;
 
+if ($offset_from_current_time > 0) {
+    // сбросить воспроизведение на начало - offset_from_current_time
+    $popravka = (microtime(true) - $offset_from_current_time) % $total_playtime;
+    file_put_contents($file_popravka, $popravka);
+    echo "OK";
+    exit;
+}
 
 foreach($playfiles as $i=>$playfile) {
     $play_sum += $playfile["playtime"];
-    if($play_sum > $play_pos) {
+    if ($play_sum > $play_pos) {
         break;
     }
 }
 $track_pos = ($playfiles[$i]["playtime"] - $play_sum + $play_pos) * $playfiles[$i]["audiolength"] / $playfiles[$i]["playtime"];
 
+// echo "<br> start_time     = ".$start_time;
+// echo "<br> total_playtime = ".$total_playtime;
+// echo "<br> play_sum       = ".$play_sum;
+// echo "<br> play_pos       = ".$play_pos;
+// echo "<br> track_pos      = ".$track_pos;
+//
+// exit;
+
 //output headers
 header("Content-type: audio/mpeg");
 // header("Content-type: audio/mp4");
 
-//     header("icy-name: ".$settings["name"]);
-//     header("icy-genre: ".$settings["genre"]);
-//     header("icy-url: ".$settings["url"]);
-//     header("icy-metaint: ".$settings["buffer_size"]);
-//     header("icy-br: ".$settings["bitrate"]);
+    header("icy-name: ".$settings["name"]);
+    header("icy-genre: ".$settings["genre"]);
+    header("icy-url: ".$settings["url"]);
+    header("icy-metaint: ".$settings["buffer_size"]);
+    header("icy-br: ".$settings["bitrate"]);
 //     header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"]); // * 128); //suppreses chuncked transfer-encoding
 
 //play content
