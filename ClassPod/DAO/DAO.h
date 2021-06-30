@@ -47,6 +47,8 @@ static NSString * const STUDENT_PLAYMUSIC  =   @"playMusic";
 //- (NSArray <Teacher *> *) teachersList;
 - (NSArray <Teacher *> *) teachersListWithService;
 
+- (void) deleteClassPod:(ClassPod*)classPod;
+
 /**
     Parse incoming packet as student, or return nil
  */

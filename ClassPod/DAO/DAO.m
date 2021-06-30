@@ -220,6 +220,32 @@
     return result;
 }
 
+- (void) deleteClassPod:(ClassPod*)classPod
+{
+    if (!classPod) {
+        DLog(@"‼️ Так быть не должно!");
+        return;
+    }
+    NSManagedObjectContext *context = classPod.managedObjectContext;
+    NSArray *
+    array = classPod.students.allObjects;
+    for (NSInteger i = 0; i < array.count; i++) {
+        [context deleteObject:array[i]];
+    }
+    NSFileManager *fm = NSFileManager.defaultManager;
+    array = classPod.music.allObjects;
+    for (NSInteger i = 0; i < array.count; i++) {
+        Music *music = array[i];
+        NSString *strUrl = music.fileURL;
+        NSURL *url = strUrl.length > 0 ? [NSURL fileURLWithPath:strUrl] : nil;
+        if (url) {
+            [fm removeItemAtURL:url error:nil];
+        }
+        [context deleteObject:music];
+    }
+    [context deleteObject:classPod];
+}
+
 //
 // Returns student instance from the data packet, receiced from
 // remote client, and places it into local CoreData database

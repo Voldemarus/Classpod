@@ -22,6 +22,7 @@
         classpod = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(ClassPod.class) inManagedObjectContext:moc];
         classpod.name = newName;
         classpod.note = newNote;
+        classpod.teacher = teacher;
     }
 
     return classpod;

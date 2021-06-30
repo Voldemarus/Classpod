@@ -8,18 +8,20 @@
 #import "SelectClassPodVC.h"
 #import "CellClassPods.h"
 #import "TeacherVC.h"
+#import "ClassPodEditVC.h"
 
 @interface SelectClassPodVC () <UITableViewDelegate, UITableViewDataSource>
 {
     DAO *dao;
     Preferences *prefs;
 
-    NSArray <ClassPod *> * arrayClassPods;
+    NSMutableArray <ClassPod *> * arrayClassPods;
 
     __weak IBOutlet UILabel * labelHeader;
     __weak IBOutlet UILabel * labelDetail;
     __weak IBOutlet UIButton * buttonAddClass;
     TeacherVC * teacherVC;
+    ClassPodEditVC * classPodEditVC;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableClassPods;
@@ -46,8 +48,10 @@
 
 - (void) reloadAllClassPod
 {
-    arrayClassPods = [dao allClassPodsForCurrentTeacher];
-    [self.tableClassPods reloadData];
+    [dao runMainThreadBlock:^{
+        arrayClassPods = [dao allClassPodsForCurrentTeacher].mutableCopy;
+        [self.tableClassPods reloadData];
+    }];
 }
 
 - (IBAction) closePressed:(id)sender
@@ -67,6 +71,22 @@
     }
     ClassPod *newClassPod = [ClassPod getOrCgeateWithTeacher:teacher nameIfNew:@"New Class Pod Name" noteIfNew:@"New note this classpod" inMoc:moc];
     [self reloadAllClassPod];
+    [self editClassPod:newClassPod];
+}
+
+- (void) editClassPod:(ClassPod*)classpod
+{
+    if (!classPodEditVC) {
+        classPodEditVC = (ClassPodEditVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"ClassPodEditVC"];
+    }
+    __block id selfSelf = self;
+    [self presentViewController:classPodEditVC animated:YES completion:^{
+        [classPodEditVC setClassPod:classpod responseBlock:^(BOOL hasChange) {
+            if (hasChange) {
+                [selfSelf reloadAllClassPod];
+            }
+        }];
+    }];
 }
 
 #pragma mark Table methods
@@ -106,6 +126,35 @@
         ClassPod * classPod = arrayClassPods[indexPath.row];
         teacherVC.classPod = classPod;
     }];
+}
+
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (UISwipeActionsConfiguration*) tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
+    ClassPod * classPod = arrayClassPods[row];
+    
+    UIContextualAction * deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:RStr(@"Delete") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        [arrayClassPods removeObjectAtIndex:row];
+        [dao deleteClassPod:classPod];
+        [self.tableClassPods reloadData];
+        
+    }];
+    deleteAction.backgroundColor = UIColor.systemRedColor;
+    
+    UIContextualAction * editAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:RStr(@"Edit") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        [self editClassPod:classPod];
+    }];
+    editAction.backgroundColor = UIColor.systemBlueColor;
+
+    
+    UISwipeActionsConfiguration *swipeActions = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, editAction]];
+    swipeActions.performsFirstActionWithFullSwipe = NO;
+    return swipeActions;
 }
 
 @end
