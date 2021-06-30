@@ -11,6 +11,8 @@
 //#import "RadioTransmitter.h"
 //#import "LDRTPServer.h"
 #import "PlayListMakerVC.h"
+#import <AVKit/AVKit.h>
+
 
 @interface TeacherVC ()
 <UITableViewDelegate, UITableViewDataSource,
@@ -23,6 +25,8 @@ ServiceLocatorDelegate>
     Student * selectedStudent;
     PlayListMakerVC * playListMakerVC;
     BOOL musicPlaying;
+    __weak IBOutlet UIButton * buttonPlayStop;
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableStudents;
@@ -30,6 +34,8 @@ ServiceLocatorDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *buttonMicrophone;
 @property (weak, nonatomic) IBOutlet UIButton *buttonPlaylistCreate;
 
+@property (nonatomic, retain) AVPlayer *player;
+@property (nonatomic, retain) AVPlayerItem *playerItem;
 
 @end
 
@@ -122,6 +128,39 @@ ServiceLocatorDelegate>
 - (void) changedStudent:(Student*) student
 {
     [self reloadAllStudents];
+}
+
+#pragma mark - AVPlayer receiver
+
+
+- (void) turnAudioOn
+{
+    [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
+    [self.player play];
+    [buttonPlayStop setImage:[UIImage imageNamed:@"BT_Pause"] forState:UIControlStateNormal];
+}
+
+- (void) turnAudioOff
+{
+    [self.player pause];
+    [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
+        self.player = nil;
+        self.playerItem = nil;
+    [buttonPlayStop setImage:[UIImage imageNamed:@"BT_Play"] forState:UIControlStateNormal];
+}
+
+- (IBAction) playPauseButtonClicked:(id) sender
+{
+    if (self.player.rate == 0.0) {
+        if (!self.player) {
+            NSURL *radioURL = [NSURL URLWithString:RADIO_URL];
+            self.playerItem = [[AVPlayerItem alloc] initWithURL:radioURL];
+            self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+        }
+        [self turnAudioOn];
+    } else {
+        [self turnAudioOff];
+    }
 }
 
 #pragma mark - Table methods

@@ -10,7 +10,13 @@
 
 #import <Foundation/Foundation.h>
 
-//extern NSString * const ПРИМЕР;
+/**
+ Musik in mp3 file must downloded in classpod.spintip.com in folder music
+ After downlodede need delete file music.db in root folder classpod.spintip.com/
+ this file rebuld autocreate index in fierst access from any client
+ but this action best nee after download from teacher iPhone
+ */
+static NSString * const RADIO_URL = @"https://classpod.spintip.com/?type=mymusic";
 
 @interface Preferences : NSObject
 

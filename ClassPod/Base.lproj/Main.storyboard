@@ -171,15 +171,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeF-g5-CMT">
-                                <rect key="frame" x="55" y="41" width="99" height="99"/>
+                                <rect key="frame" x="28" y="49" width="99" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="RadioBlackOff"/>
                                 <connections>
                                     <action selector="buttonMusicPressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="vCX-W7-gud"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laY-q3-CXL">
+                                <rect key="frame" x="213" y="169" width="64" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="BT_Play"/>
+                                <connections>
+                                    <action selector="playPauseButtonClicked:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="KVj-h3-D1y"/>
+                                    <action selector="playPauseButtonClicked:" destination="Dcz-oF-v6D" eventType="touchUpInside" id="t2c-nj-Lbc"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3i5-eA-g9H">
-                                <rect key="frame" x="40" y="200" width="295" height="267"/>
+                                <rect key="frame" x="40" y="300" width="295" height="167"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellStudentListID" id="jKh-g5-fz7" customClass="CellStudentList">
@@ -233,13 +242,6 @@
                                     <action selector="buttonMicrophonePressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="8rv-WA-dQ6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-do-Z40">
-                                <rect key="frame" x="63" y="20" width="82" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Голос с микрофона для отмеченных" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOI-zz-C1q">
                                 <rect key="frame" x="42" y="484" width="290" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -248,27 +250,41 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Таблица подключенных студентов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vO6-dy-x68">
-                                <rect key="frame" x="49" y="177" width="276" height="21"/>
+                                <rect key="frame" x="49" y="271" width="276" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Playlist create" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRo-h0-gfb">
-                                <rect key="frame" x="218" y="20" width="106" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Playlist editor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRo-h0-gfb">
+                                <rect key="frame" x="204" y="36" width="103" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvh-8c-KnY">
-                                <rect key="frame" x="224" y="49" width="95" height="83"/>
+                                <rect key="frame" x="204" y="65" width="103" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="MusicList"/>
                                 <connections>
                                     <action selector="buttonPlaylistCreatePressed:" destination="vRH-0K-0Tq" eventType="touchUpInside" id="Y29-js-6lv"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test Current music:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kO-ci-iQV">
+                                <rect key="frame" x="171" y="152" width="149" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-do-Z40">
+                                <rect key="frame" x="36" y="28" width="82" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ojp-ij-Wwe"/>
                         <color key="backgroundColor" red="0.84181675226982311" green="0.86594956772857912" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -276,20 +292,21 @@
                             <constraint firstItem="3i5-eA-g9H" firstAttribute="leading" secondItem="Ojp-ij-Wwe" secondAttribute="leading" constant="40" id="9ZW-B7-EU7"/>
                             <constraint firstItem="Ojp-ij-Wwe" firstAttribute="trailing" secondItem="3i5-eA-g9H" secondAttribute="trailing" constant="40" id="lPg-qG-VtX"/>
                             <constraint firstItem="Ojp-ij-Wwe" firstAttribute="bottom" secondItem="3i5-eA-g9H" secondAttribute="bottom" constant="200" id="mgl-d6-nyP"/>
-                            <constraint firstItem="3i5-eA-g9H" firstAttribute="top" secondItem="Ojp-ij-Wwe" secondAttribute="top" constant="200" id="rUB-tJ-XCg"/>
+                            <constraint firstItem="3i5-eA-g9H" firstAttribute="top" secondItem="Ojp-ij-Wwe" secondAttribute="top" constant="300" id="rUB-tJ-XCg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mO6-fy-5i0"/>
                     <connections>
                         <outlet property="buttonMicrophone" destination="ACP-ek-sIA" id="lzG-yf-ks8"/>
                         <outlet property="buttonMusic" destination="MeF-g5-CMT" id="kNH-nX-axt"/>
+                        <outlet property="buttonPlayStop" destination="laY-q3-CXL" id="zpS-2i-Ogs"/>
                         <outlet property="buttonPlaylistCreate" destination="qvh-8c-KnY" id="cvs-BO-Ib4"/>
                         <outlet property="tableStudents" destination="3i5-eA-g9H" id="uKG-ok-WCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXh-l2-h09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="-538"/>
+            <point key="canvasLocation" x="1960.8" y="-538.38080959520244"/>
         </scene>
         <!--Play List MakerVC-->
         <scene sceneID="vPV-NZ-WlZ">

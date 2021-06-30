@@ -14,19 +14,6 @@
 
 #import "DebugPrint.h"
 
-
-#warning TEMPORALY link! Edit next time!
-//NSString * const RADIO_URL = @"http://108.163.197.114:8155";
-//NSString * const RADIO_URL = @"https://dl.dropboxusercontent.com/s/jcq74691pet09d9/Chumbawamba%20-%20Tubthumping%20HD.mp3?dl=0";
-NSString * const RADIO_URL = @"https://classpod.spintip.com/?type=mymusic"; // LD: my PHP server
-/**
- Musik in mp3 file must downloded in classpod.spintip.com in folder music
- After downlodede need delete file music.db in root folder classpod.spintip.com/
- this file rebuld autocreate index in fierst access from any client
- but this action best nee after download from teacher iPhone
- */
-
-
 @interface StudentVC () <
 AVPlayerViewControllerDelegate,
 ServiceLocatorDelegate
