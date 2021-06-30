@@ -17,6 +17,8 @@
  but this action best nee after download from teacher iPhone
  */
 static NSString * const RADIO_URL = @"https://classpod.spintip.com/?type=mymusic";
+static NSString * const MUSIC_DB_FILE_NAME = @"music.db";
+
 
 @interface Preferences : NSObject
 

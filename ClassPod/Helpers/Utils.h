@@ -35,7 +35,7 @@ NSString* mySoundFile(NSString * _Nonnull name);
                      completion:(void (^ _Nullable)(NSString * _Nullable fileWithPath))completion;
 + (void) createMP3FromMediaItems:(NSArray <MPMediaItem*>* _Nullable)arraySongs
                 blockCurrentFile:(void (^ _Nullable)(NSString * _Nullable fileWithPath))blockCurrentFile
-                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls))completion;
+                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls, NSArray <NSDictionary*> * _Nonnull arrayParams, NSURL * _Nullable urlMusicDB))completion;
 
 // Картинка обложки песни(или альбома) с заданным размером
 + (UIImage*) imageCoverSong:(MPMediaItem*)song size:(CGSize)size;
