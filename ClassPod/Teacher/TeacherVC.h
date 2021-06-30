@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TeacherVC : UIViewController
 
+@property (nonatomic, retain) ClassPod * classPod;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,6 +38,8 @@ static NSString * const STUDENT_PLAYMUSIC  =   @"playMusic";
  */
 - (NSArray <Student *> * _Nonnull) studentsForCurrentTeacherOnlyConnected:(BOOL)onlyConnected;
 
+- (NSArray <ClassPod *> * _Nonnull) allClassPodsForCurrentTeacher;
+
 /**
     List of teachers for student, Is filled during browsing and used to subscribe to particular teacher
  */

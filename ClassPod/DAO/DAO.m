@@ -172,6 +172,19 @@
     
 }
 
+- (NSArray <ClassPod *> * _Nonnull) allClassPodsForCurrentTeacher
+{
+    NSFetchRequest *req = [ClassPod fetchRequest];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    NSError *error = nil;
+    NSArray <ClassPod *> *result = [self.moc executeFetchRequest:req error:&error].mutableCopy;
+    if (!result && error) {
+        DLog(@"‼️ Cannot get data from ClassPod entity - %@", error.localizedDescription);
+        return @[];
+    }
+    return result ? result : @[];
+}
+
 //- (NSArray <Teacher *> *) teachersList
 //{
 //    NSFetchRequest *req = [Teacher fetchRequest];

@@ -80,6 +80,29 @@
     return teacher;
 }
 
++ (Teacher* _Nonnull) getAndModyfyOrCreateWithUUID:(NSString *)uuid
+                                           newName:(NSString *)name
+                                           newNote:(NSString *)note
+                                     newCourseName:(NSString *)courseName
+                                       newHourRate:(CGFloat)hourRate
+                                             inMoc:(NSManagedObjectContext *)moc
+{
+
+    Teacher * teacher = [self getByUuid:uuid inMoc:moc];
+    
+    if (!teacher) {
+        teacher = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(Teacher.class) inManagedObjectContext:moc];
+    }
+    
+    if (![teacher.name isEqualToString:name]) teacher.name = name;
+    if (![teacher.note isEqualToString:note]) teacher.note = note;
+    if (![teacher.courseName isEqualToString:courseName]) teacher.courseName = courseName;
+    if ([teacher.name isEqualToString:name]) teacher.name = name;
+    if (teacher.hourRate != hourRate) teacher.hourRate = hourRate;
+    
+    return teacher;
+}
+
 + (Teacher * _Nullable) getByName:(NSString *)name inMoc:(NSManagedObjectContext *)moc
 {
     if (name.length < 1) {

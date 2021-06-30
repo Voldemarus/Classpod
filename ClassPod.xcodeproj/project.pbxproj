@@ -84,6 +84,8 @@
 		322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B340B2642B80900ACD371 /* CellLabelSwith.m */; };
 		3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B981264BF73C00ACA5FE /* CellStudentList.m */; };
 		3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3253B987264BFE2500ACA5FE /* CellTecherList.m */; };
+		32610BAB268C62C60070B1F1 /* SelectClassPodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BAA268C62C60070B1F1 /* SelectClassPodVC.m */; };
+		32610BB4268C66750070B1F1 /* CellClassPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BB3268C66740070B1F1 /* CellClassPods.m */; };
 		32788CA0264C1DF200FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 		32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CAE264C22D900FC087E /* ProfileEditVC.m */; };
 		32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E7C6F6266B8AE300D00501 /* GCDAsyncUdpSocket.m */; };
@@ -229,6 +231,10 @@
 		3253B981264BF73C00ACA5FE /* CellStudentList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellStudentList.m; sourceTree = "<group>"; };
 		3253B986264BFE2500ACA5FE /* CellTecherList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellTecherList.h; sourceTree = "<group>"; };
 		3253B987264BFE2500ACA5FE /* CellTecherList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellTecherList.m; sourceTree = "<group>"; };
+		32610BA9268C62C60070B1F1 /* SelectClassPodVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectClassPodVC.h; sourceTree = "<group>"; };
+		32610BAA268C62C60070B1F1 /* SelectClassPodVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectClassPodVC.m; sourceTree = "<group>"; };
+		32610BB2268C66740070B1F1 /* CellClassPods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellClassPods.h; sourceTree = "<group>"; };
+		32610BB3268C66740070B1F1 /* CellClassPods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellClassPods.m; sourceTree = "<group>"; };
 		32788CAD264C22D900FC087E /* ProfileEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileEditVC.h; sourceTree = "<group>"; };
 		32788CAE264C22D900FC087E /* ProfileEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditVC.m; sourceTree = "<group>"; };
 		32AD036201A6D00EFEAFE862 /* Pods-ClassPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassPodTests.debug.xcconfig"; path = "Target Support Files/Pods-ClassPodTests/Pods-ClassPodTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -566,6 +572,10 @@
 		3287CD9C268306650096D2CE /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
+				32610BA9268C62C60070B1F1 /* SelectClassPodVC.h */,
+				32610BAA268C62C60070B1F1 /* SelectClassPodVC.m */,
+				32610BB2268C66740070B1F1 /* CellClassPods.h */,
+				32610BB3268C66740070B1F1 /* CellClassPods.m */,
 				322B33D526427DE200ACD371 /* TeacherVC.h */,
 				322B33D626427DE200ACD371 /* TeacherVC.m */,
 				32F4B0E72680904A00BB2DC0 /* PlayListMakerVC.h */,
@@ -959,6 +969,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB03AF42640628D00B6096F /* main.m in Sources */,
+				32610BAB268C62C60070B1F1 /* SelectClassPodVC.m in Sources */,
 				3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */,
 				32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */,
 				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
@@ -987,6 +998,7 @@
 				1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,
 				3202ED632680C401009A3583 /* LDWWWTools.m in Sources */,
 				32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */,
+				32610BB4268C66750070B1F1 /* CellClassPods.m in Sources */,
 				1B0680032649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */,
 				322B33EF2642ADE000ACD371 /* StudentVC.m in Sources */,
 				322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */,

@@ -28,7 +28,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (prefs.teacherModeON) {
-            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"TeacherVC"] animated:NO completion:nil];
+//            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"TeacherVC"] animated:NO completion:nil];
+            [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"SelectClassPodVC"] animated:NO completion:nil];
         } else {
             [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"SelectTeacherVC"] animated:NO completion:nil];
         }
