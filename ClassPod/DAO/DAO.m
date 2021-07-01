@@ -233,7 +233,7 @@
         [context deleteObject:array[i]];
     }
     NSFileManager *fm = NSFileManager.defaultManager;
-    array = classPod.music.allObjects;
+    array = classPod.music.array;
     for (NSInteger i = 0; i < array.count; i++) {
         Music *music = array[i];
         NSString *strUrl = music.fileURL;
