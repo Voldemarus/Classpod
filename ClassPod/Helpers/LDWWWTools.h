@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface LDWWWTools : NSObject
 
 + (LDWWWTools *) sharedInstance;
@@ -20,8 +22,11 @@
  */
 - (void) saveToWWWFilesWithUrls:(NSArray<NSURL*>*)urls
                          cursor:(NSInteger)cursor
-                          error:(NSError*)errorTotal
-                     completion:(void (^)(NSError *error))completion;
+                          error:(NSError*_Nullable)errorTotal
+                     completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
-    
+- (void) getListExistMusicOnServerCompletion:(void (^_Nullable)(NSError *error, NSDictionary * _Nonnull dictMusic))completion;
+
 @end
+
+NS_ASSUME_NONNULL_END

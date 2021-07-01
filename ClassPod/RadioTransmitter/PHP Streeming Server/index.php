@@ -2,6 +2,7 @@
 
 $p = $_GET["type"];
 $offset_from_current_time = $_GET["offset"]; // Установит сдвиг от начала с текущего времени
+$continue_after_offset = $_GET["continue"]; // продолжить воспроизведение после сброса
 if ($p != "mymusic") {
     echo "Not support parameters... Better Call Saul...";
     exit(13);
@@ -45,12 +46,23 @@ foreach($playfiles as $playfile) {
 //calculate the current song
 $play_pos = $start_time % $total_playtime;
 
+if (!file_exists($file_popravka) && !$offset_from_current_time && !$continue_after_offset) {
+    // Если фала не было, то сбросим на ноль позицию
+    $offset_from_current_time = 0.0001;
+    $continue_after_offset = 1;
+}
+
 if ($offset_from_current_time > 0) {
     // сбросить воспроизведение на начало - offset_from_current_time
-    $popravka = (microtime(true) - $offset_from_current_time) % $total_playtime;
+    $start_time = microtime(true);
+    $popravka = ($start_time - $offset_from_current_time) % $total_playtime;
     file_put_contents($file_popravka, $popravka);
-    echo "OK";
-    exit;
+    if (!$continue_after_offset) {
+        echo "OK";
+        exit;
+    }
+    $start_time = microtime(true) - $popravka;
+    $play_pos = $start_time % $total_playtime;
 }
 
 foreach($playfiles as $i=>$playfile) {
@@ -61,23 +73,15 @@ foreach($playfiles as $i=>$playfile) {
 }
 $track_pos = ($playfiles[$i]["playtime"] - $play_sum + $play_pos) * $playfiles[$i]["audiolength"] / $playfiles[$i]["playtime"];
 
-// echo "<br> start_time     = ".$start_time;
-// echo "<br> total_playtime = ".$total_playtime;
-// echo "<br> play_sum       = ".$play_sum;
-// echo "<br> play_pos       = ".$play_pos;
-// echo "<br> track_pos      = ".$track_pos;
-//
-// exit;
-
 //output headers
 header("Content-type: audio/mpeg");
 // header("Content-type: audio/mp4");
 
     header("icy-name: ".$settings["name"]);
-    header("icy-genre: ".$settings["genre"]);
-    header("icy-url: ".$settings["url"]);
+//     header("icy-genre: ".$settings["genre"]);
+//     header("icy-url: ".$settings["url"]);
     header("icy-metaint: ".$settings["buffer_size"]);
-    header("icy-br: ".$settings["bitrate"]);
+//     header("icy-br: ".$settings["bitrate"]);
 //     header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"]); // * 128); //suppreses chuncked transfer-encoding
 
 //play content

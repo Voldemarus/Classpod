@@ -152,8 +152,6 @@ MPMediaPickerControllerDelegate>
     self.activityView.alpha = 1.0;
     
 #warning need Edit!
-        // TODO: На сервер надо так же передать плейлист по образу из php
-        //       пока он создается на сервере и не учитывает последовательность в папке ./music/
 
     NSMutableSet <MPMediaItem *>* tempSet = [NSMutableSet new];
     NSMutableArray <MPMediaItem *>* newArray = [NSMutableArray new];
@@ -169,15 +167,39 @@ MPMediaPickerControllerDelegate>
     
         DLog(@"🦋 добавлен файл: %@", fileWithPath.lastPathComponent);
         
-    } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls, NSArray<NSDictionary *> * _Nonnull arrayParams, NSURL * _Nullable urlMusicDB) {
+    } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls, NSDictionary * _Nonnull dictParams, NSURL * _Nullable urlMusicDB) {
         
         DLog(@"🐝 готовы все %ld из %ld%@", arrayUrls.count, newArray.count, arrayUrls.count != newArray.count ? @" ‼️ Не все обработались ‼️":@"");
-        
+        NSMutableArray <NSURL *> * arrayUslsSend = arrayUrls.mutableCopy;
         if (urlMusicDB) {
-            arrayUrls = [arrayUrls arrayByAddingObject:urlMusicDB];
+            // На сервер надо так же передать плейлист в json
+            [arrayUslsSend addObject:urlMusicDB];
         }
-        [self uploadUrls:arrayUrls];
+        [LDWWWTools.sharedInstance getListExistMusicOnServerCompletion:^(NSError * _Nonnull error, NSDictionary * _Nonnull dictMusic) {
+            
+            for (NSInteger i = 0; i < arrayUslsSend.count; i++) {
+                NSURL *url = arrayUslsSend[i];
+                NSString *fileName = url.lastPathComponent;
+                NSDictionary *dServer = dictMusic[fileName];
+                NSDictionary *dLocal = dictParams[fileName];
+                if ([dServer isKindOfClass:NSDictionary.class] && [dLocal isKindOfClass:NSDictionary.class]) {
+                    NSNumber *nLocal = dLocal[@"filesize"];
+                    NSNumber *nServer = dServer[@"filesize"];
+                    if (nLocal && nServer && nLocal.integerValue > 0 && nLocal.integerValue == nServer.integerValue ) {
+                        DLog(@"🦋 Файл %@ есть на сервере, не грузим его", fileName);
+                        [arrayUslsSend removeObject:url];
+                    }
+                }
+            }
+            
+            [self uploadUrls:arrayUslsSend];
+        }];
     }];
+}
+
+- (void) excludeExistingFile
+{
+    
 }
 
 - (void) uploadUrls:(NSArray*)urls

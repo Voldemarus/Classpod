@@ -197,11 +197,11 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
 
 + (void) createMP3FromMediaItems:(NSArray <MPMediaItem*>* _Nullable)arraySongs
                 blockCurrentFile:(void (^ _Nullable)(NSString * _Nullable fileWithPath))blockCurrentFile
-                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls, NSArray <NSDictionary*> * _Nonnull arrayParams, NSURL * _Nullable urlMusicDB))completion
+                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls, NSDictionary * _Nonnull dictParams, NSURL * _Nullable urlMusicDB))completion
 {
     __block NSInteger count = arraySongs.count;
     NSMutableArray <NSURL*>* urls = [NSMutableArray new];
-    NSMutableArray * playFilesParam = [NSMutableArray new];
+    NSMutableDictionary * playFilesParam = [NSMutableDictionary new];
 
     if (count < 1) {
         if (completion) completion(urls, playFilesParam, nil);
@@ -223,9 +223,10 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
                     NSNumber *nSize = fileAttributes[NSFileSize];
                     if (!nSize) nSize = @(0);
                     NSNumber * playTime = [song valueForProperty:MPMediaItemPropertyPlaybackDuration];
+                    NSString *fileName = fileWithPath.lastPathComponent;
                     NSDictionary * dictFile =
                     @{
-                        @"filename"     : fileWithPath.lastPathComponent,
+                        @"filename"     : fileName,
                         @"filesize"     : nSize ? nSize : @(0),
                         @"title"        : song.title,
                         @"artist"       : song.artist,
@@ -235,7 +236,7 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
                         @"audiolength"  : nSize,
                     };
                     [urls addObject:url];
-                    [playFilesParam addObject:dictFile];
+                    playFilesParam[fileName] = dictFile;
                     
                 } else {
                     count--;
@@ -410,26 +411,5 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
     }
 }
 
-#pragma mark -
 
-// Возвращяет хэш MD5 в верхнем или нижнем регистре регистре
-- (NSString *) md5StringUpperCase:(NSString*)string lowerCase:(BOOL)lowerCase {
-    const char *concat_str = [string UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(concat_str, (int)strlen(concat_str), result);
-    NSMutableString *hash = [NSMutableString string];
-    for (int i = 0; i < 16; i++)
-        [hash appendFormat:@"%02X", result[i]];
-    if (lowerCase) { return [hash lowercaseString]; }
-    return [hash uppercaseString];
-}
-- (NSString*) hashMD5WithCurrentTime
-{
-    NSInteger interval1970 = [[NSDate date] timeIntervalSince1970]; // секунд с 1970г
-    NSString *str = [NSString stringWithFormat:@"%@%ld%@", @"As", interval1970/100, @"Tuda"]; // Отбросим 100 секунд
-    NSString *hash = [self md5StringUpperCase:str lowerCase:YES];
-    //DLog(@"Хэш строки\n%@\n%@", str, hash);
-    return hash;
-
-}
 @end

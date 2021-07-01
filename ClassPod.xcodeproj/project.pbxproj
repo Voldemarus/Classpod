@@ -93,6 +93,7 @@
 		32610BAB268C62C60070B1F1 /* SelectClassPodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BAA268C62C60070B1F1 /* SelectClassPodVC.m */; };
 		32610BB4268C66750070B1F1 /* CellClassPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BB3268C66740070B1F1 /* CellClassPods.m */; };
 		32610BBD268C76960070B1F1 /* ClassPodEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BBC268C76960070B1F1 /* ClassPodEditVC.m */; };
+		32610BCC268DC8DD0070B1F1 /* NSString+HtmlUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32610BCB268DC8DD0070B1F1 /* NSString+HtmlUtil.m */; };
 		32788CA0264C1DF200FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 		32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CAE264C22D900FC087E /* ProfileEditVC.m */; };
 		32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E7C6F6266B8AE300D00501 /* GCDAsyncUdpSocket.m */; };
@@ -255,6 +256,9 @@
 		32610BB3268C66740070B1F1 /* CellClassPods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellClassPods.m; sourceTree = "<group>"; };
 		32610BBB268C76960070B1F1 /* ClassPodEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassPodEditVC.h; sourceTree = "<group>"; };
 		32610BBC268C76960070B1F1 /* ClassPodEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodEditVC.m; sourceTree = "<group>"; };
+		32610BCA268DC8DD0070B1F1 /* NSString+HtmlUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HtmlUtil.h"; sourceTree = "<group>"; };
+		32610BCB268DC8DD0070B1F1 /* NSString+HtmlUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HtmlUtil.m"; sourceTree = "<group>"; };
+		327043F7268DDB250009F7CE /* zagruzka.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = zagruzka.php; sourceTree = "<group>"; };
 		32788CAD264C22D900FC087E /* ProfileEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileEditVC.h; sourceTree = "<group>"; };
 		32788CAE264C22D900FC087E /* ProfileEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditVC.m; sourceTree = "<group>"; };
 		32AD036201A6D00EFEAFE862 /* Pods-ClassPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassPodTests.debug.xcconfig"; path = "Target Support Files/Pods-ClassPodTests/Pods-ClassPodTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 				3202ED4926809D5D009A3583 /* Utils.m */,
 				3202ED622680C401009A3583 /* LDWWWTools.h */,
 				3202ED612680C401009A3583 /* LDWWWTools.m */,
+				32610BCA268DC8DD0070B1F1 /* NSString+HtmlUtil.h */,
+				32610BCB268DC8DD0070B1F1 /* NSString+HtmlUtil.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -646,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				32EC1C7526665959003BB7DF /* index.php */,
+				327043F7268DDB250009F7CE /* zagruzka.php */,
 			);
 			path = "PHP Streeming Server";
 			sourceTree = "<group>";
@@ -1031,6 +1038,7 @@
 				1BB03AE02640628A00B6096F /* AppDelegate.m in Sources */,
 				322B33FB2642B24500ACD371 /* Preferences.m in Sources */,
 				322216BC265FFFDE004A38EE /* LDRTPServer.m in Sources */,
+				32610BCC268DC8DD0070B1F1 /* NSString+HtmlUtil.m in Sources */,
 				3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */,
 				32610BBD268C76960070B1F1 /* ClassPodEditVC.m in Sources */,
 				3202ED7026810F9E009A3583 /* ExtAudioConverter.m in Sources */,
