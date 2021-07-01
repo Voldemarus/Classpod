@@ -50,6 +50,17 @@ NSString* mySoundFile(NSString * _Nonnull name)
     return [soundDir stringByAppendingPathComponent:name];
 }
 
+// Путь файла с именем name во временной папке
+NSString* myTempFileWithPath(NSString * _Nonnull name)
+{
+    NSString *tempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"TempMusicDB"];
+    NSFileManager *fm = NSFileManager.defaultManager;
+    if (![fm fileExistsAtPath:tempDir]) {
+        [fm createDirectoryAtPath:tempDir withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return [tempDir stringByAppendingPathComponent:name];
+}
+
 #pragma mark - Работа с аудио файлом
 
 /*
@@ -164,16 +175,36 @@ NSString* mySoundFile(NSString * _Nonnull name)
     }];
     
 }
+/**
+     $playfile = array(
+         "filename" => $id3["filename"],
+         "filesize" => $id3["filesize"],
+         "playtime" => $id3["playtime_seconds"],
+         "audiostart" => $id3["avdataoffset"],
+         "audioend" => $id3["avdataend"],
+         "audiolength" => $id3["avdataend"] - $id3["avdataoffset"],
+         "artist" => $id3["tags"]["id3v2"]["artist"][0],
+         "title" => $id3["tags"]["id3v2"]["title"][0]
+     );
+     if(empty($playfile["artist"]) || empty($playfile["title"])) {
+         list($playfile["artist"], $playfile["title"]) = explode(" - ", substr($playfile["filename"], 0 , -4));
+     }
+     $playfiles[] = $playfile;
+
+     file_put_contents($settings["database_file"], serialize($playfiles));
+
+ */
 
 + (void) createMP3FromMediaItems:(NSArray <MPMediaItem*>* _Nullable)arraySongs
                 blockCurrentFile:(void (^ _Nullable)(NSString * _Nullable fileWithPath))blockCurrentFile
-                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls))completion
+                      completion:(void (^ _Nullable)( NSArray <NSURL*> * _Nonnull arrayUrls, NSArray <NSDictionary*> * _Nonnull arrayParams, NSURL * _Nullable urlMusicDB))completion
 {
     __block NSInteger count = arraySongs.count;
     NSMutableArray <NSURL*>* urls = [NSMutableArray new];
-    
+    NSMutableArray * playFilesParam = [NSMutableArray new];
+
     if (count < 1) {
-        if (completion) completion(urls);
+        if (completion) completion(urls, playFilesParam, nil);
         return;
     }
     
@@ -182,13 +213,30 @@ NSString* mySoundFile(NSString * _Nonnull name)
         MPMediaItem * song = arraySongs[i];
         
         [self createMP3FromMediaItem:song completion:^(NSString * _Nullable fileWithPath) {
-            
+                        
             if (blockCurrentFile) blockCurrentFile(fileWithPath);
             
             if (fileWithPath) {
                 NSURL *url = [NSURL fileURLWithPath:fileWithPath];
                 if (url) {
+                    NSDictionary *fileAttributes = [NSFileManager.defaultManager attributesOfItemAtPath:fileWithPath error:nil];
+                    NSNumber *nSize = fileAttributes[NSFileSize];
+                    if (!nSize) nSize = @(0);
+                    NSNumber * playTime = [song valueForProperty:MPMediaItemPropertyPlaybackDuration];
+                    NSDictionary * dictFile =
+                    @{
+                        @"filename"     : fileWithPath.lastPathComponent,
+                        @"filesize"     : nSize ? nSize : @(0),
+                        @"title"        : song.title,
+                        @"artist"       : song.artist,
+                        @"playtime"     : playTime,
+                        @"audiostart"   : @(0),
+                        @"audioend"     : nSize,
+                        @"audiolength"  : nSize,
+                    };
                     [urls addObject:url];
+                    [playFilesParam addObject:dictFile];
+                    
                 } else {
                     count--;
                 }
@@ -197,12 +245,66 @@ NSString* mySoundFile(NSString * _Nonnull name)
             }
             
             if (urls.count >= count) {
-                if (completion) completion(urls);
+                NSURL *urlDB = [self createMusikDbWithDict:playFilesParam];
+                if (completion) completion(urls, playFilesParam, urlDB);
             }
             
         }];
         
     }
+}
+
++ (NSURL* _Nullable) createMusikDbWithDict:(NSArray*)array
+{
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    NSString *text;
+    if (!jsonData || error) {
+        DLog(@"‼️ Got an error: %@", error);
+    } else {
+        text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+//
+//
+//
+//
+//    NSInteger count = array.count;
+//    NSMutableString * text = [[NSMutableString alloc] initWithFormat:@"a:%ld:{", count];
+//
+//    for (NSInteger i = 0; i < count; i++) {
+//        NSDictionary *dict = array[i];
+//        NSInteger countD = dict.count;
+//
+//        [text appendFormat:@"i:%ld;a:%ld:{", i, countD];
+//
+//        for (NSString *key in dict.allKeys) {
+//            [text appendFormat:@"s:%ld:\"%@\";", key.length, key];
+//            NSString *value = dict[key];
+//            if ([@[@"playtime"] containsObject:key]) {
+//                [text appendFormat:@"d:%g;", value.doubleValue];
+//            } else if ([@[@"filesize", @"audiostart", @"audioend", @"audiolength"] containsObject:key]) {
+//                [text appendFormat:@"i:%ld;", value.integerValue];
+//            } else {
+//                [text appendFormat:@"s:%ld:\"%@\";", value.length, value];
+//            }
+//        }
+//
+//        [text appendString:@"}"];
+//
+//    }
+//    [text appendString:@"}"];
+    NSString * fileWithPath = myTempFileWithPath(MUSIC_DB_FILE_NAME);
+    error = nil;
+    [text writeToFile:fileWithPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    DLog(@"\n%@", text);
+    if (error) {
+        DLog(@"‼️ Файл %@ не записался: %@", fileWithPath, error.localizedDescription);
+        return nil;
+    }
+    return [NSURL fileURLWithPath:fileWithPath];
 }
 
 // Картинка обложки песни(или альбома) с заданным размером

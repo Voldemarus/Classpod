@@ -169,11 +169,13 @@ MPMediaPickerControllerDelegate>
     
         DLog(@"🦋 добавлен файл: %@", fileWithPath.lastPathComponent);
         
-    } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls) {
+    } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls, NSArray<NSDictionary *> * _Nonnull arrayParams, NSURL * _Nullable urlMusicDB) {
         
         DLog(@"🐝 готовы все %ld из %ld%@", arrayUrls.count, newArray.count, arrayUrls.count != newArray.count ? @" ‼️ Не все обработались ‼️":@"");
         
-
+        if (urlMusicDB) {
+            arrayUrls = [arrayUrls arrayByAddingObject:urlMusicDB];
+        }
         [self uploadUrls:arrayUrls];
     }];
 }

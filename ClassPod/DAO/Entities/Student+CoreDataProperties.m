@@ -18,5 +18,6 @@
 @dynamic uuid;
 @dynamic note;
 @dynamic classes;
+@dynamic audios;
 
 @end
