@@ -1,8 +1,8 @@
 //
 //  ClassPod+CoreDataProperties.m
-//  ClassPod
+//  
 //
-//  Created by Водолазкий В.В. on 10.05.2021.
+//  Created by Dmitry Likhtarov on 01.07.2021.
 //
 //
 
@@ -14,12 +14,12 @@
 	return [NSFetchRequest fetchRequestWithEntityName:@"ClassPod"];
 }
 
-@dynamic name;
 @dynamic dateStarted;
+@dynamic name;
 @dynamic note;
-@dynamic teacher;
-@dynamic students;
-@dynamic music;
 @dynamic audios;
+@dynamic music;
+@dynamic students;
+@dynamic teacher;
 
 @end

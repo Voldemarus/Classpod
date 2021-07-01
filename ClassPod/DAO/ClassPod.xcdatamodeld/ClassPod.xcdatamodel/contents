@@ -14,7 +14,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <relationship name="audios" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Audiochat" inverseName="classpod" inverseEntity="Audiochat"/>
-        <relationship name="music" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Music" inverseName="classes" inverseEntity="Music"/>
+        <relationship name="music" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Music" inverseName="classes" inverseEntity="Music"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="classes" inverseEntity="Student"/>
         <relationship name="teacher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Teacher" inverseName="classes" inverseEntity="Teacher"/>
     </entity>
@@ -40,10 +40,10 @@
         <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="teacher" inverseEntity="ClassPod"/>
     </entity>
     <elements>
-        <element name="ClassPod" positionX="64.47589111328125" positionY="-100.4619598388672" width="128" height="148"/>
-        <element name="Music" positionX="245.8273315429688" positionY="7.561431884765625" width="128" height="88"/>
-        <element name="Student" positionX="-203.1754150390625" positionY="-145.6943817138672" width="128" height="118"/>
-        <element name="Teacher" positionX="-237.551513671875" positionY="6.208770751953125" width="128" height="148"/>
-        <element name="Audiochat" positionX="374.0819091796875" positionY="-261.4367523193359" width="128" height="28"/>
+        <element name="Audiochat" positionX="-29.5001220703125" positionY="-247.9055023193359" width="128" height="148"/>
+        <element name="ClassPod" positionX="142.9368286132812" positionY="-129.9385223388672" width="128" height="148"/>
+        <element name="Music" positionX="332.0382690429688" positionY="-36.23544311523438" width="128" height="88"/>
+        <element name="Student" positionX="-260.0308837890625" positionY="-174.8857879638672" width="128" height="118"/>
+        <element name="Teacher" positionX="-222.594482421875" positionY="-5.416229248046875" width="128" height="148"/>
     </elements>
 </model>
