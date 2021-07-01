@@ -48,6 +48,7 @@
 		1BB03AF42640628D00B6096F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AF32640628D00B6096F /* main.m */; };
 		1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AFD2640628E00B6096F /* ClassPodTests.m */; };
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
+		1BD176F4268DBDFB003CC07E /* GMAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD176F3268DBDFB003CC07E /* GMAvatarView.m */; };
 		1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC61A264C0233008C88A7 /* AppDelegate.m */; };
 		1BEDC61D264C0233008C88A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61C264C0233008C88A7 /* Assets.xcassets */; };
 		1BEDC620264C0233008C88A7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61E264C0233008C88A7 /* MainMenu.xib */; };
@@ -194,6 +195,8 @@
 		1BB03B082640628E00B6096F /* ClassPodUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassPodUITests.m; sourceTree = "<group>"; };
 		1BB03B0A2640628E00B6096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BB03B192640637600B6096F /* ClassPod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPod.entitlements; sourceTree = "<group>"; };
+		1BD176F2268DBDFB003CC07E /* GMAvatarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMAvatarView.h; sourceTree = "<group>"; };
+		1BD176F3268DBDFB003CC07E /* GMAvatarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMAvatarView.m; sourceTree = "<group>"; };
 		1BEDC617264C0233008C88A7 /* ClassPodDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassPodDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEDC619264C0233008C88A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BEDC61A264C0233008C88A7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -410,13 +413,22 @@
 		1B54E5E9268C9413002DC117 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				1BD176F1268DBDD6003CC07E /* GMAvatarView */,
+				1B54E652268DBBE0002DC117 /* GMAudioCellView */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		1B54E652268DBBE0002DC117 /* GMAudioCellView */ = {
+			isa = PBXGroup;
+			children = (
 				1B54E643268CB7C1002DC117 /* GMAudioFormView.h */,
 				1B54E644268CB7C1002DC117 /* GMAudioFormView.m */,
 				1B54E5EA268C944A002DC117 /* GMAudioCellViewController.h */,
 				1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */,
 				1B54E625268C9B3C002DC117 /* GMAudioCellViewController.xib */,
 			);
-			path = UIComponents;
+			path = GMAudioCellView;
 			sourceTree = "<group>";
 		};
 		1BB03AD22640628A00B6096F = {
@@ -505,6 +517,15 @@
 				1B751DA62642B083001D86B6 /* ServiceLocator.m */,
 			);
 			path = LANSettings;
+			sourceTree = "<group>";
+		};
+		1BD176F1268DBDD6003CC07E /* GMAvatarView */ = {
+			isa = PBXGroup;
+			children = (
+				1BD176F2268DBDFB003CC07E /* GMAvatarView.h */,
+				1BD176F3268DBDFB003CC07E /* GMAvatarView.m */,
+			);
+			path = GMAvatarView;
 			sourceTree = "<group>";
 		};
 		1BEDC618264C0233008C88A7 /* ClassPodDebug */ = {
@@ -1052,6 +1073,7 @@
 				1B067FFF2649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
 				1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */,
 				3202ED632680C401009A3583 /* LDWWWTools.m in Sources */,
+				1BD176F4268DBDFB003CC07E /* GMAvatarView.m in Sources */,
 				32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */,
 				32610BB4268C66750070B1F1 /* CellClassPods.m in Sources */,
 				1B0680032649482100B7C23C /* Teacher+CoreDataProperties.m in Sources */,
