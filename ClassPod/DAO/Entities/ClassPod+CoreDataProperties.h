@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nullable, nonatomic, copy) NSString *note;
 @property (nullable, nonatomic, retain) NSSet<Audiochat *> *audios;
-@property (nullable, nonatomic, retain) NSOrderedSet<Music *> *music;
+@property (nullable, nonatomic, retain) NSOrderedSet<Music *> *musics;
 @property (nullable, nonatomic, retain) NSSet<Student *> *students;
 @property (nullable, nonatomic, retain) Teacher *teacher;
 
@@ -32,16 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addAudios:(NSSet<Audiochat *> *)values;
 - (void)removeAudios:(NSSet<Audiochat *> *)values;
 
-- (void)insertObject:(Music *)value inMusicAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromMusicAtIndex:(NSUInteger)idx;
-- (void)insertMusic:(NSArray<Music *> *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeMusicAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInMusicAtIndex:(NSUInteger)idx withObject:(Music *)value;
-- (void)replaceMusicAtIndexes:(NSIndexSet *)indexes withMusic:(NSArray<Music *> *)values;
-- (void)addMusicObject:(Music *)value;
-- (void)removeMusicObject:(Music *)value;
-- (void)addMusic:(NSOrderedSet<Music *> *)values;
-- (void)removeMusic:(NSOrderedSet<Music *> *)values;
+- (void)insertObject:(Music *)value inMusicsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromMusicsAtIndex:(NSUInteger)idx;
+- (void)insertMusics:(NSArray<Music *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeMusicsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInMusicsAtIndex:(NSUInteger)idx withObject:(Music *)value;
+- (void)replaceMusicsAtIndexes:(NSIndexSet *)indexes withMusics:(NSArray<Music *> *)values;
+- (void)addMusicsObject:(Music *)value;
+- (void)removeMusicsObject:(Music *)value;
+- (void)addMusics:(NSOrderedSet<Music *> *)values;
+- (void)removeMusics:(NSOrderedSet<Music *> *)values;
 
 - (void)addStudentsObject:(Student *)value;
 - (void)removeStudentsObject:(Student *)value;

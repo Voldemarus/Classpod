@@ -80,19 +80,18 @@
         context = self.moc;
     }
 
-#ifdef DEBUG
-#warning !!!!!!!!!! TEMPORALY disable write context !!!!
-    DLog(@" 🌹🌹🌹🌹🌹🌹🌹🌹 ЗАПИСЬ отключена!");
-    return;
-    
-    
+//#ifdef DEBUG
+//#warning !!!!!!!!!! TEMPORALY disable write context !!!!
+//    DLog(@" 🌹🌹🌹🌹🌹🌹🌹🌹 ЗАПИСЬ отключена!");
+//    return;
+//#endif
     
     if (context == self.persistentContainer.viewContext) {
         DLog(@" 🌹🌹 Сохраненяется Основной контекст");
     } else {
         DLog(@" 🌹 Сохраненяется Другой0 контекст");
     }
-#endif
+
 
     NSError *error;
     if ([context hasChanges] && ![context save:&error]) {
@@ -232,17 +231,7 @@
     for (NSInteger i = 0; i < array.count; i++) {
         [context deleteObject:array[i]];
     }
-    NSFileManager *fm = NSFileManager.defaultManager;
-    array = classPod.music.array;
-    for (NSInteger i = 0; i < array.count; i++) {
-        Music *music = array[i];
-        NSString *strUrl = music.fileURL;
-        NSURL *url = strUrl.length > 0 ? [NSURL fileURLWithPath:strUrl] : nil;
-        if (url) {
-            [fm removeItemAtURL:url error:nil];
-        }
-        [context deleteObject:music];
-    }
+    [classPod deleteAllMusicAndDeleteFile:NO];
     [context deleteObject:classPod];
 }
 

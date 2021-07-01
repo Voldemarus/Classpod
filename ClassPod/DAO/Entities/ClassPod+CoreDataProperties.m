@@ -18,7 +18,7 @@
 @dynamic name;
 @dynamic note;
 @dynamic audios;
-@dynamic music;
+@dynamic musics;
 @dynamic students;
 @dynamic teacher;
 

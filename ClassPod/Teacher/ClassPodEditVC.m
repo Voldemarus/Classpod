@@ -23,6 +23,12 @@
 
     __weak IBOutlet UIView *viewTeacher;
 
+    __weak IBOutlet UILabel *labelTeacherName;
+    __weak IBOutlet UITextField *textTeacherFieldName;
+
+    __weak IBOutlet UILabel *labelTeacherNote;
+    __weak IBOutlet UITextView *textTeacherViewNote;
+
     __weak IBOutlet UILabel *labelCourseName;
     __weak IBOutlet UITextField *textFieldCourseName;
 
@@ -61,20 +67,24 @@
 - (void) updateUI
 {
     labelHeader.text = RStr(@"Edit Class Pod");
-    labelName.text = RStr(@"Name:");
+    labelName.text = RStr(@"Class name:");
     textFieldName.text = self.classPod.name;
-    labelNote.text = RStr(@"Note:");
+    labelNote.text = RStr(@"Class note:");
     textViewNote.text = self.classPod.note;
     
-#warning Don't edit teacher??
-    viewTeacher.alpha = 0.5;    
-    textFieldCourseName.enabled = NO;
-    textFieldHourRate.enabled = NO;
+//#warning Don't edit teacher??
+//    viewTeacher.alpha = 0.5;
+//    textFieldCourseName.enabled = NO;
+//    textFieldHourRate.enabled = NO;
 
     labelCourseName.text = RStr(@"Course name:");
     textFieldCourseName.text = self.classPod.teacher.courseName;
-    labelHourRate.text = RStr(@"Hour Rate");
+    labelHourRate.text = RStr(@"Hour Rate:");
     textFieldHourRate.text = [NSString stringWithFormat:@"%.2f", self.classPod.teacher.hourRate];
+    labelTeacherName.text = RStr(@"Teacher name:");
+    textTeacherFieldName.text = self.classPod.teacher.name;
+    labelTeacherNote.text = RStr(@"Teacher note:");
+    textTeacherViewNote.text = self.classPod.teacher.note;
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
@@ -96,15 +106,25 @@
             self.classPod.teacher.hourRate = text.floatValue;
             hasChange = YES;
         }
+    } if (textField == textTeacherFieldName) {
+        if (![self.classPod.teacher.name isEqualToString:text]) {
+            self.classPod.teacher.name = text;
+            hasChange = YES;
+        }
     }
 }
 
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
+    NSString *text = textView.text;
     if (textView == textViewNote) {
-        NSString *text =  textView.text;
         if (![self.classPod.note isEqualToString:text]) {
             self.classPod.note = text;
+            hasChange = YES;
+        }
+    } else if (textView == textTeacherViewNote) {
+        if (![self.classPod.teacher.note isEqualToString:text]) {
+            self.classPod.teacher.note = text;
             hasChange = YES;
         }
     }

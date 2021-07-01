@@ -39,7 +39,42 @@ MPMediaPickerControllerDelegate>
 - (void) setClassPod:(ClassPod *)classPod
 {
     _classPod = classPod;
-    
+    [self loadArrayMediaItemsFromClasspod];
+}
+
+- (void) loadArrayMediaItemsFromClasspod
+{
+    // заполнить массив по сохраненным песням
+    if (arrayMediaItems) {
+        [arrayMediaItems removeAllObjects];
+    } else {
+        arrayMediaItems = [NSMutableArray new];
+    }
+
+    NSArray *arrayMusic = self.classPod.musics.array;
+    for (NSInteger i = 0; i < arrayMusic.count; i++) {
+        Music * music = arrayMusic[i];
+        NSString *fileName = music.fileName;
+        if (fileName.length > 0) {
+            MPMediaQuery * songQuery = [MPMediaQuery new];
+            MPMediaPropertyPredicate *predicate = [MPMediaPropertyPredicate predicateWithValue:fileName forProperty:MPMediaItemPropertyPersistentID];;
+            [songQuery addFilterPredicate: predicate];
+            NSArray <MPMediaItem *>* findItems = songQuery.items;
+            if (findItems.count > 0) {
+                [arrayMediaItems addObject:findItems[0]];
+            }
+        }
+    }
+    [self.tableMusic reloadData];
+}
+
+- (void) synchronizationMediaAddClassPod
+{
+    [self.classPod deleteAllMusicAndDeleteFile:NO];
+    for (NSInteger i = 0; i < arrayMediaItems.count; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"%llu", arrayMediaItems[i].persistentID];
+        [self.classPod addMusicName:fileName];
+    }
 }
 
 - (IBAction) closePressed:(id)sender
@@ -96,10 +131,8 @@ MPMediaPickerControllerDelegate>
         
         [arrayMediaItems removeObject:item];
         [arrayMediaItems insertObject:item atIndex:toIndexPath.row];
+        [self synchronizationMediaAddClassPod];
 //    }
-    
-    
-    
 }
 
 - (UISwipeActionsConfiguration*) tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -108,6 +141,7 @@ MPMediaPickerControllerDelegate>
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:RStr(@"Delete") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 //        MPMediaItem *item = arrayMediaItems[indexPath.row];
         [arrayMediaItems removeObjectAtIndex:row];
+        [self synchronizationMediaAddClassPod];
         [self.tableMusic reloadData];
         
     }];
@@ -134,12 +168,12 @@ MPMediaPickerControllerDelegate>
 
 - (void) mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
-    arrayMediaItems = mediaItemCollection.items.mutableCopy;
-        
+    [arrayMediaItems addObjectsFromArray:mediaItemCollection.items.mutableCopy];
+    [self synchronizationMediaAddClassPod];
+
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.tableMusic reloadData];
-    
 }
 
 - (void) mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
@@ -156,26 +190,14 @@ MPMediaPickerControllerDelegate>
     DLog(@"🐝 Запуск конвертирования %ld файлов", arrayMediaItems.count);
     
     self.activityView.alpha = 1.0;
-    
-#warning need Edit!
-
-    NSMutableSet <MPMediaItem *>* tempSet = [NSMutableSet new];
-    NSMutableArray <MPMediaItem *>* newArray = [NSMutableArray new];
-    for (NSInteger i = 0; i < arrayMediaItems.count; i++) {
-        MPMediaItem * obj = arrayMediaItems[i];
-        if (![tempSet containsObject:obj]) {
-            [tempSet addObject:obj];
-            [newArray addObject:obj];
-        }
-    }
-    
-    [Utils createMP3FromMediaItems:newArray blockCurrentFile:^(NSString * _Nullable fileWithPath) {
+        
+    [Utils createMP3FromMediaItems:arrayMediaItems blockCurrentFile:^(NSString * _Nullable fileWithPath) {
     
         DLog(@"🦋 добавлен файл: %@", fileWithPath.lastPathComponent);
         
     } completion:^(NSArray<NSURL *> * _Nonnull arrayUrls, NSDictionary * _Nonnull dictParams, NSURL * _Nullable urlMusicDB) {
         
-        DLog(@"🐝 готовы все %ld из %ld%@", arrayUrls.count, newArray.count, arrayUrls.count != newArray.count ? @" ‼️ Не все обработались ‼️":@"");
+        DLog(@"🐝 готовы все %ld из %ld%@", arrayUrls.count, arrayMediaItems.count, arrayUrls.count != arrayMediaItems.count ? @" ‼️ Не все обработались ‼️":@"");
         NSMutableArray <NSURL *> * arrayUslsSend = arrayUrls.mutableCopy;
         if (urlMusicDB) {
             // На сервер надо так же передать плейлист в json

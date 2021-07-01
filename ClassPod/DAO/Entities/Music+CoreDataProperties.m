@@ -1,8 +1,8 @@
 //
 //  Music+CoreDataProperties.m
-//  ClassPod
+//  
 //
-//  Created by Водолазкий В.В. on 10.05.2021.
+//  Created by Dmitry Likhtarov on 01.07.2021.
 //
 //
 
@@ -15,7 +15,6 @@
 }
 
 @dynamic fileName;
-@dynamic fileURL;
-@dynamic classes;
+@dynamic classPod;
 
 @end

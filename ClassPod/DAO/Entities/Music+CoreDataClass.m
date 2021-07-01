@@ -41,22 +41,4 @@
 //    return (res.count > 0) ? res[0] : nil;
 //}
 
-//- (void) deleteForClassPod:(ClassPod*)classPod
-//{
-//    if (classPod && [self.classes containsObject:classPod]) {
-//        [self removeClassesObject:classPod];
-//        if (self.classes.count == 0) {
-//            // Больше ни с кем не связан, удалить файл
-//            NSFileManager * fm = NSFileManager.defaultManager;
-//            NSString * fileParh = self.fileURL;
-//            if (fileParh.length > 0) {
-//                if ([fm fileExistsAtPath:fileParh]) {
-//                    [fm removeItemAtPath:fileParh error:nil];
-//                }
-//            }
-//        }
-//    }
-//    [self.managedObjectContext deleteObject:self];
-//}
-
 @end

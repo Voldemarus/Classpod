@@ -147,6 +147,7 @@
     deleteAction.backgroundColor = UIColor.systemRedColor;
     
     UIContextualAction * editAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:RStr(@"Edit") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        [self.tableClassPods reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
         [self editClassPod:classPod];
     }];
     editAction.backgroundColor = UIColor.systemBlueColor;

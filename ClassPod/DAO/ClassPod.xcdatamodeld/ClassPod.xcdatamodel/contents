@@ -14,14 +14,13 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <relationship name="audios" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Audiochat" inverseName="classpod" inverseEntity="Audiochat"/>
-        <relationship name="music" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Music" inverseName="classes" inverseEntity="Music"/>
+        <relationship name="musics" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Music" inverseName="classPod" inverseEntity="Music"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="classes" inverseEntity="Student"/>
         <relationship name="teacher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Teacher" inverseName="classes" inverseEntity="Teacher"/>
     </entity>
     <entity name="Music" representedClassName="Music" syncable="YES">
         <attribute name="fileName" optional="YES" attributeType="String"/>
-        <attribute name="fileURL" optional="YES" attributeType="String"/>
-        <relationship name="classes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="music" inverseEntity="ClassPod"/>
+        <relationship name="classPod" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ClassPod" inverseName="musics" inverseEntity="ClassPod"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -42,7 +41,7 @@
     <elements>
         <element name="Audiochat" positionX="-29.5001220703125" positionY="-247.9055023193359" width="128" height="148"/>
         <element name="ClassPod" positionX="142.9368286132812" positionY="-129.9385223388672" width="128" height="148"/>
-        <element name="Music" positionX="332.0382690429688" positionY="-36.23544311523438" width="128" height="88"/>
+        <element name="Music" positionX="332.0382690429688" positionY="-36.23544311523438" width="128" height="73"/>
         <element name="Student" positionX="-260.0308837890625" positionY="-174.8857879638672" width="128" height="118"/>
         <element name="Teacher" positionX="-222.594482421875" positionY="-5.416229248046875" width="128" height="148"/>
     </elements>

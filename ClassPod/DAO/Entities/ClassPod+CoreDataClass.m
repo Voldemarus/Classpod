@@ -7,6 +7,7 @@
 //
 
 #import "ClassPod+CoreDataClass.h"
+#import "Utils.h"
 
 @implementation ClassPod
 
@@ -47,5 +48,39 @@
 
     return res.count > 0 ? res[0] : nil;
 }
+
+- (void) deleteAllMusicAndDeleteFile:(BOOL)deleteFile
+{
+    NSOrderedSet<Music *>* musics = self.musics;
+    if (musics.count > 0) {
+        [self removeMusics:musics];
+        NSManagedObjectContext *moc = self.managedObjectContext;
+        for (NSInteger i = 0; i < musics.count; i++) {
+            Music *music = musics[i];
+            NSString * fileName = music.fileName;
+            if (deleteFile && fileName.length > 0) {
+                // удалить файл
+                NSFileManager * fm = NSFileManager.defaultManager;
+                NSString * fileParh = myCachesDirectoryFile(fileName);
+                if (fileParh.length > 0 && [fm fileExistsAtPath:fileParh]) {
+                    [fm removeItemAtPath:fileParh error:nil];
+                }
+            }
+            [moc deleteObject:musics[i]];
+        }
+    }
+}
+
+- (Music * _Nonnull) addMusicName:(NSString * _Nonnull)fileName
+{
+    NSAssert(fileName, @"‼️ fileName is empty!");
+
+    Music * music = [NSEntityDescription insertNewObjectForEntityForName: NSStringFromClass(Music.class) inManagedObjectContext:self.managedObjectContext];
+    music.fileName = fileName;
+    [self addMusicsObject:music];
+    
+    return music;
+}
+
 
 @end

@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (ClassPod * _Nullable) getWithTeacher:(Teacher *)teacher
                                   inMoc:(NSManagedObjectContext *)moc;
 
+- (void) deleteAllMusicAndDeleteFile:(BOOL)deleteFile;
+- (Music * _Nonnull) addMusicName:(NSString * _Nonnull)fileName;
+
 @end
 
 NS_ASSUME_NONNULL_END
