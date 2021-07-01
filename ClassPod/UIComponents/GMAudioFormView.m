@@ -11,7 +11,6 @@
 @interface GMAudioFormView ()
 {
     UIView *centerLineView;
-    NSMutableArray *dataArray;
     NSInteger totalCount;
     CGFloat xPoint;
     NSTimer *timer;
@@ -21,19 +20,31 @@
     CGFloat width;
 
     UIColor *lineColor;
-    UIColor *centerLine;
+    UIColor *centerLineColor;
 }
 
 @end
 
 @implementation GMAudioFormView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+@synthesize centerColor = centerLineColor;
+
+
+- (instancetype) initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        centerLineColor = [UIColor darkGrayColor];
+    }
+    return self;
 }
-*/
+
+- (void)drawRect:(CGRect)rect
+{
+    // Draw centerline
+    if (!centerLineView) {
+        centerLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height * 0.5, self.frame.size.width, 1.0)];
+        centerLineView.backgroundColor = centerLineColor;
+    }
+}
 
 @end
