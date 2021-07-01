@@ -177,14 +177,16 @@ MPMediaPickerControllerDelegate>
         }
         [LDWWWTools.sharedInstance getListExistMusicOnServerCompletion:^(NSError * _Nonnull error, NSDictionary * _Nonnull dictMusic) {
             
-            for (NSInteger i = 0; i < arrayUslsSend.count; i++) {
-                NSURL *url = arrayUslsSend[i];
+            for (NSInteger i = 0; i < arrayUrls.count; i++) {
+                NSURL *url = arrayUrls[i];
                 NSString *fileName = url.lastPathComponent;
                 NSDictionary *dServer = dictMusic[fileName];
                 NSDictionary *dLocal = dictParams[fileName];
+                DLog(@"🦋 1 проверяем Файл %@  (%@ %@)", fileName, dServer.class, dLocal.class);
                 if ([dServer isKindOfClass:NSDictionary.class] && [dLocal isKindOfClass:NSDictionary.class]) {
                     NSNumber *nLocal = dLocal[@"filesize"];
                     NSNumber *nServer = dServer[@"filesize"];
+                    DLog(@"🦋 2 проверяем Файл %@  (%@ %@)", fileName, nLocal, nServer);
                     if (nLocal && nServer && nLocal.integerValue > 0 && nLocal.integerValue == nServer.integerValue ) {
                         DLog(@"🦋 Файл %@ есть на сервере, не грузим его", fileName);
                         [arrayUslsSend removeObject:url];

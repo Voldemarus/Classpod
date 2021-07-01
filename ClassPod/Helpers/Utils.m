@@ -28,38 +28,38 @@ NSString* myCachesDirectoryFile(NSString * _Nonnull name)
     return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:name];
 }
 
-// Путь для кэша мелодий по 30 секунд  // Library/Sound
-NSString* mySoundDirectory(void)
-{
-    NSString *soundDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Sounds"];
-    NSFileManager *fm = NSFileManager.defaultManager;
-    if (![fm fileExistsAtPath:soundDir]) {
-        [fm createDirectoryAtPath:soundDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return soundDir;
-}
+//// Путь для кэша мелодий по 30 секунд  // Library/Sound
+//NSString* mySoundDirectory(void)
+//{
+//    NSString *soundDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Sounds"];
+//    NSFileManager *fm = NSFileManager.defaultManager;
+//    if (![fm fileExistsAtPath:soundDir]) {
+//        [fm createDirectoryAtPath:soundDir withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    return soundDir;
+//}
 
-// Путь файла с именем name в локальном кэше мелодий
-NSString* mySoundFile(NSString * _Nonnull name)
-{
-    NSString *soundDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Sounds"];
-    NSFileManager *fm = NSFileManager.defaultManager;
-    if (![fm fileExistsAtPath:soundDir]) {
-        [fm createDirectoryAtPath:soundDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return [soundDir stringByAppendingPathComponent:name];
-}
-
-// Путь файла с именем name во временной папке
-NSString* myTempFileWithPath(NSString * _Nonnull name)
-{
-    NSString *tempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"TempMusicDB"];
-    NSFileManager *fm = NSFileManager.defaultManager;
-    if (![fm fileExistsAtPath:tempDir]) {
-        [fm createDirectoryAtPath:tempDir withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return [tempDir stringByAppendingPathComponent:name];
-}
+//// Путь файла с именем name в локальном кэше мелодий
+//NSString* mySoundFile(NSString * _Nonnull name)
+//{
+//    NSString *soundDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Sounds"];
+//    NSFileManager *fm = NSFileManager.defaultManager;
+//    if (![fm fileExistsAtPath:soundDir]) {
+//        [fm createDirectoryAtPath:soundDir withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    return [soundDir stringByAppendingPathComponent:name];
+//}
+//
+//// Путь файла с именем name во временной папке
+//NSString* myTempFileWithPath(NSString * _Nonnull name)
+//{
+//    NSString *tempDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"TempMusicDB"];
+//    NSFileManager *fm = NSFileManager.defaultManager;
+//    if (![fm fileExistsAtPath:tempDir]) {
+//        [fm createDirectoryAtPath:tempDir withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    return [tempDir stringByAppendingPathComponent:name];
+//}
 
 #pragma mark - Работа с аудио файлом
 
@@ -115,7 +115,7 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
         if (completion) completion(nil);
         return;
     }
-    NSString *fileMP3 = mySoundFile(persistentID);
+    NSString *fileMP3 = myCachesDirectoryFile(persistentID);
 
     NSString *fileM4A = [fileMP3 stringByAppendingString:@"_tempExport"];
     NSFileManager *fm = NSFileManager.defaultManager;
@@ -124,6 +124,12 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
         [fm removeItemAtPath:fileM4A error:nil];
     }
     
+    if ([fm fileExistsAtPath:fileMP3]) {
+         DLog (@"Файл уже есть в кэше: %@", fileMP3.lastPathComponent);
+        if (completion) completion(fileMP3);
+        return;
+    }
+
     exporter.outputURL = [NSURL fileURLWithPath:fileM4A];
     
 //    // **** Обрезать файл до 30 секунд
@@ -202,6 +208,8 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
     __block NSInteger count = arraySongs.count;
     NSMutableArray <NSURL*>* urls = [NSMutableArray new];
     NSMutableDictionary * playFilesParam = [NSMutableDictionary new];
+    NSMutableArray * playListServer = [NSMutableArray new];
+
 
     if (count < 1) {
         if (completion) completion(urls, playFilesParam, nil);
@@ -236,6 +244,7 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
                         @"audiolength"  : nSize,
                     };
                     [urls addObject:url];
+                    [playListServer addObject:dictFile];
                     playFilesParam[fileName] = dictFile;
                     
                 } else {
@@ -246,7 +255,7 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
             }
             
             if (urls.count >= count) {
-                NSURL *urlDB = [self createMusikDbWithDict:playFilesParam];
+                NSURL *urlDB = [self createMusikDbWithDict:playListServer];
                 if (completion) completion(urls, playFilesParam, urlDB);
             }
             
@@ -297,7 +306,7 @@ NSString* myTempFileWithPath(NSString * _Nonnull name)
 //
 //    }
 //    [text appendString:@"}"];
-    NSString * fileWithPath = myTempFileWithPath(MUSIC_DB_FILE_NAME);
+    NSString * fileWithPath = myCachesDirectoryFile(MUSIC_DB_FILE_NAME);
     error = nil;
     [text writeToFile:fileWithPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     DLog(@"\n%@", text);

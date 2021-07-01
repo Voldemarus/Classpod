@@ -24,10 +24,10 @@ NSString* myCachesDirectory(void);
 NSString* myCachesDirectoryFile(NSString * _Nonnull name);
 
 
-// Путь для кэша мелодий по 30 секунд Library/Sound
-NSString* mySoundDirectory(void);
-// Путь файла с именем name в локальном кэше мелодий Library/Sound/name
-NSString* mySoundFile(NSString * _Nonnull name);
+//// Путь для кэша мелодий по 30 секунд Library/Sound
+//NSString* mySoundDirectory(void);
+//// Путь файла с именем name в локальном кэше мелодий Library/Sound/name
+//NSString* mySoundFile(NSString * _Nonnull name);
 
 // Записать файл из библиотеки локально и обрезать на 30 секунд,
 // в блок вернем имя(не путь!) файла в Library/Sounds/fileName или имя мелодии по умолчанию

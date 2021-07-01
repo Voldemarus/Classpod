@@ -77,10 +77,10 @@ $track_pos = ($playfiles[$i]["playtime"] - $play_sum + $play_pos) * $playfiles[$
 header("Content-type: audio/mpeg");
 // header("Content-type: audio/mp4");
 
-    header("icy-name: ".$settings["name"]);
+//     header("icy-name: ".$settings["name"]);
 //     header("icy-genre: ".$settings["genre"]);
 //     header("icy-url: ".$settings["url"]);
-    header("icy-metaint: ".$settings["buffer_size"]);
+//     header("icy-metaint: ".$settings["buffer_size"]);
 //     header("icy-br: ".$settings["bitrate"]);
 //     header("Content-Length: ".$settings["max_listen_time"] * $settings["bitrate"]); // * 128); //suppreses chuncked transfer-encoding
 
