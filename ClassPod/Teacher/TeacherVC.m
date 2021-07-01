@@ -122,7 +122,10 @@ ServiceLocatorDelegate>
 
 - (IBAction) buttonPlaylistCreatePressed:(id)sender
 {
-    [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"PlayListMakerVC"] animated:NO completion:nil];
+    PlayListMakerVC *vc = (PlayListMakerVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"PlayListMakerVC"];
+    [self presentViewController:vc animated:NO completion:^{
+        vc.classPod = self.classPod;
+    }];
 }
 
 - (void) changedStudent:(Student*) student

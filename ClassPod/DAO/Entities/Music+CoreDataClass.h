@@ -14,7 +14,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Music : NSManagedObject
-
+//
+//+ (Music * _Nonnull) getOrCgeateByFileName:(NSString *)fileName
+//                                  classPod:(ClassPod*)classPod
+//                                     inMoc:(NSManagedObjectContext *)moc;
+//
+//+ (Music * _Nullable) getByFileName:(NSString *)fileName
+//                              inMoc:(NSManagedObjectContext *)moc;
 @end
 
 NS_ASSUME_NONNULL_END

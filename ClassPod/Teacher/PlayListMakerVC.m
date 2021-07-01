@@ -36,6 +36,12 @@ MPMediaPickerControllerDelegate>
     self.activityView.alpha = 0.0;
 }
 
+- (void) setClassPod:(ClassPod *)classPod
+{
+    _classPod = classPod;
+    
+}
+
 - (IBAction) closePressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:^{
