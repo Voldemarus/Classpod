@@ -70,6 +70,7 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     CALayer *l = self.view.layer;
+    l.cornerRadius = self.view.frame.size.height / 3.5;
     if (self.owner == GMAudioCellOwnerTeacher) {
         l.backgroundColor = [UIColor colorWithHexString:GMAudioCellTeacherBackground].CGColor;
         self.audioForm.lineColor = [UIColor colorWithHexString:GMAudioCellTeacherLine];
