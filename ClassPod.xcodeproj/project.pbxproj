@@ -406,13 +406,21 @@
 		1B54E5E9268C9413002DC117 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				1B54E652268DBBE0002DC117 /* GMAudioCellView */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		1B54E652268DBBE0002DC117 /* GMAudioCellView */ = {
+			isa = PBXGroup;
+			children = (
 				1B54E643268CB7C1002DC117 /* GMAudioFormView.h */,
 				1B54E644268CB7C1002DC117 /* GMAudioFormView.m */,
 				1B54E5EA268C944A002DC117 /* GMAudioCellViewController.h */,
 				1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */,
 				1B54E625268C9B3C002DC117 /* GMAudioCellViewController.xib */,
 			);
-			path = UIComponents;
+			path = GMAudioCellView;
 			sourceTree = "<group>";
 		};
 		1BB03AD22640628A00B6096F = {

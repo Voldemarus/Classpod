@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet GMAudioFormView *audioForm;
 @property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *playStopButton;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 - (IBAction)playStopClicked:(id)sender;
 
@@ -57,6 +58,12 @@
         NSInteger sec = t - (min * 60);
         self.durationLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)min,(long)sec];
     }
+    // Set up time label in HH:MM format;
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"HH:mm"];
+    self.timeLabel.text = [df stringFromDate:audio.timestamp];
+    self.audioForm.fileName = audio.filename;
+    [self.view setNeedsDisplay];
 }
 
 
@@ -75,16 +82,24 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)playStopClicked:(id)sender
+{
+    if (_player.isPlaying) {
+        [_player pause];
+    } else {
+        [_player play];
+    }
 }
-*/
 
-- (IBAction)playStopClicked:(id)sender {
+#pragma mark - AVAudioPlayer delegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    [player pause];
+    // now rewind to initial position to repeat sound from the beginning
+    // if user clicks button again
+    player.currentTime = 0.0;
 }
+
+
 @end

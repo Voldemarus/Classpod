@@ -11,10 +11,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GMAudioFormView : UIView
 
+/**
+        Color of the line
+ */
 @property (nonatomic, retain) UIColor *lineColor;
+
+/**
+        Color of X-axis
+ */
 @property (nonatomic, retain) UIColor *centerColor;
 
-@property (nonatomic, retain) NSMutableArray *dataArray;
+/**
+    Path to audio file name
+ */
+@property (nonatomic, retain) NSString *fileName;
 
 @end
 
