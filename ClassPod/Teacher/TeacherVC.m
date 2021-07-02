@@ -9,7 +9,7 @@
 #import "CellStudentList.h"
 #import "ServiceLocator.h"
 //#import "RadioTransmitter.h"
-//#import "LDRTPServer.h"
+#import "LDRTPServer.h"
 #import "PlayListMakerVC.h"
 #import <AVKit/AVKit.h>
 
@@ -83,27 +83,7 @@ ServiceLocatorDelegate>
 - (IBAction) buttonMicrophonePressed:(id)sender
 {
     DLog(@"🐝 button Microphone Pressed");
-}
-
-- (IBAction) buttonMusicPressed:(id)sender
-{
-//    if (!selectedStudent) {
-//        DLog(@"Нет Выбранного студента!");
-//    }
-    
-    musicPlaying = !musicPlaying;
-    
-    NSString * imageName = musicPlaying ? @"RadioBlack" : @"RadioBlackOff";
-    [self.buttonMusic setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    
-    for (Student * student in arrayStudents) {
-        // Послать сообщение студенту на воспроизведение/остановку музыки
-        NSData *dataPlay = [dao packetDataPlayMusic:musicPlaying];
-        [student.socket writeData:dataPlay withTimeout:-1.0f tag:0];
-    }
-    
-
-//
+//    
 //#warning ! Need edit selected student
 //    Student *student = selectedStudent;
 //    UInt32 port = student.socket.connectedPort;
@@ -114,10 +94,30 @@ ServiceLocatorDelegate>
 //
 //    [server initialSocketPort:port];
 //    [server open];
+
+
+}
+
+- (IBAction) buttonMusicPressed:(id)sender
+{
+//    if (!selectedStudent) {
+//        DLog(@"Нет Выбранного студента!");
+//    }
 //
-//
-////    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
-////    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+    musicPlaying = !musicPlaying;
+
+    NSString * imageName = musicPlaying ? @"RadioBlack" : @"RadioBlackOff";
+    [self.buttonMusic setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+
+    for (Student * student in arrayStudents) {
+        // Послать сообщение студенту на воспроизведение/остановку музыки
+        NSData *dataPlay = [dao packetDataPlayMusic:musicPlaying];
+        [student.socket writeData:dataPlay withTimeout:-1.0f tag:0];
+    }
+
+
+//    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
+//    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
 }
 
 - (IBAction) buttonPlaylistCreatePressed:(id)sender
