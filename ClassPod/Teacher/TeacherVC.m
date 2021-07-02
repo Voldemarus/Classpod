@@ -25,6 +25,8 @@ ServiceLocatorDelegate>
     Student * selectedStudent;
     PlayListMakerVC * playListMakerVC;
     BOOL musicPlaying;
+    BOOL microfoneON;
+
     __weak IBOutlet UIButton * buttonPlayStop;
 
 }
@@ -82,16 +84,35 @@ ServiceLocatorDelegate>
 
 - (IBAction) buttonMicrophonePressed:(id)sender
 {
-    DLog(@"🐝 button Microphone Pressed");
-//    
-//#warning ! Need edit selected student
-//    Student *student = selectedStudent;
-//    UInt32 port = student.socket.connectedPort;
-////    UInt32 port = 51001;
-////    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
-//    DLog(@"🐝 button Music Pressed");
+    microfoneON = !microfoneON;
+    DLog(@"🐝 button Microphone Pressed %@", microfoneON ? @"Вкл" : @"Откл");
+    
+#warning ! Need edit selected student
+    Student *student = selectedStudent;
+    UInt32 port = student.socket.connectedPort;
+    if (port == 0) {
+        port = 51001;
+    }
+//    UInt32 port = 51001;
+//    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
 //    LDRTPServer *server = LDRTPServer.sharedRTPServer;
-//
+    
+    NSMutableArray *arraySocket = [NSMutableArray new];
+    for (Student * student in arrayStudents) {
+        // Послать сообщение студенту на воспроизведение/остановку музыки
+        GCDAsyncSocket * soc = student.socket;
+        if (soc) {
+            [arraySocket addObject:soc];
+        }
+    }
+//    LDAudioServer *server = [[LDAudioServer alloc] initWithSocketPort:port];
+//    server.connectedClients = arraySocket;
+//    if (microfoneON) {
+//        [server start];
+//    } else {
+//        [server stop];
+//    }
+
 //    [server initialSocketPort:port];
 //    [server open];
 

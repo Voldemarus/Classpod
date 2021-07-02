@@ -264,11 +264,11 @@ NSString * const VVVserviceDomain   =   @"local.";
             NSError *error = nil;
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:dataBuffer options:0 error:&error];
             if (!error) {
-                NSLog(@"Received data - %@",jsonDict);
+                DLog(@"Received data - %@",jsonDict);
             } else {
-                NSLog(@"Cannot parse incoming packet - %@", [error localizedDescription]);
+                DLog(@"Cannot parse incoming packet - %@", [error localizedDescription]);
                 NSString *tmp = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-                NSLog(@"Data read - >>%@<<",tmp);
+                DLog(@"Data read - >>%@<<",tmp);
             }
         }
 
