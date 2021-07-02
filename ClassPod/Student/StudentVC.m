@@ -15,9 +15,7 @@
 #import "DebugPrint.h"
 
 @interface StudentVC () <
-AVPlayerViewControllerDelegate,
-ServiceLocatorDelegate
->
+AVPlayerViewControllerDelegate>
 {
     DAO *dao;
     Preferences *prefs;
@@ -157,6 +155,7 @@ uuid:    %@",
     NSData *dataPack = [dao dataPackForStudent:studentSelf];
 
     [socket writeData:dataPack withTimeout:-1.0f tag:0];
+
 }
 
 #pragma mark - Button pressed
@@ -268,6 +267,5 @@ uuid:    %@",
 //    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
 //    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
 }
-
 
 @end
