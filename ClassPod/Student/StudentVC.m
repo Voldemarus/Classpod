@@ -16,8 +16,7 @@
 
 @interface StudentVC () <
 AVPlayerViewControllerDelegate,
-ServiceLocatorDelegate
->
+GCDAsyncSocketDelegate>
 {
     DAO *dao;
     Preferences *prefs;
@@ -52,14 +51,20 @@ ServiceLocatorDelegate
     self.trackDetail.text = @"";
     
     dictSockets = [NSMutableDictionary new];
-    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
-    [nc addObserver:self selector:@selector(serviceDidResolveAddress:) name:@"netServiceDidResolveAddress" object:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self updateUI];
+    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
+    [nc addObserver:self selector:@selector(serviceDidResolveAddress:) name:@"netServiceDidResolveAddress" object:nil];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [NSNotificationCenter.defaultCenter removeObserver:self name:@"netServiceDidResolveAddress" object:nil];
+    [super viewDidDisappear:animated];
 }
 
 - (void) setTeacher:(Teacher *)teacher
@@ -157,6 +162,10 @@ uuid:    %@",
     NSData *dataPack = [dao dataPackForStudent:studentSelf];
 
     [socket writeData:dataPack withTimeout:-1.0f tag:0];
+
+    
+//    [socket readDataToLength:18432 withTimeout:-1 tag:0];
+    
 }
 
 #pragma mark - Button pressed
@@ -257,16 +266,89 @@ uuid:    %@",
 
 - (IBAction) buttonMusicPressed:(id)sender
 {
-    UInt32 port = (UInt32) self.teacher.service.port;
-    DLog(@"🐝 TEST button Pressed");
-    LDRTPServer *server = LDRTPServer.sharedRTPServer;
-    
-    [server open];
-    [server initialSocketPort:port];
-    
+//    UInt32 port = (UInt32) self.teacher.service.port;
+//    DLog(@"🐝 TEST button Pressed");
+//    LDRTPServer *server = LDRTPServer.sharedRTPServer;
+//
+//    [server open];
+//    [server initialSocketPort:port];
+//
+    Student * studentSelf = [dao getOrCreateStudetnSelf];
+//    NSData *dataPack = [dao dataPackForStudent:studentSelf];
+    NSData *dataPack = [dao packetDataPlayMusic:YES];
+
+    [studentSelf.socket writeData:dataPack withTimeout:-1.0f tag:0];
+
     
 //    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
 //    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+}
+
+#pragma mark -
+//- (dispatch_queue_t)newSocketQueueForConnectionFromAddress:(NSData *)address onSocket:(GCDAsyncSocket *)sock
+//{
+//    DLog(@"🏵 newSocketQueueForConnectionFromAddress");
+//}
+
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+    DLog(@"🏵 didAcceptNewSocket");
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    DLog(@"🏵 didConnectToHost:%@ port:%d", host, port);
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    DLog(@"🏵 didReadData");
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadPartialDataOfLength:(NSUInteger)partialLength tag:(long)tag
+{
+    DLog(@"🏵 didReadPartialDataOfLength");
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    DLog(@"🏵 didWriteDataWithTag:%ld", tag);
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWritePartialDataOfLength:(NSUInteger)partialLength tag:(long)tag
+{
+    DLog(@"🏵 didWritePartialDataOfLength");
+}
+
+//- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag
+//                                                                 elapsed:(NSTimeInterval)elapsed
+//                                                               bytesDone:(NSUInteger)length
+//{
+//    DLog(@"🏵 shouldTimeoutReadWithTag");
+//}
+//
+//- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag
+//                                                                  elapsed:(NSTimeInterval)elapsed
+//                                                                bytesDone:(NSUInteger)length
+//{
+//    DLog(@"🏵 shouldTimeoutWriteWithTag");
+//}
+
+
+- (void)socketDidCloseReadStream:(GCDAsyncSocket *)sock
+{
+    DLog(@"🏵 socketDidCloseReadStream");
+}
+
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    DLog(@"🏵 socketDidDisconnect: %@", err.localizedDescription);
+}
+
+- (void)socketDidSecure:(GCDAsyncSocket *)sock
+{
+    DLog(@"🏵 socketDidSecure");
 }
 
 

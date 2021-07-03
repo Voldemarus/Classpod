@@ -57,7 +57,7 @@
     m_capture = [[AVCaptureSession alloc] init];
     AVCaptureDevice *audioDev = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
     if (audioDev == nil) {
-        printf("Couldn't create audio capture device");
+        DLog(@"Couldn't create audio capture device");
         return ;
     }
     //m_capture.sessionPreset = AVCaptureSessionPresetLow;
@@ -65,7 +65,7 @@
     // create mic device
     AVCaptureDeviceInput *audioIn = [AVCaptureDeviceInput deviceInputWithDevice:audioDev error:&error];
     if (error != nil) {
-        printf("Couldn't create audio input");
+        DLog(@"Couldn't create audio input");
         return ;
     }
     
@@ -194,7 +194,7 @@
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
-    printf("🐜 stream: %ld(%ld): ", aStream.streamStatus, eventCode);
+    ALog(@"🐜 stream: %ld(%ld): ", aStream.streamStatus, eventCode);
     //    NSLog("Receieve stream event: %d", eventCode.rawValue);
     switch (eventCode){
         case NSStreamEventErrorOccurred:

@@ -9,7 +9,7 @@
 #import "CellStudentList.h"
 #import "ServiceLocator.h"
 //#import "RadioTransmitter.h"
-//#import "LDRTPServer.h"
+#import "LDRTPServer.h"
 #import "PlayListMakerVC.h"
 #import <AVKit/AVKit.h>
 
@@ -25,6 +25,8 @@ ServiceLocatorDelegate>
     Student * selectedStudent;
     PlayListMakerVC * playListMakerVC;
     BOOL musicPlaying;
+    BOOL microfoneON;
+
     __weak IBOutlet UIButton * buttonPlayStop;
 
 }
@@ -82,7 +84,39 @@ ServiceLocatorDelegate>
 
 - (IBAction) buttonMicrophonePressed:(id)sender
 {
-    DLog(@"🐝 button Microphone Pressed");
+    microfoneON = !microfoneON;
+    DLog(@"🐝 button Microphone Pressed %@", microfoneON ? @"Вкл" : @"Откл");
+    
+#warning ! Need edit selected student
+    Student *student = selectedStudent;
+    UInt32 port = student.socket.connectedPort;
+    if (port == 0) {
+        port = 51001;
+    }
+//    UInt32 port = 51001;
+//    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
+//    LDRTPServer *server = LDRTPServer.sharedRTPServer;
+    
+    NSMutableArray *arraySocket = [NSMutableArray new];
+    for (Student * student in arrayStudents) {
+        // Послать сообщение студенту на воспроизведение/остановку музыки
+        GCDAsyncSocket * soc = student.socket;
+        if (soc) {
+            [arraySocket addObject:soc];
+        }
+    }
+//    LDAudioServer *server = [[LDAudioServer alloc] initWithSocketPort:port];
+//    server.connectedClients = arraySocket;
+//    if (microfoneON) {
+//        [server start];
+//    } else {
+//        [server stop];
+//    }
+
+//    [server initialSocketPort:port];
+//    [server open];
+
+
 }
 
 - (IBAction) buttonMusicPressed:(id)sender
@@ -90,34 +124,21 @@ ServiceLocatorDelegate>
 //    if (!selectedStudent) {
 //        DLog(@"Нет Выбранного студента!");
 //    }
-    
+//
     musicPlaying = !musicPlaying;
-    
+
     NSString * imageName = musicPlaying ? @"RadioBlack" : @"RadioBlackOff";
     [self.buttonMusic setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    
+
     for (Student * student in arrayStudents) {
         // Послать сообщение студенту на воспроизведение/остановку музыки
         NSData *dataPlay = [dao packetDataPlayMusic:musicPlaying];
         [student.socket writeData:dataPlay withTimeout:-1.0f tag:0];
     }
-    
 
-//
-//#warning ! Need edit selected student
-//    Student *student = selectedStudent;
-//    UInt32 port = student.socket.connectedPort;
-////    UInt32 port = 51001;
-////    student.socket writeData:<#(NSData *)#> withTimeout:<#(NSTimeInterval)#> tag:<#(long)#>
-//    DLog(@"🐝 button Music Pressed");
-//    LDRTPServer *server = LDRTPServer.sharedRTPServer;
-//
-//    [server initialSocketPort:port];
-//    [server open];
-//
-//
-////    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
-////    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
+
+//    RadioTransmitter * rt = [RadioTransmitter sharedTransmitter];
+//    DLog(@"getIPAddress = [%@]", RadioTransmitter.getIPAddress);
 }
 
 - (IBAction) buttonPlaylistCreatePressed:(id)sender
