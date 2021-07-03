@@ -49,6 +49,7 @@
 		1BB03AFE2640628E00B6096F /* ClassPodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03AFD2640628E00B6096F /* ClassPodTests.m */; };
 		1BB03B092640628E00B6096F /* ClassPodUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB03B082640628E00B6096F /* ClassPodUITests.m */; };
 		1BD176F4268DBDFB003CC07E /* GMAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD176F3268DBDFB003CC07E /* GMAvatarView.m */; };
+		1BD17734268F178B003CC07E /* GMMultiPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD17733268F178B003CC07E /* GMMultiPeer.m */; };
 		1BEDC61B264C0233008C88A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDC61A264C0233008C88A7 /* AppDelegate.m */; };
 		1BEDC61D264C0233008C88A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61C264C0233008C88A7 /* Assets.xcassets */; };
 		1BEDC620264C0233008C88A7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BEDC61E264C0233008C88A7 /* MainMenu.xib */; };
@@ -197,6 +198,8 @@
 		1BB03B192640637600B6096F /* ClassPod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassPod.entitlements; sourceTree = "<group>"; };
 		1BD176F2268DBDFB003CC07E /* GMAvatarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMAvatarView.h; sourceTree = "<group>"; };
 		1BD176F3268DBDFB003CC07E /* GMAvatarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMAvatarView.m; sourceTree = "<group>"; };
+		1BD17732268F178B003CC07E /* GMMultiPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMMultiPeer.h; sourceTree = "<group>"; };
+		1BD17733268F178B003CC07E /* GMMultiPeer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMMultiPeer.m; sourceTree = "<group>"; };
 		1BEDC617264C0233008C88A7 /* ClassPodDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassPodDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEDC619264C0233008C88A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BEDC61A264C0233008C88A7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -580,6 +583,8 @@
 				32E7C6F7266B8AE300D00501 /* GCDAsyncUdpSocket.h */,
 				32E7C6F6266B8AE300D00501 /* GCDAsyncUdpSocket.m */,
 				32EC1C682666591F003BB7DF /* PHP Streeming Server */,
+				1BD17732268F178B003CC07E /* GMMultiPeer.h */,
+				1BD17733268F178B003CC07E /* GMMultiPeer.m */,
 			);
 			path = RadioTransmitter;
 			sourceTree = "<group>";
@@ -1052,6 +1057,7 @@
 				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
 				1B54E5FD268C975C002DC117 /* Audiochat+CoreDataProperties.m in Sources */,
 				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
+				1BD17734268F178B003CC07E /* GMMultiPeer.m in Sources */,
 				1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */,
 				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
 				1B067FFD2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
@@ -1325,6 +1331,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1360,6 +1367,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
