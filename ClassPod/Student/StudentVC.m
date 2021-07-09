@@ -254,7 +254,7 @@ uuid:    %@",
     DLog(@"1->meta keyPath  - %@", keyPath);
     if ([keyPath isEqualToString:@"timedMetadata"]) {
         AVPlayerItem *_playerItem = (AVPlayerItem *)object;
-        for (AVMetadataItem *mmd in _playerItem.timedMetadata) {
+       for (AVMetadataItem *mmd in _playerItem.timedMetadata) {
             if ([[mmd.key description] isEqualToString:@"title"]) {
                 self.trackDetail.text = mmd.stringValue;
             }

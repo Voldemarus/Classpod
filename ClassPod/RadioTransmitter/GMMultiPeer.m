@@ -7,6 +7,7 @@
 
 #import "GMMultiPeer.h"
 #import "Preferences.h"
+#import "DAO.h"
 
 NSString * const GMMultipeerSubscribesUpdated = @"GMMultipeerSubscribesUpdated";
 NSString * const GMMultipeerInviteAccepted = @"GMMultipeerInviteAccepted";

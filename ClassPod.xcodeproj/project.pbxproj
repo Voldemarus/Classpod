@@ -70,8 +70,6 @@
 		1BEDC699264C049E008C88A7 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B751DA62642B083001D86B6 /* ServiceLocator.m */; };
 		1BFB4EE2265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */; };
 		1BFB4EE3265693A000DE33E9 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4EE1265693A000DE33E9 /* SpotifyiOS.framework */; };
-		1BFB4EF92656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
-		1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4EF82656982000DE33E9 /* SpotifyDAO.m */; };
 		1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB4F302658FCF600DE33E9 /* RadioTransmitter.m */; };
 		1BFB4F80265BC06F00DE33E9 /* in_file.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BFB4F7F265BC06F00DE33E9 /* in_file.mp3 */; };
 		1BFB4FA1265E8ADA00DE33E9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */; };
@@ -99,7 +97,6 @@
 		32704415268F44170009F7CE /* LDAudioServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32704414268F44170009F7CE /* LDAudioServer.m */; };
 		32788CA0264C1DF200FC087E /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33FA2642B24400ACD371 /* Preferences.m */; };
 		32788CAF264C22D900FC087E /* ProfileEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32788CAE264C22D900FC087E /* ProfileEditVC.m */; };
-		32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E7C6F6266B8AE300D00501 /* GCDAsyncUdpSocket.m */; };
 		32F4B0E92680904A00BB2DC0 /* PlayListMakerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F4B0E82680904A00BB2DC0 /* PlayListMakerVC.m */; };
 		89DE681AA9FCB6C99DC43FAA /* libPods-ClassPodDebugUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420AEB9660A6F78DD869F24 /* libPods-ClassPodDebugUITests.a */; };
 		DF54F693896843A5E3F63200 /* libPods-ClassPodDebugTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1D876DC9E9796A01BAB8FD /* libPods-ClassPodDebugTests.a */; };
@@ -1052,7 +1049,6 @@
 				32610BAB268C62C60070B1F1 /* SelectClassPodVC.m in Sources */,
 				1B54E5FE268C975C002DC117 /* Audiochat+CoreDataClass.m in Sources */,
 				3253B982264BF73C00ACA5FE /* CellStudentList.m in Sources */,
-				32E7C6F8266B8AE300D00501 /* GCDAsyncUdpSocket.m in Sources */,
 				1B067FFB2649482100B7C23C /* Student+CoreDataProperties.m in Sources */,
 				1B03F1F726454CD5007A9A3A /* GCDAsyncSocket.m in Sources */,
 				1BB03AE62640628A00B6096F /* ViewController.m in Sources */,
@@ -1075,7 +1071,6 @@
 				3253B988264BFE2500ACA5FE /* CellTecherList.m in Sources */,
 				32610BBD268C76960070B1F1 /* ClassPodEditVC.m in Sources */,
 				3202ED7026810F9E009A3583 /* ExtAudioConverter.m in Sources */,
-				1BFB4EF92656982000DE33E9 /* SpotifyDAO.m in Sources */,
 				32F4B0E92680904A00BB2DC0 /* PlayListMakerVC.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
@@ -1113,7 +1108,6 @@
 				1B067FE22649465F00B7C23C /* ClassPod.xcdatamodeld in Sources */,
 				1B067FFE2649482100B7C23C /* Music+CoreDataClass.m in Sources */,
 				1B0680002649482100B7C23C /* Music+CoreDataProperties.m in Sources */,
-				1BFB4EFA2656982000DE33E9 /* SpotifyDAO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,7 +1332,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1375,7 +1369,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = ClassPod/ClassPod.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

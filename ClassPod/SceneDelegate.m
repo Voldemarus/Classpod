@@ -8,12 +8,13 @@
 #import "DebugPrint.h"
 #import "SceneDelegate.h"
 #import "AppDelegate.h"
-#import "SpotifyDAO.h"
+// #import "SpotifyDAO.h"
 #import "RadioTransmitter.h"
 
-@interface SceneDelegate () <SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate>
+@interface SceneDelegate ()
+// <SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate>
 
-@property (nonatomic, retain) SpotifyDAO *spDao;
+// @property (nonatomic, retain) SpotifyDAO *spDao;
 
 
 @end
@@ -25,7 +26,7 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-    self.spDao = [SpotifyDAO sharedInstance];
+//    self.spDao = [SpotifyDAO sharedInstance];
 
   //  RadioTransmitter *rt = [RadioTransmitter sharedTransmitter];
 }
@@ -43,21 +44,21 @@
 
 #warning MOVE to spDAO!
 
-    SPTAppRemote *rapp = self.spDao.appRemote;
-    NSDictionary *authParams = [rapp authorizationParametersFromURL:url];
-    DLog(@"AuthParameters for Spotify - %@", authParams);
+//    SPTAppRemote *rapp = self.spDao.appRemote;
+//    NSDictionary *authParams = [rapp authorizationParametersFromURL:url];
+//    DLog(@"AuthParameters for Spotify - %@", authParams);
 
-    NSString *authToken = authParams[SPTAppRemoteAccessTokenKey];
-    if (authToken) {
-        SPTAppRemoteConnectionParams *cparams = rapp.connectionParameters;
-//        rapp.accessToken = authToken;
-#warning !!!! Mybe cparams.accessToken = authToken; ??
-        cparams.accessToken = authToken;
-    } else {
-        NSString *errDesc = authParams[SPTAppRemoteErrorDescriptionKey];
-        DLog(@"Error - %@",errDesc);
-    }
-    rapp.delegate = self;
+//    NSString *authToken = authParams[SPTAppRemoteAccessTokenKey];
+//    if (authToken) {
+//        SPTAppRemoteConnectionParams *cparams = rapp.connectionParameters;
+////        rapp.accessToken = authToken;
+//#warning !!!! Mybe cparams.accessToken = authToken; ??
+//        cparams.accessToken = authToken;
+//    } else {
+//        NSString *errDesc = authParams[SPTAppRemoteErrorDescriptionKey];
+//        DLog(@"Error - %@",errDesc);
+//    }
+//    rapp.delegate = self;
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
@@ -99,25 +100,25 @@
 
 #warning Move to spDAO !!!
 
-- (void)appRemoteDidEstablishConnection:(SPTAppRemote *)appRemote
-{
-    DLog(@"Spotify Connection established!");
-}
-
-- (void)appRemote:(SPTAppRemote *)appRemote didFailConnectionAttemptWithError:(nullable NSError *)error
-{
-    DLog(@"Spotify connection failed with error - %@", [error localizedDescription]);
-}
-
-- (void)appRemote:(SPTAppRemote *)appRemote didDisconnectWithError:(nullable NSError *)error
-{
-    DLog(@"Spotify connected, with error - %@", [error localizedDescription]);
-}
-
-- (void)playerStateDidChange:(id<SPTAppRemotePlayerState>)playerState
-{
-    DLog(@"Spotify Player State Changed");
-}
+//- (void)appRemoteDidEstablishConnection:(SPTAppRemote *)appRemote
+//{
+//    DLog(@"Spotify Connection established!");
+//}
+//
+//- (void)appRemote:(SPTAppRemote *)appRemote didFailConnectionAttemptWithError:(nullable NSError *)error
+//{
+//    DLog(@"Spotify connection failed with error - %@", [error localizedDescription]);
+//}
+//
+//- (void)appRemote:(SPTAppRemote *)appRemote didDisconnectWithError:(nullable NSError *)error
+//{
+//    DLog(@"Spotify connected, with error - %@", [error localizedDescription]);
+//}
+//
+//- (void)playerStateDidChange:(id<SPTAppRemotePlayerState>)playerState
+//{
+//    DLog(@"Spotify Player State Changed");
+//}
 
 
 

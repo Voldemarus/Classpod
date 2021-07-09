@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -46,10 +48,14 @@
 	<array>
 		<string>_classpod._tcp</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Need access to camera to make your photo for the avatar</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Network access required to share audio in class</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Required for communication between teacher and student</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Required to select your avatar</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
