@@ -7016,9 +7016,9 @@ static void CFWriteStreamCallback (CFWriteStreamRef stream, CFStreamEventType ty
 		BOOL r1 = CFReadStreamOpen(readStream);
 		BOOL r2 = CFWriteStreamOpen(writeStream);
 		
-		if (!r1 || !r2)
-		{
-			LogError(@"Error in CFStreamOpen");
+		if (!r1 || !r2) {
+            LogError(@"Error in CFStreamOpen  Read: %@ Write: %@",
+                     (r1 ? @"YES" : @"NO"), (r2 ? @"YES" : @"NO"));
 			return NO;
 		}
 	}
