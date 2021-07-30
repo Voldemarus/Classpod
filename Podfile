@@ -13,6 +13,10 @@ target 'ClassPod' do
 
 end
 
+target 'MultiPeerTest' do
+  pod 'Toast'
+end
+
 target 'ClassPodDebugTests' do
   inherit! :search_paths
   # Pods for testing

@@ -8,11 +8,12 @@
 #import "GMMultiPeer.h"
 #import "Preferences.h"
 #import "DAO.h"
+#import "DebugPrint.h"
 
 NSString * const GMMultipeerSubscribesUpdated = @"GMMultipeerSubscribesUpdated";
 NSString * const GMMultipeerInviteAccepted = @"GMMultipeerInviteAccepted";
 
-NSString * const SERVICE_NAME   =   @"ClassPod-service";
+NSString * const SERVICE_NAME   =   @"clpodsrv";
 
 @interface GMMultiPeer () < MCNearbyServiceAdvertiserDelegate,
                             MCNearbyServiceBrowserDelegate>
