@@ -13,6 +13,7 @@
 @interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate, GMMultipeerDelegate>
 {
     NSMutableArray *studentsPeer;
+    NSString *lessonName;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *lessonLabel;
@@ -34,7 +35,7 @@
 
 - (IBAction)registerLessonClicked:(id)sender
 {
-    NSString *lessonName = self.lessonLabel.text;
+    lessonName = self.lessonLabel.text;
     [self.lessonLabel resignFirstResponder];
     if (lessonName.length > 0) {
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -100,7 +101,7 @@
     NSDictionary *d = @{
         @"PacketType" :   @"Initial",
         @"TimeStamp"  :   [NSDate date],
-        @"LessonName" :   self.lessonLabel.text,
+        @"LessonName" :   lessonName,
         @"Duration"   :   @(15*60),        // 15 minutes
         @"Started"    :   [NSDate dateWithTimeIntervalSinceNow:10*60], // started in 10 minutes
         @"Note"       :   @"Put here some specific info related to particular lesson",
