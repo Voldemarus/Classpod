@@ -30,7 +30,6 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 @interface GMMultiPeer () < MCNearbyServiceAdvertiserDelegate,
                             MCNearbyServiceBrowserDelegate, MCSessionDelegate>
 {
-    MCSession *session;
     MCPeerID *peerID;
     BOOL teacherMode;
     MCNearbyServiceAdvertiser *advertiser;  /* teacher mode */
@@ -39,11 +38,13 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     BOOL _browsingStatus;
 }
 
+@property (nonatomic, retain)  MCSession *session;
 @end
 
 @implementation GMMultiPeer
 
 @synthesize subscribers;
+@synthesize session = session;
 
 - (instancetype) initWithLessonName:(NSString *)lessonName
 {
@@ -75,7 +76,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 {
     subscribers = [[NSMutableSet alloc] initWithCapacity:7];
     self.avatarName = peerName;
-    peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
+    peerID = [[MCPeerID alloc] initWithDisplayName:self.avatarName];
     NSAssert(peerID, @"Peer OD should be initialised");
     session = [[MCSession alloc] initWithPeer:peerID securityIdentity:nil
                          encryptionPreference:MCEncryptionNone];
@@ -219,7 +220,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                     if (dict) {
                         NSData *lessonData = [NSKeyedArchiver archivedDataWithRootObject:dict requiringSecureCoding:NO error:&error];
                         if (!error) {
-                            [session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
+                            [self.session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
                         }
                     }
                 }
@@ -259,7 +260,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
     NSError *error = nil;
-    NSDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:data error:&error];
+    NSDictionary *dict = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
     if (error) {
         DLog(@"Error on parsing received data - %@",[error localizedDescription]);
     } else {
@@ -307,7 +308,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                fromPeer:(MCPeerID *)peerID
      certificateHandler:(void (^)(BOOL accept))certificateHandler
 {
-
+    certificateHandler(YES);
 }
 
 
