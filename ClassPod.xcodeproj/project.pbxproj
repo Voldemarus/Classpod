@@ -32,6 +32,7 @@
 		1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680202649759D00B7C23C /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
+		1B3AB74526B41F42000E92C0 /* StudentModeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3AB74426B41F42000E92C0 /* StudentModeVC.m */; };
 		1B54E5EC268C944A002DC117 /* GMAudioCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */; };
 		1B54E5FD268C975C002DC117 /* Audiochat+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5FA268C975B002DC117 /* Audiochat+CoreDataProperties.m */; };
 		1B54E5FE268C975C002DC117 /* Audiochat+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5FC268C975C002DC117 /* Audiochat+CoreDataClass.m */; };
@@ -188,6 +189,8 @@
 		1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassPod+CoreDataClass.h"; sourceTree = "<group>"; };
 		1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataClass.m"; sourceTree = "<group>"; };
 		1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B3AB74326B41F42000E92C0 /* StudentModeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentModeVC.h; sourceTree = "<group>"; };
+		1B3AB74426B41F42000E92C0 /* StudentModeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentModeVC.m; sourceTree = "<group>"; };
 		1B54E5EA268C944A002DC117 /* GMAudioCellViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMAudioCellViewController.h; sourceTree = "<group>"; };
 		1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMAudioCellViewController.m; sourceTree = "<group>"; };
 		1B54E5F9268C975B002DC117 /* Audiochat+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Audiochat+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				1BAA3C9726B2DC890071863D /* main.m */,
 				1B02896826B2E54600FFA42D /* TeacherModeVC.h */,
 				1B02896926B2E54600FFA42D /* TeacherModeVC.m */,
+				1B3AB74326B41F42000E92C0 /* StudentModeVC.h */,
+				1B3AB74426B41F42000E92C0 /* StudentModeVC.m */,
 			);
 			path = MultiPeerTest;
 			sourceTree = "<group>";
@@ -1279,6 +1284,7 @@
 			files = (
 				1BAA3C8D26B2DC820071863D /* ViewController.m in Sources */,
 				1BAA3C8726B2DC820071863D /* AppDelegate.m in Sources */,
+				1B3AB74526B41F42000E92C0 /* StudentModeVC.m in Sources */,
 				1BAA3C9826B2DC890071863D /* main.m in Sources */,
 				1BAA3C8A26B2DC820071863D /* SceneDelegate.m in Sources */,
 				1B02896A26B2E54600FFA42D /* TeacherModeVC.m in Sources */,

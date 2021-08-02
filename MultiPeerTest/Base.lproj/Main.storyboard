@@ -51,10 +51,10 @@
             </objects>
             <point key="canvasLocation" x="89.855072463768124" y="102.45535714285714"/>
         </scene>
-        <!--View Controller-->
+        <!--Student ModeVC-->
         <scene sceneID="KYV-tY-lRE">
             <objects>
-                <viewController id="xtU-qv-g5a" sceneMemberID="viewController">
+                <viewController id="xtU-qv-g5a" customClass="StudentModeVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qzA-ca-m5V">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,20 +68,74 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Your name should be here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGk-2n-gAj">
+                                <rect key="frame" x="20" y="57" width="299" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="g2f-8r-ARZ"/>
+                                    <constraint firstAttribute="height" constant="34" id="qIV-ss-kcf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="j92-Oy-ktm">
+                                <rect key="frame" x="20" y="117" width="374" height="209"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="209" id="TMD-R8-H5B"/>
+                                </constraints>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select lesson from the list to join class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lax-ZX-p1x">
+                                <rect key="frame" x="20" y="334" width="374" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="JtM-wI-GVE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEc-oQ-qRn">
+                                <rect key="frame" x="348" y="57" width="46" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="KVe-El-Aea"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneClicked:" destination="xtU-qv-g5a" eventType="touchUpInside" id="Rcg-ya-3x6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3ZK-s4-z1U"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="TEc-oQ-qRn" firstAttribute="top" secondItem="cGk-2n-gAj" secondAttribute="top" id="0Eb-lO-w0N"/>
+                            <constraint firstItem="Lax-ZX-p1x" firstAttribute="bottom" secondItem="j92-Oy-ktm" secondAttribute="bottom" constant="29" id="4hK-FR-RhK"/>
+                            <constraint firstItem="j92-Oy-ktm" firstAttribute="trailing" secondItem="cGk-2n-gAj" secondAttribute="trailing" constant="75" id="6OH-xG-H0n"/>
+                            <constraint firstItem="j92-Oy-ktm" firstAttribute="top" secondItem="cGk-2n-gAj" secondAttribute="top" constant="60" id="Aod-7o-B0m"/>
+                            <constraint firstItem="3ZK-s4-z1U" firstAttribute="trailing" secondItem="cGk-2n-gAj" secondAttribute="trailing" constant="95" id="BJv-df-E5X"/>
+                            <constraint firstItem="TEc-oQ-qRn" firstAttribute="bottom" secondItem="cGk-2n-gAj" secondAttribute="bottom" id="OGm-25-Jhh"/>
+                            <constraint firstItem="TEc-oQ-qRn" firstAttribute="trailing" secondItem="cGk-2n-gAj" secondAttribute="trailing" constant="75" id="gb8-IP-2sY"/>
+                            <constraint firstItem="cGk-2n-gAj" firstAttribute="leading" secondItem="3ZK-s4-z1U" secondAttribute="leading" constant="20" id="klj-yl-Zxx"/>
                             <constraint firstItem="zb9-hn-eDl" firstAttribute="top" secondItem="3ZK-s4-z1U" secondAttribute="top" constant="20" id="nGM-8A-ooD"/>
                             <constraint firstItem="zb9-hn-eDl" firstAttribute="leading" secondItem="qzA-ca-m5V" secondAttribute="leadingMargin" id="oRs-da-3hj"/>
+                            <constraint firstItem="Lax-ZX-p1x" firstAttribute="leading" secondItem="j92-Oy-ktm" secondAttribute="leading" id="rDu-8T-hJN"/>
                             <constraint firstItem="3ZK-s4-z1U" firstAttribute="trailing" secondItem="zb9-hn-eDl" secondAttribute="trailing" constant="56" id="s2Y-vM-ri9"/>
+                            <constraint firstItem="j92-Oy-ktm" firstAttribute="leading" secondItem="cGk-2n-gAj" secondAttribute="leading" id="s2n-5P-kCc"/>
+                            <constraint firstItem="cGk-2n-gAj" firstAttribute="top" secondItem="zb9-hn-eDl" secondAttribute="bottom" constant="8" symbolic="YES" id="vRz-RY-glp"/>
+                            <constraint firstItem="Lax-ZX-p1x" firstAttribute="trailing" secondItem="j92-Oy-ktm" secondAttribute="trailing" id="y2T-rz-hxb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Kvs-IV-p4K"/>
+                    <connections>
+                        <outlet property="studentName" destination="cGk-2n-gAj" id="FtN-aS-A9h"/>
+                        <outlet property="tableview" destination="j92-Oy-ktm" id="oZZ-dk-7ev"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJ3-EA-RC8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="951" y="615"/>
+            <point key="canvasLocation" x="950.72463768115949" y="614.0625"/>
         </scene>
         <!--Teacher ModeVC-->
         <scene sceneID="54C-X7-5ON">
@@ -118,12 +172,22 @@
                                     <action selector="registerLessonClicked:" destination="0Dn-Kx-iHS" eventType="touchUpInside" id="28f-1I-Ovz"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SRc-OP-McV">
+                                <rect key="frame" x="38" y="149" width="338" height="394"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="394" id="wlY-ih-aEF"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IRd-TM-cfP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="leading" secondItem="8Gm-WX-8mD" secondAttribute="leading" constant="119" id="8Ii-1u-vX0"/>
+                            <constraint firstItem="SRc-OP-McV" firstAttribute="leading" secondItem="IRd-TM-cfP" secondAttribute="leading" constant="38" id="F9P-qH-Myv"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="trailing" secondItem="8Gm-WX-8mD" secondAttribute="trailing" constant="-110" id="RRk-sc-NMT"/>
+                            <constraint firstItem="omg-h1-7K6" firstAttribute="top" secondItem="SRc-OP-McV" secondAttribute="top" constant="-38" id="a8x-al-5St"/>
+                            <constraint firstItem="IRd-TM-cfP" firstAttribute="trailing" secondItem="SRc-OP-McV" secondAttribute="trailing" constant="38" id="cFy-lc-ScJ"/>
                             <constraint firstItem="8Gm-WX-8mD" firstAttribute="trailing" secondItem="4RS-7o-aOp" secondAttribute="trailing" id="eRR-jz-R92"/>
                             <constraint firstItem="8Gm-WX-8mD" firstAttribute="top" secondItem="4RS-7o-aOp" secondAttribute="top" constant="37" id="f5e-UI-zvi"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="top" secondItem="8Gm-WX-8mD" secondAttribute="top" constant="42" id="leR-YH-liH"/>
@@ -135,6 +199,7 @@
                     <navigationItem key="navigationItem" id="5xQ-Jz-a9L"/>
                     <connections>
                         <outlet property="lessonLabel" destination="8Gm-WX-8mD" id="RyF-TY-QEY"/>
+                        <outlet property="tableView" destination="SRc-OP-McV" id="zqE-lJ-9lr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qfz-Ug-ljk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -12,6 +12,8 @@
 
 NSString * const GMMultipeerSubscribesUpdated = @"GMMultipeerSubscribesUpdated";
 NSString * const GMMultipeerInviteAccepted = @"GMMultipeerInviteAccepted";
+NSString * const GMMultiPeerAdvertiserFailed = @"GMMultiPeerAdvertiserFailed";
+NSString * const GMMultipeerSubscribesRemoved = @"GMMultipeerSubscribesRemoved";
 
 NSString * const SERVICE_NAME   =   @"clpodsrv";
 
@@ -24,6 +26,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     MCNearbyServiceAdvertiser *advertiser;  /* teacher mode */
     MCNearbyServiceBrowser *browser;        /* student mode */
     BOOL _advertiseStatus;
+    BOOL _browsingStatus;
 }
 
 @end
@@ -39,6 +42,9 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
         [self commonInit:lessonName];
         advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:peerID discoveryInfo:NULL serviceType:SERVICE_NAME];
         NSAssert(advertiser,@"advertiser should be initialised");
+        if (advertiser) {
+            advertiser.delegate = self;
+        }
     }
     return self;
 }
@@ -80,8 +86,36 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     }
 }
 
-#pragma mark - helpers -
+- (BOOL) browsingStatus
+{
+    return _browsingStatus;
+}
 
+- (void) setBrowsingStatus:(BOOL)browsingStatus
+{
+    if (!teacherMode && (browsingStatus != _browsingStatus)) {
+        _browsingStatus = browsingStatus;
+        if (_browsingStatus) {
+            [browser startBrowsingForPeers];
+        } else {
+            [browser stopBrowsingForPeers];
+        }
+    }
+}
+
+#pragma mark - Actions -
+
+/**
+        Student asks to attach to lesson
+
+ */
+- (void) invitePeer:(MCPeerID *) lessonPeer
+{
+    if (!teacherMode) {
+        // Note! use NSData in context to send user info !!!
+        [browser invitePeer:lessonPeer toSession:session withContext:nil timeout:120.];
+    }
+}
 
 #pragma mark - Advertiser delegate methods -
 
@@ -90,10 +124,11 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                    withContext:(nullable NSData *)context
              invitationHandler:(void (^)(BOOL accept, MCSession * __nullable session))invitationHandler
 {
-    NSLog(@"Invite accepted from - %@",peerID.displayName);
-    // Automatically accept
+    NSLog(@"Invitatopn received from - %@",peerID.displayName);
+    // Automatically accept invitation
     invitationHandler(YES, session);
     dispatch_async(dispatch_get_main_queue(), ^{
+        // And set info to pp
         [[NSNotificationCenter defaultCenter] postNotificationName:GMMultipeerInviteAccepted object:peerID];
     });
 }
@@ -103,6 +138,9 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
 {
     NSLog(@"Cannot start adverising peer - %@",[error localizedDescription]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:GMMultiPeerAdvertiserFailed object:nil];
+    });
 }
 
 #pragma mark - Browser delegate methods -
@@ -126,7 +164,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     DLog(@"Advertiser stops - %@",peerID.displayName);
     [subscribers removeObject:peerID];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:GMMultipeerSubscribesUpdated object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:GMMultipeerSubscribesRemoved object:peerID];
     });
 }
 
