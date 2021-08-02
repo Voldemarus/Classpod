@@ -74,7 +74,9 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (void) commonInit:(NSString *)peerName
 {
     subscribers = [[NSMutableSet alloc] initWithCapacity:7];
-    peerID = [[MCPeerID alloc] initWithDisplayName:peerName];
+    self.avatarName = peerName;
+    peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
+    NSAssert(peerID, @"Peer OD should be initialised");
     session = [[MCSession alloc] initWithPeer:peerID securityIdentity:nil
                          encryptionPreference:MCEncryptionNone];
     session.delegate = self;

@@ -87,10 +87,7 @@
         [connected removeObject:peer];
         [lesson addObject:peer];
     } else {
-        index = [lesson indexOfObject:peer];
-        if (index != NSNotFound) {
-            [lesson removeObject:peer];
-        }
+        [self.view makeToast:@"Failed to connect!"];
     }
     [self.tableview reloadData];
 }

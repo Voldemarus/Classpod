@@ -105,6 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSMutableSet <MCPeerID *> *subscribers;
 
 
+@property (nonatomic, retain) NSString *avatarName;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
