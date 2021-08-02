@@ -8,8 +8,9 @@
 #import "TeacherModeVC.h"
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
+#import "DebugPrint.h"
 
-@interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate>
+@interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate, GMMultipeerDelegate>
 {
     NSMutableArray *studentsPeer;
 }
@@ -40,6 +41,7 @@
         d.engine = [[GMMultiPeer alloc] initWithLessonName:lessonName];
         if (d.engine) {
             d.engine.advertiseStatus = YES;
+            d.engine.delegate = self;
             [self.view makeToast:@"Lesson registered"];
         }
     }
@@ -87,5 +89,30 @@
 }
 
 
+#pragma mark - GMMultipeerDelegate -
+
+//
+// Defines dictionary with arbitray content to be sent automatically to student when
+// connection is established
+//
+- (NSDictionary *) session:(MCSession *)session initialPacketForPeer:(MCPeerID *)peer
+{
+    NSDictionary *d = @{
+        @"PacketType" :   @"Initial",
+        @"TimeStamp"  :   [NSDate date],
+        @"LessonName" :   self.lessonLabel.text,
+        @"Duration"   :   @(15*60),        // 15 minutes
+        @"Started"    :   [NSDate dateWithTimeIntervalSinceNow:10*60], // started in 10 minutes
+        @"Note"       :   @"Put here some specific info related to particular lesson",
+    };
+    return d;
+}
+
+- (void) session:(MCSession *)session processReceivedData:(NSDictionary *)data
+{
+    if (data) {
+        DLog(@"Received data from student : %@",data);
+    }
+}
 
 @end

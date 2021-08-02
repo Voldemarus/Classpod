@@ -14,11 +14,21 @@ NSString * const GMMultipeerSubscribesUpdated = @"GMMultipeerSubscribesUpdated";
 NSString * const GMMultipeerInviteAccepted = @"GMMultipeerInviteAccepted";
 NSString * const GMMultiPeerAdvertiserFailed = @"GMMultiPeerAdvertiserFailed";
 NSString * const GMMultipeerSubscribesRemoved = @"GMMultipeerSubscribesRemoved";
+NSString * const GMMultipeerSessionConnected = @"GMMultipeerSessionConnected";
+NSString * const GMMultipeerSessionConnecting = @"GMMultipeerSessionConnecting";
+NSString * const GMMultipeerSessionNotConnected = @"GMMultipeerSessionNotConnected";
+/**
+
+ See https://stackoverflow.com/questions/65190065/nsnetservicebrowser-did-not-search-with-error-72008-on-ios-14
+
+ About related record in the info.plist
+
+ */
 
 NSString * const SERVICE_NAME   =   @"clpodsrv";
 
 @interface GMMultiPeer () < MCNearbyServiceAdvertiserDelegate,
-                            MCNearbyServiceBrowserDelegate>
+                            MCNearbyServiceBrowserDelegate, MCSessionDelegate>
 {
     MCSession *session;
     MCPeerID *peerID;
@@ -55,6 +65,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
         teacherMode = NO;
         [self commonInit:aName];
         browser = [[MCNearbyServiceBrowser alloc] initWithPeer:peerID serviceType:SERVICE_NAME];
+        browser.delegate = self;
         NSAssert(browser, @"browser should be initialised");
     }
     return self;
@@ -64,7 +75,9 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 {
     subscribers = [[NSMutableSet alloc] initWithCapacity:7];
     peerID = [[MCPeerID alloc] initWithDisplayName:peerName];
-    session = [[MCSession alloc] initWithPeer:peerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
+    session = [[MCSession alloc] initWithPeer:peerID securityIdentity:nil
+                         encryptionPreference:MCEncryptionNone];
+    session.delegate = self;
     _advertiseStatus = NO;
 
 }
@@ -117,6 +130,16 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     }
 }
 
+- (void) stop
+{
+    if (teacherMode) {
+        self.advertiseStatus = NO;
+    } else {
+        self.browsingStatus = NO;
+    }
+    [session disconnect];
+}
+
 #pragma mark - Advertiser delegate methods -
 
 - (void) advertiser:(MCNearbyServiceAdvertiser *)advertiser
@@ -124,7 +147,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                    withContext:(nullable NSData *)context
              invitationHandler:(void (^)(BOOL accept, MCSession * __nullable session))invitationHandler
 {
-    NSLog(@"Invitatopn received from - %@",peerID.displayName);
+    NSLog(@"Invite received from - %@",peerID.displayName);
     // Automatically accept invitation
     invitationHandler(YES, session);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -173,6 +196,116 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (void)browser:(MCNearbyServiceBrowser *)browser didNotStartBrowsingForPeers:(NSError *)error
 {
     DLog(@"Cannot start browser - %@", [error localizedDescription]);
+}
+
+#pragma mark - MCSesionDelegate -
+
+// Remote peer changed state.
+- (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
+{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    NSString *notification = @"";
+    NSError *error = nil;
+    switch (state) {
+        case MCSessionStateConnected:
+            if (self->teacherMode) {
+                //
+                // In teacher mode we can set up intial packet which should be sent to student 
+                //
+                if (self.delegate && [self.delegate respondsToSelector:@selector(session:initialPacketForPeer:)] ) {
+                    NSDictionary *dict = [self.delegate session:session initialPacketForPeer:peerID];
+                    if (dict) {
+                        NSData *lessonData = [NSKeyedArchiver archivedDataWithRootObject:dict requiringSecureCoding:NO error:&error];
+                        if (!error) {
+                            [session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
+                        }
+                    }
+                }
+                if (error) {
+                    DLog(@"error during sending data - %@",[error localizedDescription]);
+                }
+            } else {
+                // connected to advertiser
+                notification = GMMultipeerSessionConnected;
+            }
+            break;
+        case MCSessionStateNotConnected:     // Not connected to the session.
+            if (teacherMode) {
+
+            } else {
+                notification = GMMultipeerSessionNotConnected;
+            }
+            break;
+        case MCSessionStateConnecting:       // Peer is connecting to the session.
+            if (teacherMode) {
+
+            } else {
+                notification = GMMultipeerSessionConnecting;
+            }
+            break;
+        default:
+            break;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [nc postNotificationName:notification object:peerID];
+    });
+
+
+}
+
+// Received data from remote peer.
+- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
+{
+    NSError *error = nil;
+    NSDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:data error:&error];
+    if (error) {
+        DLog(@"Error on parsing received data - %@",[error localizedDescription]);
+    } else {
+        if (dict && self.delegate && [self.delegate respondsToSelector:@selector(session:processReceivedData:)]) {
+            [self.delegate session:session processReceivedData:dict];
+        }
+    }
+}
+
+// Received a byte stream from remote peer.
+- (void)    session:(MCSession *)session
+   didReceiveStream:(NSInputStream *)stream
+           withName:(NSString *)streamName
+           fromPeer:(MCPeerID *)peerID
+{
+
+}
+
+// Start receiving a resource from remote peer.
+- (void)  session:(MCSession *)session
+  didStartReceivingResourceWithName:(NSString *)resourceName
+                           fromPeer:(MCPeerID *)peerID
+                       withProgress:(NSProgress *)progress
+{
+
+}
+
+// Finished receiving a resource from remote peer and saved the content
+// in a temporary location - the app is responsible for moving the file
+// to a permanent location within its sandbox.
+- (void)  session:(MCSession *)session
+ didFinishReceivingResourceWithName:(NSString *)resourceName
+                           fromPeer:(MCPeerID *)peerID
+                              atURL:(nullable NSURL *)localURL
+                          withError:(nullable NSError *)error
+{
+
+}
+
+
+// Made first contact with peer and have identity information about the
+// remote peer (certificate may be nil).
+- (void)        session:(MCSession *)session
+  didReceiveCertificate:(nullable NSArray *)certificate
+               fromPeer:(MCPeerID *)peerID
+     certificateHandler:(void (^)(BOOL accept))certificateHandler
+{
+
 }
 
 

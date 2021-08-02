@@ -10,7 +10,7 @@
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
 
-@interface StudentModeVC () <UITableViewDelegate, UITableViewDataSource>
+@interface StudentModeVC () <UITableViewDelegate, UITableViewDataSource, GMMultipeerDelegate>
 {
     NSMutableArray <MCPeerID *> *lesson;
     NSMutableArray <MCPeerID *> *connected;
@@ -18,6 +18,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *studentName;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UILabel *lessonNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lessonTimeStampLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lessonStartTimeLabel;
+@property (weak, nonatomic) IBOutlet UITextView *lessonDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lessonDuration;
 
 @end
 
@@ -27,16 +32,28 @@
 {
     [super viewDidLoad];
     lesson = [NSMutableArray new];
+    connected = [NSMutableArray new];
 
     self.tableview.dataSource = self;
     self.tableview.delegate = self;
 
+    self.lessonNameLabel.text = @"";
+    self.lessonTimeStampLabel.text = @"";
+    self.lessonStartTimeLabel.text = @"";
+    self.lessonDuration.text = @"";
+    self.lessonDescriptionLabel.text = @"";
+
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(lessondDetected:)
+    [nc addObserver:self selector:@selector(lessonDetected:)
                name:GMMultipeerSubscribesUpdated object:nil];
     [nc addObserver:self selector:@selector(lessonRemoved:)
                name:GMMultipeerSubscribesRemoved object:nil];
-
+    [nc addObserver:self selector:@selector(peerConnected:)
+               name:GMMultipeerSessionConnected object:nil];
+    [nc addObserver:self selector:@selector(peerDisconnected:)
+               name:GMMultipeerSessionNotConnected object:nil];
+    [nc addObserver:self selector:@selector(connectionInProgress:)
+               name:GMMultipeerSessionConnecting object:nil];
 }
 
 
@@ -51,7 +68,39 @@
 
 #pragma mark - Selectors
 
-- (void) lessondDetected:(NSNotification *)note
+- (void) peerConnected:(NSNotification *) note
+{
+    MCPeerID *peer = (MCPeerID *)[note object];
+    NSInteger index = [connected indexOfObject:peer];
+    if (index == NSNotFound) {
+        [lesson removeObject:peer];
+        [connected addObject:peer];
+    }
+    [self.tableview reloadData];
+}
+
+- (void) peerDisconnected:(NSNotification *) note
+{
+    MCPeerID *peer = (MCPeerID *)[note object];
+    NSInteger index = [connected indexOfObject:peer];
+    if (index != NSNotFound) {
+        [connected removeObject:peer];
+        [lesson addObject:peer];
+    } else {
+        index = [lesson indexOfObject:peer];
+        if (index != NSNotFound) {
+            [lesson removeObject:peer];
+        }
+    }
+    [self.tableview reloadData];
+}
+
+- (void) connectionInProgress:(NSNotification *) note
+{
+    [self.view makeToast:@"Connection in progress"];
+}
+
+- (void) lessonDetected:(NSNotification *)note
 {
     MCPeerID *peer = (MCPeerID *)[note object];
     NSInteger index = [connected indexOfObject:peer];
@@ -97,6 +146,17 @@
     }
 }
 
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return (section == 0 ? @"Connected Lesson" : @"Total Lessons list");
+}
+
+
 - (UITableViewCell *) tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -127,6 +187,7 @@
         MCPeerID *peer = lesson[indexPath.row];
         [d.engine invitePeer:peer];
     }
+
 }
 
 - (IBAction)doneClicked:(id)sender
@@ -140,7 +201,34 @@
     AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
     d.engine = [[GMMultiPeer alloc] initWithStudentsName:sName];
     d.engine.browsingStatus = YES;
-    [self.tableview reloadData];
+    d.engine.delegate = self;
+}
+
+#pragma mark - GMMultipeerDelegate -
+
+-(void) session:(MCSession *)session processReceivedData:(NSDictionary *)data
+{
+    NSString *packType = data[@"PacketType"];
+    if (packType && [packType isEqualToString:@"Initial"]) {
+        // This is is data packet auto sent when connection is established
+        NSDate *timestamp = data[@"TimeStamp"];
+        NSTimeInterval duration = [data[@"Duration"] doubleValue];
+        NSDate *startDate = data[@"Started"];
+        NSString *actualName  =  data[@"LessonName"];
+        NSString *note = data[@"Note"];
+        // Now we will show them on the screen
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.lessonNameLabel.text = actualName;
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"MM/DD/YYYY hh:mm:ss"];
+            self.lessonTimeStampLabel.text = [df stringFromDate:timestamp];
+            self.lessonStartTimeLabel.text = [df stringFromDate:startDate];
+            int minutes = duration/60;
+            int seconds = duration - (minutes * 60);
+            self.lessonDuration.text = [NSString stringWithFormat:@"%02d:%02d min", minutes, seconds];
+            self.lessonDescriptionLabel.text = note;
+       });
+    }
 }
 
 @end

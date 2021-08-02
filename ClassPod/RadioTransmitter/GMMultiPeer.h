@@ -29,6 +29,41 @@ extern NSString * _Nonnull const GMMultipeerInviteAccepted;
  */
 extern NSString *  _Nonnull const GMMultiPeerAdvertiserFailed;
 
+
+/**
+    Notification sent when connection between peers is established
+ */
+extern NSString * _Nonnull const GMMultipeerSessionConnected;
+
+/**
+    Notification sent when connection is in the progress
+ */
+
+extern NSString * _Nonnull const GMMultipeerSessionConnecting;
+
+/**
+    Notification sent when connection is over or failed
+ */
+extern NSString * _Nonnull const GMMultipeerSessionNotConnected;
+
+
+@protocol  GMMultipeerDelegate <NSObject>
+
+@optional
+/**
+ Provide initial set of data as NSDictionary to be sent to student when connection is established
+ */
+- (NSDictionary *_Nullable) session:(MCSession * _Nonnull)session
+              initialPacketForPeer:(MCPeerID *_Nonnull) peer;
+
+/**
+        provides hook to process data, received from the connected peer
+ */
+- (void) session:(MCSession * _Nonnull)session processReceivedData:(NSDictionary * _Nonnull) data;
+
+@end
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GMMultiPeer : NSObject
@@ -45,6 +80,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) invitePeer:(MCPeerID *) lessonPeer;
 
 /**
+    Stop multipeering, release all connections
+ */
+- (void) stop;
+
+
+/**
  Teacher mode only.
  set to YES to start adevertise lesson, and to NO - to stop advertising
  */
@@ -55,6 +96,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) BOOL browsingStatus;
 
+
+@property (nonatomic, assign) id <GMMultipeerDelegate> delegate;
 
 /**
     List of the subscribers

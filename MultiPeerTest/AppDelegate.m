@@ -20,6 +20,11 @@
 }
 
 
+- (void) applicationWillTerminate:(UIApplication *)application
+{
+    [self.engine stop];
+}
+
 #pragma mark - UISceneSession lifecycle
 
 
