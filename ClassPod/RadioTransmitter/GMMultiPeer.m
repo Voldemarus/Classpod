@@ -143,6 +143,39 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     [session disconnect];
 }
 
+#pragma mark - Helpers -
+
+/**
+    Converts dictionary into JSON packet, suitable to be send through the MCPSession
+ */
+- (NSData *) dataFromDictionary:(NSDictionary *)dict
+{
+    NSJSONWritingOptions options = 0;
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:options error:&error];
+    if (error) {
+        DLog(@"Error during JSON serialisation - %@", [error localizedDescription]);
+        return nil;
+    }
+    return data;
+}
+
+/**
+        Unpacks data packet in JSON format to  NSDictionary object
+ */
+- (NSDictionary *) dictionaryFromData:(NSData *)data
+{
+    NSError *error = nil;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (error) {
+        DLog(@"Error during JSON serialisation - %@", [error localizedDescription]);
+        return nil;
+    }
+    DLog(@"Received packet - %@",dict);
+    return dict;
+}
+
+
 #pragma mark - Advertiser delegate methods -
 
 - (void) advertiser:(MCNearbyServiceAdvertiser *)advertiser
@@ -218,8 +251,8 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                 if (self.delegate && [self.delegate respondsToSelector:@selector(session:initialPacketForPeer:)] ) {
                     NSDictionary *dict = [self.delegate session:session initialPacketForPeer:peerID];
                     if (dict) {
-                        NSData *lessonData = [NSKeyedArchiver archivedDataWithRootObject:dict requiringSecureCoding:NO error:&error];
-                        if (!error) {
+                        NSData *lessonData = [self dataFromDictionary:dict];
+                        if (lessonData) {
                             [self.session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
                         }
                     }
@@ -259,14 +292,9 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 // Received data from remote peer.
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
-    NSError *error = nil;
-    NSDictionary *dict = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
-    if (error) {
-        DLog(@"Error on parsing received data - %@",[error localizedDescription]);
-    } else {
-        if (dict && self.delegate && [self.delegate respondsToSelector:@selector(session:processReceivedData:)]) {
+    NSDictionary *dict = [self dictionaryFromData:data];
+    if (dict && self.delegate && [self.delegate respondsToSelector:@selector(session:processReceivedData:)]) {
             [self.delegate session:session processReceivedData:dict];
-        }
     }
 }
 
