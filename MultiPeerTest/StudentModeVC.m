@@ -219,7 +219,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.lessonNameLabel.text = actualName;
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setDateFormat:@"MM/DD/YYYY hh:mm:ss"];
+            [df setDateFormat:@"MMM/dd/YYYY hh:mm:ss"];
             self.lessonTimeStampLabel.text = [df stringFromDate:timestamp];
             self.lessonStartTimeLabel.text = [df stringFromDate:startDate];
             int minutes = duration/60;

@@ -32,6 +32,10 @@
 		1B0680072649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680082649482100B7C23C /* ClassPod+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */; };
 		1B0680202649759D00B7C23C /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 322B33E82642AC0A00ACD371 /* DAO.m */; };
+		1B1FCE4326B977910070726A /* GMWTMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1FCE4226B977910070726A /* GMWTMessageObject.m */; };
+		1B1FCE4D26B977970070726A /* GMWTMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1FCE4226B977910070726A /* GMWTMessageObject.m */; };
+		1B1FCE5926B979390070726A /* GMWTMessageBroker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1FCE5826B979390070726A /* GMWTMessageBroker.m */; };
+		1B1FCE6526B97A070070726A /* GMWTConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1FCE6426B97A070070726A /* GMWTConnection.m */; };
 		1B3AB74526B41F42000E92C0 /* StudentModeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3AB74426B41F42000E92C0 /* StudentModeVC.m */; };
 		1B3AB76426B802FC000E92C0 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B3AB76326B802FC000E92C0 /* GameKit.framework */; };
 		1B54E5EC268C944A002DC117 /* GMAudioCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B54E5EB268C944A002DC117 /* GMAudioCellViewController.m */; };
@@ -190,6 +194,12 @@
 		1B067FF62649482000B7C23C /* ClassPod+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassPod+CoreDataClass.h"; sourceTree = "<group>"; };
 		1B067FF72649482000B7C23C /* ClassPod+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataClass.m"; sourceTree = "<group>"; };
 		1B067FF82649482100B7C23C /* ClassPod+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ClassPod+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1B1FCE4126B977910070726A /* GMWTMessageObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMWTMessageObject.h; sourceTree = "<group>"; };
+		1B1FCE4226B977910070726A /* GMWTMessageObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMWTMessageObject.m; sourceTree = "<group>"; };
+		1B1FCE5726B979390070726A /* GMWTMessageBroker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMWTMessageBroker.h; sourceTree = "<group>"; };
+		1B1FCE5826B979390070726A /* GMWTMessageBroker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMWTMessageBroker.m; sourceTree = "<group>"; };
+		1B1FCE6326B97A070070726A /* GMWTConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMWTConnection.h; sourceTree = "<group>"; };
+		1B1FCE6426B97A070070726A /* GMWTConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMWTConnection.m; sourceTree = "<group>"; };
 		1B3AB74326B41F42000E92C0 /* StudentModeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentModeVC.h; sourceTree = "<group>"; };
 		1B3AB74426B41F42000E92C0 /* StudentModeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentModeVC.m; sourceTree = "<group>"; };
 		1B3AB76326B802FC000E92C0 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -492,6 +502,19 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		1B1FCE4026B977670070726A /* GMWalkieTalkie */ = {
+			isa = PBXGroup;
+			children = (
+				1B1FCE4126B977910070726A /* GMWTMessageObject.h */,
+				1B1FCE4226B977910070726A /* GMWTMessageObject.m */,
+				1B1FCE5726B979390070726A /* GMWTMessageBroker.h */,
+				1B1FCE5826B979390070726A /* GMWTMessageBroker.m */,
+				1B1FCE6326B97A070070726A /* GMWTConnection.h */,
+				1B1FCE6426B97A070070726A /* GMWTConnection.m */,
+			);
+			path = GMWalkieTalkie;
+			sourceTree = "<group>";
+		};
 		1B54E5E9268C9413002DC117 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +735,7 @@
 				32EC1C682666591F003BB7DF /* PHP Streeming Server */,
 				1BD17732268F178B003CC07E /* GMMultiPeer.h */,
 				1BD17733268F178B003CC07E /* GMMultiPeer.m */,
+				1B1FCE4026B977670070726A /* GMWalkieTalkie */,
 			);
 			path = RadioTransmitter;
 			sourceTree = "<group>";
@@ -1287,6 +1311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BAA3C8D26B2DC820071863D /* ViewController.m in Sources */,
+				1B1FCE4D26B977970070726A /* GMWTMessageObject.m in Sources */,
 				1BAA3C8726B2DC820071863D /* AppDelegate.m in Sources */,
 				1B3AB74526B41F42000E92C0 /* StudentModeVC.m in Sources */,
 				1BAA3C9826B2DC890071863D /* main.m in Sources */,
@@ -1329,6 +1354,7 @@
 				1B0680052649482100B7C23C /* ClassPod+CoreDataClass.m in Sources */,
 				1B54E5FD268C975C002DC117 /* Audiochat+CoreDataProperties.m in Sources */,
 				1B0680012649482100B7C23C /* Teacher+CoreDataClass.m in Sources */,
+				1B1FCE5926B979390070726A /* GMWTMessageBroker.m in Sources */,
 				1BD17734268F178B003CC07E /* GMMultiPeer.m in Sources */,
 				1BFB4F312658FCF600DE33E9 /* RadioTransmitter.m in Sources */,
 				322B340C2642B80900ACD371 /* CellLabelSwith.m in Sources */,
@@ -1343,6 +1369,7 @@
 				32610BBD268C76960070B1F1 /* ClassPodEditVC.m in Sources */,
 				3202ED7026810F9E009A3583 /* ExtAudioConverter.m in Sources */,
 				32F4B0E92680904A00BB2DC0 /* PlayListMakerVC.m in Sources */,
+				1B1FCE6526B97A070070726A /* GMWTConnection.m in Sources */,
 				1B751DA72642B083001D86B6 /* ServiceLocator.m in Sources */,
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
 				3202ED4B26809D5D009A3583 /* Utils.m in Sources */,
@@ -1359,6 +1386,7 @@
 				322B33F52642B16400ACD371 /* PreferencesVC.m in Sources */,
 				1B067FDE2649446E00B7C23C /* ClassPod.xcdatamodeld in Sources */,
 				322B33E92642AC0B00ACD371 /* DAO.m in Sources */,
+				1B1FCE4326B977910070726A /* GMWTMessageObject.m in Sources */,
 				1B54E5EC268C944A002DC117 /* GMAudioCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1513,6 +1541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				INFOPLIST_FILE = MultiPeerTest/Info.plist;
@@ -1532,6 +1561,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UKBNTL7HA9;
 				INFOPLIST_FILE = MultiPeerTest/Info.plist;

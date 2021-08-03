@@ -5,6 +5,9 @@
 //  Created by Водолазкий В.В. on 29.07.2021.
 //
 
+
+#import <GameKit/GameKit.h>
+
 #import "TeacherModeVC.h"
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
@@ -14,6 +17,8 @@
 {
     NSMutableArray *studentsPeer;
     NSString *lessonName;
+    NSMutableDictionary *voiceChat;
+    GKVoiceChat *activeChat;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *lessonLabel;
@@ -26,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     studentsPeer = [NSMutableArray new];
+    voiceChat = [NSMutableDictionary new];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(invitationAccepted:) name:GMMultipeerInviteAccepted object:nil];
     [nc addObserver:self selector:@selector(advertiserFailed:) name:GMMultiPeerAdvertiserFailed object:nil];
@@ -87,6 +93,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     MCPeerID *peer = studentsPeer[indexPath.row];
     NSLog(@"%@ selected", peer.displayName);
+    //  Initate audio chat
+    if ([GKVoiceChat isVoIPAllowed] == NO) {
+        [self.view makeToast:@"VOIP is not available for this device!"];
+        return;
+    }
+    GKVoiceChat *chat = [voiceChat objectForKey:peer];
+    if (!chat) {
+        // There are no chat for this user created, Create it now
+
+    } else {
+        // this chat was created before
+        chat.active = YES;
+        activeChat = chat;
+    }
 }
 
 

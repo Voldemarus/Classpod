@@ -73,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** Student mode constructor */
 - (instancetype) initWithStudentsName:(NSString *)aName;
 
+
+- (MCSession *) chatSession;
+
 /**
  Requst from the lesson to acquire particular lesson bt ID
 

@@ -60,6 +60,11 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     return self;
 }
 
+- (MCSession *) chatSession
+{
+    return self.session;
+}
+
 - (instancetype) initWithStudentsName:(NSString *)aName
 {
     if (self = [super init]) {
@@ -286,7 +291,6 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
         [nc postNotificationName:notification object:peerID];
     });
 
-
 }
 
 // Received data from remote peer.
@@ -304,7 +308,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
            withName:(NSString *)streamName
            fromPeer:(MCPeerID *)peerID
 {
-
+    DLog(@"streamname - %@", streamName);
 }
 
 // Start receiving a resource from remote peer.
@@ -313,7 +317,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                            fromPeer:(MCPeerID *)peerID
                        withProgress:(NSProgress *)progress
 {
-
+    DLog(@"resource - %@",resourceName);
 }
 
 // Finished receiving a resource from remote peer and saved the content
@@ -325,7 +329,8 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                               atURL:(nullable NSURL *)localURL
                           withError:(nullable NSError *)error
 {
-
+    DLog(@"resource - %@",resourceName);
+    DLog(@"error - %@",[error localizedDescription]);
 }
 
 
