@@ -150,7 +150,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
  */
 - (NSData *) dataFromDictionary:(NSDictionary *)dict
 {
-    NSJSONWritingOptions options = 0;
+    NSJSONWritingOptions options = kNilOptions;
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:options error:&error];
     if (error) {
@@ -253,7 +253,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                     if (dict) {
                         NSData *lessonData = [self dataFromDictionary:dict];
                         if (lessonData) {
-                            [self.session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
+                            [session sendData:lessonData toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
                         }
                     }
                 }

@@ -208,9 +208,11 @@
     NSString *packType = data[@"PacketType"];
     if (packType && [packType isEqualToString:@"Initial"]) {
         // This is is data packet auto sent when connection is established
-        NSDate *timestamp = data[@"TimeStamp"];
+        NSNumber *timestampN = data[@"TimeStamp"];
+        NSDate *timestamp = [NSDate dateWithTimeIntervalSinceReferenceDate:timestampN.doubleValue];
         NSTimeInterval duration = [data[@"Duration"] doubleValue];
-        NSDate *startDate = data[@"Started"];
+        NSNumber *startDateN = data[@"Started"];
+        NSDate *startDate = [NSDate dateWithTimeIntervalSinceReferenceDate:startDateN.doubleValue];
         NSString *actualName  =  data[@"LessonName"];
         NSString *note = data[@"Note"];
         // Now we will show them on the screen

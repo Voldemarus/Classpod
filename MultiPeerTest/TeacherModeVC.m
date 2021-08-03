@@ -98,12 +98,14 @@
 //
 - (NSDictionary *) session:(MCSession *)session initialPacketForPeer:(MCPeerID *)peer
 {
+    NSDate *cDate = [[NSDate date] dateByAddingTimeInterval:10*60];
+    NSTimeInterval startInterval = [cDate timeIntervalSinceReferenceDate];
     NSDictionary *d = @{
         @"PacketType" :   @"Initial",
-        @"TimeStamp"  :   [NSDate date],
+        @"TimeStamp"  :   @([NSDate timeIntervalSinceReferenceDate]),
         @"LessonName" :   lessonName,
         @"Duration"   :   @(15*60),        // 15 minutes
-        @"Started"    :   [NSDate dateWithTimeIntervalSinceNow:10*60], // started in 10 minutes
+        @"Started"    :   @(startInterval), // started in 10 minutes
         @"Note"       :   @"Put here some specific info related to particular lesson",
     };
     return d;
