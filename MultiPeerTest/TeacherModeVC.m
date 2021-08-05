@@ -151,8 +151,46 @@
         selectedPeer = studentsPeer[0];
     }
     if (selectedPeer) {
+        // prepare separate output stream
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
         NSOutputStream *oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
+        // prepare microphone
+
+        NSError *myErr;
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&myErr];
+        if (myErr) {
+            DLog(@"Cannot tune AudioSession - %@", [myErr localizedDescription]);
+            return;
+        }
+        [audioSession setMode:AVAudioSessionModeVoiceChat error:&myErr];
+        if (myErr) {
+            DLog(@"Cannot set VOIP mode for AudioSession - %@", [myErr localizedDescription]);
+            return;
+        }
+        [audioSession setActive:YES error:&myErr];
+        if (myErr) {
+            DLog(@"Cannot activate AudioSession - %@", [myErr localizedDescription]);
+            return;
+        }
+        // Request permissions
+        [audioSession requestRecordPermission:^(BOOL granted) {
+            if (granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.view makeToast:@"Access to microphione granted"];
+                    // now we can proceed with audio dreaming
+                    NSDictionary *settings = @{
+                                    AVFormatIDKey: @(kAudioFormatMPEG4AAC),
+                                    AVSampleRateKey: @12000,
+                                    AVNumberOfChannelsKey: @1,
+                                    AVEncoderAudioQualityKey: @(AVAudioQualityMedium)
+                    };
+                   
+                });
+           }
+        }];
+
+
     
     }
 }

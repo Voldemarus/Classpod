@@ -72,6 +72,8 @@
 		1B80EACD26BBDAEB00232527 /* NSMutableArray+QueueMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B80EACA26BBDAEB00232527 /* NSMutableArray+QueueMethods.m */; };
 		1B80EAE026BBE8F900232527 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFB4FA0265E8ADA00DE33E9 /* AVFoundation.framework */; };
 		1B80EAEA26BBE90400232527 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B03F20626454E0F007A9A3A /* MediaPlayer.framework */; };
+		1B80EB0026BC1F7500232527 /* GMAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B80EAFF26BC1F7500232527 /* GMAudioRecorder.m */; };
+		1B80EB0126BC1F7500232527 /* GMAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B80EAFF26BC1F7500232527 /* GMAudioRecorder.m */; };
 		1BAA3C8726B2DC820071863D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3C8626B2DC820071863D /* AppDelegate.m */; };
 		1BAA3C8A26B2DC820071863D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3C8926B2DC820071863D /* SceneDelegate.m */; };
 		1BAA3C8D26B2DC820071863D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3C8C26B2DC820071863D /* ViewController.m */; };
@@ -268,6 +270,8 @@
 		1B80EAAC26BBDAA600232527 /* TDAudioQueueFiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAudioQueueFiller.h; sourceTree = "<group>"; };
 		1B80EACA26BBDAEB00232527 /* NSMutableArray+QueueMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueMethods.m"; sourceTree = "<group>"; };
 		1B80EACB26BBDAEB00232527 /* NSMutableArray+QueueMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueMethods.h"; sourceTree = "<group>"; };
+		1B80EAFE26BC1F7500232527 /* GMAudioRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMAudioRecorder.h; sourceTree = "<group>"; };
+		1B80EAFF26BC1F7500232527 /* GMAudioRecorder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMAudioRecorder.m; sourceTree = "<group>"; };
 		1BAA3C8326B2DC820071863D /* MultiPeerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiPeerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAA3C8526B2DC820071863D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BAA3C8626B2DC820071863D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -616,6 +620,18 @@
 			path = TDAudioStreamer;
 			sourceTree = "<group>";
 		};
+		1B80EAF426BC1F4000232527 /* GMMultipeer */ = {
+			isa = PBXGroup;
+			children = (
+				1BD17732268F178B003CC07E /* GMMultiPeer.h */,
+				1BD17733268F178B003CC07E /* GMMultiPeer.m */,
+				1B80EAC026BBDAB300232527 /* TDAudioStreamer */,
+				1B80EAFE26BC1F7500232527 /* GMAudioRecorder.h */,
+				1B80EAFF26BC1F7500232527 /* GMAudioRecorder.m */,
+			);
+			path = GMMultipeer;
+			sourceTree = "<group>";
+		};
 		1BAA3C8426B2DC820071863D /* MultiPeerTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,9 +829,7 @@
 				32E7C6F7266B8AE300D00501 /* GCDAsyncUdpSocket.h */,
 				32E7C6F6266B8AE300D00501 /* GCDAsyncUdpSocket.m */,
 				32EC1C682666591F003BB7DF /* PHP Streeming Server */,
-				1BD17732268F178B003CC07E /* GMMultiPeer.h */,
-				1BD17733268F178B003CC07E /* GMMultiPeer.m */,
-				1B80EAC026BBDAB300232527 /* TDAudioStreamer */,
+				1B80EAF426BC1F4000232527 /* GMMultipeer */,
 				1B1FCE4026B977670070726A /* GMWalkieTalkie */,
 			);
 			path = RadioTransmitter;
@@ -1409,6 +1423,7 @@
 				1B80EAB026BBDAA600232527 /* TDAudioQueueBufferManager.m in Sources */,
 				1B80EA7D26BBD8BC00232527 /* TDAudioStreamer.m in Sources */,
 				1BAA3C8A26B2DC820071863D /* SceneDelegate.m in Sources */,
+				1B80EB0126BC1F7500232527 /* GMAudioRecorder.m in Sources */,
 				1B80EAB626BBDAA600232527 /* TDAudioQueueController.m in Sources */,
 				1B02896A26B2E54600FFA42D /* TeacherModeVC.m in Sources */,
 				1B80EA7F26BBD8BC00232527 /* TDAudioInputStreamer.m in Sources */,
@@ -1473,6 +1488,7 @@
 				1B067FF92649482100B7C23C /* Student+CoreDataClass.m in Sources */,
 				1B80EA7826BBD8BC00232527 /* TDAudioStreamerConstants.m in Sources */,
 				3202ED4B26809D5D009A3583 /* Utils.m in Sources */,
+				1B80EB0026BC1F7500232527 /* GMAudioRecorder.m in Sources */,
 				1B80EAB326BBDAA600232527 /* TDAudioQueueBuffer.m in Sources */,
 				1B80EA7A26BBD8BC00232527 /* TDAudioOutputStreamer.m in Sources */,
 				1BB03AE32640628A00B6096F /* SceneDelegate.m in Sources */,
