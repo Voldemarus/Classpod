@@ -153,7 +153,7 @@
     if (selectedPeer) {
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
         NSOutputStream *oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
-        oStream s
+    
     }
 }
 
