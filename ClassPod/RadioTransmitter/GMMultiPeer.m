@@ -5,6 +5,8 @@
 //  Created by Водолазкий В.В. on 02.07.2021.
 //
 
+#import <AVFoundation/AVFoundation.h>
+
 #import "GMMultiPeer.h"
 #import "Preferences.h"
 #import "DAO.h"
@@ -26,6 +28,9 @@ NSString * const GMMultipeerSessionNotConnected = @"GMMultipeerSessionNotConnect
  */
 
 NSString * const SERVICE_NAME   =   @"clpodsrv";
+NSString * const STREAM_TYPE_MUSIC  =   @"music";
+NSString * const STREAM_TYPE_VOICE  =   @"voice";
+
 
 @interface GMMultiPeer () < MCNearbyServiceAdvertiserDelegate,
                             MCNearbyServiceBrowserDelegate, MCSessionDelegate>
@@ -36,8 +41,11 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     MCNearbyServiceBrowser *browser;        /* student mode */
     BOOL _advertiseStatus;
     BOOL _browsingStatus;
+    NSMutableSet <MCPeerID *> *connectedToTeacherStudent;
 }
 
+@property (nonatomic, retain) AVAssetReader *assetReader;
+@property (nonatomic, retain) AVAssetReaderTrackOutput *assetOutput;
 @property (nonatomic, retain)  MCSession *session;
 @end
 
@@ -50,6 +58,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 {
     if (self = [super init]) {
         teacherMode = YES;
+        connectedToTeacherStudent = [NSMutableSet new];
         [self commonInit:lessonName];
         advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:peerID discoveryInfo:NULL serviceType:SERVICE_NAME];
         NSAssert(advertiser,@"advertiser should be initialised");
@@ -63,6 +72,11 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (MCSession *) chatSession
 {
     return self.session;
+}
+
+- (NSArray <MCPeerID *> *) connectedStudents
+{
+    return connectedToTeacherStudent.allObjects;
 }
 
 - (instancetype) initWithStudentsName:(NSString *)aName
@@ -147,6 +161,53 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
     }
     [session disconnect];
 }
+
+//
+// https://thoughtbot.com/blog/streaming-audio-to-multiple-listeners-via-ios-multipeer-connectivity
+//
+- (BOOL) startStreaming:(NSURL *)mediaURL toPeers:(NSArray <MCPeerID *> *)peers
+{
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:mediaURL options:nil];
+    self.assetReader = [AVAssetReader assetReaderWithAsset:asset error:nil];
+    AVAssetReaderTrackOutput *assetOutput = [AVAssetReaderTrackOutput assetReaderTrackOutputWithTrack:asset.tracks[0] outputSettings:nil];
+
+    [self.assetReader addOutput:self.assetOutput];
+    [self.assetReader startReading];
+
+    return NO;
+}
+
+- (void) stopStreaming
+{
+
+}
+
+
+- (NSOutputStream *)startOutputMusicStreamForPeer:(MCPeerID *)peer
+{
+    NSError *error;
+    NSOutputStream *stream = [self.session startStreamWithName:STREAM_TYPE_MUSIC
+                                                        toPeer:peer error:&error];
+    if (error) {
+        DLog(@"Error: %@", [error userInfo].description);
+    }
+
+    return stream;
+}
+
+- (NSOutputStream *)startOutputVoiceStreamForPeer:(MCPeerID *)peer
+{
+    NSError *error;
+    NSOutputStream *stream = [self.session startStreamWithName:STREAM_TYPE_VOICE
+                                                        toPeer:peer error:&error];
+    if (error) {
+        DLog(@"Error: %@", [error userInfo].description);
+    }
+
+    return stream;
+}
+
+
 
 #pragma mark - Helpers -
 
@@ -245,7 +306,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    NSString *notification = @"";
+    NSString *notification = nil;
     NSError *error = nil;
     switch (state) {
         case MCSessionStateConnected:
@@ -264,6 +325,8 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
                 }
                 if (error) {
                     DLog(@"error during sending data - %@",[error localizedDescription]);
+                } else {
+                    [connectedToTeacherStudent addObject:peerID];
                 }
             } else {
                 // connected to advertiser
@@ -272,7 +335,7 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
             break;
         case MCSessionStateNotConnected:     // Not connected to the session.
             if (teacherMode) {
-
+                [connectedToTeacherStudent removeObject:peerID];
             } else {
                 notification = GMMultipeerSessionNotConnected;
             }
@@ -287,10 +350,11 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
         default:
             break;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [nc postNotificationName:notification object:peerID];
-    });
-
+    if (notification) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [nc postNotificationName:notification object:peerID];
+        });
+    }
 }
 
 // Received data from remote peer.
@@ -309,6 +373,19 @@ NSString * const SERVICE_NAME   =   @"clpodsrv";
            fromPeer:(MCPeerID *)peerID
 {
     DLog(@"streamname - %@", streamName);
+    if (!self.delegate) {
+        DLog(@"Not supported!");
+        return;
+    }
+    if ([streamName isEqualToString:STREAM_TYPE_MUSIC]) {
+        if ([self.delegate respondsToSelector:@selector(session:didReceiveMusicStream:)]) {
+            [self.delegate session:session didReceiveMusicStream:stream];
+       }
+    } else if ([streamName isEqualToString:STREAM_TYPE_VOICE]) {
+        if ([self.delegate respondsToSelector:@selector(session:didReceiveVoiceStream:)]) {
+            [self.delegate session:session didReceiveVoiceStream:stream];
+        }
+    }
 }
 
 // Start receiving a resource from remote peer.

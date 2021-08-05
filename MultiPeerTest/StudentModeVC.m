@@ -9,6 +9,7 @@
 #import "GMMultiPeer.h"
 #import "UIView+Toast.h"
 #import "AppDelegate.h"
+#import "TDAudioInputStreamer.h"
 
 @interface StudentModeVC () <UITableViewDelegate, UITableViewDataSource, GMMultipeerDelegate>
 {
@@ -23,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lessonStartTimeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *lessonDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lessonDuration;
+
+@property (nonatomic, retain) TDAudioInputStreamer *musicStream;
+@property (nonatomic, retain) TDAudioInputStreamer *voiceStream;
 
 @end
 
@@ -227,6 +231,29 @@
             self.lessonDuration.text = [NSString stringWithFormat:@"%02d:%02d min", minutes, seconds];
             self.lessonDescriptionLabel.text = note;
        });
+    }
+}
+
+/**
+    If music stream was not created before, just start it. Either we should resume it if voice translation is over
+ */
+- (void) session:(MCSession *)session didReceiveMusicStream:(NSInputStream *)stream
+{
+    if (!self.musicStream) {
+        self.musicStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
+        [self.musicStream start];
+    } else if (self.voiceStream == nil || self.musicStream.isPaused == YES) {
+
+        [self.musicStream resume];
+    }
+}
+
+- (void) session:(MCSession *)session didReceiveVoiceStream:(NSInputStream *)stream
+{
+    if (!self.voiceStream) {
+        self.voiceStream = [[TDAudioInputStreamer alloc] initWithInputStream:stream];
+        [self.musicStream pause];
+        [self.voiceStream start];
     }
 }
 

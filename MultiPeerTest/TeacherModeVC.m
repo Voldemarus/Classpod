@@ -6,23 +6,37 @@
 //
 
 
-#import <GameKit/GameKit.h>
+// #import <GameKit/GameKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 #import "TeacherModeVC.h"
 #import "AppDelegate.h"
 #import "UIView+Toast.h"
 #import "DebugPrint.h"
+#import "TDAudioOutputStreamer.h"
+
 
 @interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate, GMMultipeerDelegate>
 {
     NSMutableArray *studentsPeer;
     NSString *lessonName;
     NSMutableDictionary *voiceChat;
-    GKVoiceChat *activeChat;
+ //   GKVoiceChat *activeChat;
+    MCPeerID *selectedPeer;
 }
+
+@property (strong, nonatomic) MPMediaItem *song;
+@property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
 
 @property (weak, nonatomic) IBOutlet UITextField *lessonLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *playSongButton;
+- (IBAction)playSongButtonClicked:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *talkToStudentButton;
+- (IBAction)talkButtonClicked:(id)sender;
+
 
 @end
 
@@ -37,6 +51,15 @@
     [nc addObserver:self selector:@selector(advertiserFailed:) name:GMMultiPeerAdvertiserFailed object:nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+
+    NSArray *buttons = @[self.talkToStudentButton, self.playSongButton];
+    for (UIButton *b in buttons) {
+        CALayer *l = b.layer;
+        l.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0.45 alpha:1.0].CGColor;
+        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        l.cornerRadius = 4.0;
+        l.borderColor = [UIColor darkGrayColor].CGColor;
+    }
 }
 
 - (IBAction)registerLessonClicked:(id)sender
@@ -93,19 +116,44 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     MCPeerID *peer = studentsPeer[indexPath.row];
     NSLog(@"%@ selected", peer.displayName);
-    //  Initate audio chat
-    if ([GKVoiceChat isVoIPAllowed] == NO) {
-        [self.view makeToast:@"VOIP is not available for this device!"];
+    selectedPeer = peer;
+
+}
+
+- (IBAction)playSongButtonClicked:(id)sender
+{
+    NSBundle *mb = [NSBundle mainBundle];
+    NSURL *mediaURL = [mb URLForResource:@"in_file" withExtension:@"mp3"];
+    if (!mediaURL) {
+        [self.view makeToast:@"Tune is not found!"];
         return;
     }
-    GKVoiceChat *chat = [voiceChat objectForKey:peer];
-    if (!chat) {
-        // There are no chat for this user created, Create it now
+    NSInteger peers = studentsPeer.count;
+    if (peers == 0) {
+        [self.view makeToast:@"No students connected to this lesson"];
+        return;
+    }
+    AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    GMMultiPeer *engine = d.engine;
+    // Initiate streaming to all students
 
-    } else {
-        // this chat was created before
-        chat.active = YES;
-        activeChat = chat;
+    if (d.engine.connectedStudents.count) {
+        NSOutputStream *oStream = [engine startOutputMusicStreamForPeer:d.engine.connectedStudents[0]];
+        self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:oStream];
+        [self.outputStreamer streamAudioFromURL:mediaURL];
+        [self.outputStreamer start];
+    }
+}
+
+- (IBAction)talkButtonClicked:(id)sender
+{
+    if (!selectedPeer && studentsPeer.count > 0) {
+        selectedPeer = studentsPeer[0];
+    }
+    if (selectedPeer) {
+        AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        NSOutputStream *oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
+        oStream s
     }
 }
 
@@ -137,5 +185,6 @@
         DLog(@"Received data from student : %@",data);
     }
 }
+
 
 @end

@@ -61,6 +61,17 @@ extern NSString * _Nonnull const GMMultipeerSessionNotConnected;
  */
 - (void) session:(MCSession * _Nonnull)session processReceivedData:(NSDictionary * _Nonnull) data;
 
+/**
+        Called when broadcast music stream data arrived
+ */
+- (void)  session:(MCSession * _Nonnull)session didReceiveMusicStream:(NSInputStream * _Nonnull) stream;
+
+/**
+        Called when voice data from teacher arrived
+ */
+- (void)  session:(MCSession * _Nonnull)session didReceiveVoiceStream:(NSInputStream * _Nonnull) stream;
+
+
 @end
 
 
@@ -87,6 +98,26 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void) stop;
 
+/**
+        Starting streaming tune
+ */
+- (BOOL) startStreaming:(NSURL*) mediaURL  toPeers:(NSArray <MCPeerID *> *)peers;
+
+/**
+        Stop streaming media file
+ */
+- (void) stopStreaming;
+
+/**
+        Create output stream for music translation
+ */
+- (NSOutputStream *)startOutputMusicStreamForPeer:(MCPeerID *)peer;
+
+/**
+        Creates output stream for voice translation
+ */
+- (NSOutputStream *)startOutputVoiceStreamForPeer:(MCPeerID *)peer;
+
 
 /**
  Teacher mode only.
@@ -106,6 +137,9 @@ NS_ASSUME_NONNULL_BEGIN
     List of the subscribers
  */
 @property (nonatomic, retain) NSMutableSet <MCPeerID *> *subscribers;
+
+
+@property (nonatomic, readonly) NSArray <MCPeerID *> *connectedStudents;
 
 
 @property (nonatomic, retain) NSString *avatarName;

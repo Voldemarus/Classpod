@@ -250,12 +250,28 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SRc-OP-McV">
-                                <rect key="frame" x="38" y="149" width="338" height="394"/>
+                                <rect key="frame" x="38" y="149" width="338" height="318"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="394" id="wlY-ih-aEF"/>
+                                    <constraint firstAttribute="height" constant="318" id="wlY-ih-aEF"/>
                                 </constraints>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-H9-kah">
+                                <rect key="frame" x="38" y="490" width="338" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stream song to students"/>
+                                <connections>
+                                    <action selector="playSongButtonClicked:" destination="0Dn-Kx-iHS" eventType="touchUpInside" id="ExJ-8e-skI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nf-hx-89X">
+                                <rect key="frame" x="42" y="540" width="338" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Talk to Student"/>
+                                <connections>
+                                    <action selector="talkButtonClicked:" destination="0Dn-Kx-iHS" eventType="touchUpInside" id="cMg-Rr-VN9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IRd-TM-cfP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -276,7 +292,9 @@
                     <navigationItem key="navigationItem" id="5xQ-Jz-a9L"/>
                     <connections>
                         <outlet property="lessonLabel" destination="8Gm-WX-8mD" id="RyF-TY-QEY"/>
+                        <outlet property="playSongButton" destination="J7d-H9-kah" id="x0p-M9-U7Q"/>
                         <outlet property="tableView" destination="SRc-OP-McV" id="zqE-lJ-9lr"/>
+                        <outlet property="talkToStudentButton" destination="5Nf-hx-89X" id="p6U-uW-DHp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qfz-Ug-ljk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
