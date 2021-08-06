@@ -253,20 +253,22 @@
                                 <rect key="frame" x="38" y="149" width="338" height="318"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="318" id="mNd-og-QTD"/>
                                     <constraint firstAttribute="height" constant="318" id="wlY-ih-aEF"/>
                                 </constraints>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-H9-kah">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7d-H9-kah">
                                 <rect key="frame" x="38" y="490" width="338" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AHK-iC-oED"/>
+                                </constraints>
                                 <state key="normal" title="Stream song to students"/>
                                 <connections>
                                     <action selector="playSongButtonClicked:" destination="0Dn-Kx-iHS" eventType="touchUpInside" id="ExJ-8e-skI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nf-hx-89X">
-                                <rect key="frame" x="42" y="540" width="338" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nf-hx-89X">
+                                <rect key="frame" x="38" y="540" width="338" height="30"/>
                                 <state key="normal" title="Talk to Student"/>
                                 <connections>
                                     <action selector="talkButtonClicked:" destination="0Dn-Kx-iHS" eventType="touchUpInside" id="cMg-Rr-VN9"/>
@@ -276,12 +278,19 @@
                         <viewLayoutGuide key="safeArea" id="IRd-TM-cfP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="5Nf-hx-89X" firstAttribute="trailing" secondItem="J7d-H9-kah" secondAttribute="trailing" id="74H-ul-ZR4"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="leading" secondItem="8Gm-WX-8mD" secondAttribute="leading" constant="119" id="8Ii-1u-vX0"/>
                             <constraint firstItem="SRc-OP-McV" firstAttribute="leading" secondItem="IRd-TM-cfP" secondAttribute="leading" constant="38" id="F9P-qH-Myv"/>
+                            <constraint firstItem="J7d-H9-kah" firstAttribute="leading" secondItem="IRd-TM-cfP" secondAttribute="leading" constant="38" id="ISZ-LT-IMK"/>
+                            <constraint firstItem="5Nf-hx-89X" firstAttribute="bottom" secondItem="J7d-H9-kah" secondAttribute="bottom" constant="50" id="Le2-Lq-JyO"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="trailing" secondItem="8Gm-WX-8mD" secondAttribute="trailing" constant="-110" id="RRk-sc-NMT"/>
+                            <constraint firstItem="5Nf-hx-89X" firstAttribute="leading" secondItem="J7d-H9-kah" secondAttribute="leading" id="Urm-gJ-rOC"/>
+                            <constraint firstItem="J7d-H9-kah" firstAttribute="bottom" secondItem="SRc-OP-McV" secondAttribute="bottom" constant="53" id="WXt-4q-SaZ"/>
+                            <constraint firstItem="IRd-TM-cfP" firstAttribute="trailing" secondItem="J7d-H9-kah" secondAttribute="trailing" constant="38" id="XMj-T7-mJ7"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="top" secondItem="SRc-OP-McV" secondAttribute="top" constant="-38" id="a8x-al-5St"/>
                             <constraint firstItem="IRd-TM-cfP" firstAttribute="trailing" secondItem="SRc-OP-McV" secondAttribute="trailing" constant="38" id="cFy-lc-ScJ"/>
                             <constraint firstItem="8Gm-WX-8mD" firstAttribute="trailing" secondItem="4RS-7o-aOp" secondAttribute="trailing" id="eRR-jz-R92"/>
+                            <constraint firstItem="5Nf-hx-89X" firstAttribute="top" secondItem="J7d-H9-kah" secondAttribute="top" constant="50" id="eeA-El-I2T"/>
                             <constraint firstItem="8Gm-WX-8mD" firstAttribute="top" secondItem="4RS-7o-aOp" secondAttribute="top" constant="37" id="f5e-UI-zvi"/>
                             <constraint firstItem="omg-h1-7K6" firstAttribute="top" secondItem="8Gm-WX-8mD" secondAttribute="top" constant="42" id="leR-YH-liH"/>
                             <constraint firstItem="4RS-7o-aOp" firstAttribute="top" secondItem="IRd-TM-cfP" secondAttribute="top" constant="32" id="tH9-dw-BBV"/>

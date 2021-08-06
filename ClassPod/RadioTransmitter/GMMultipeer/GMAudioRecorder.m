@@ -145,7 +145,7 @@
     AVAudioFormat *format = [tapNode outputFormatForBus:0];
     [tapNode installTapOnBus:0 bufferSize:GMRECORDER_BUFFER_SIZE format:format block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
         // processing after installtion is finished
-
+        float *floatData  = *(buffer.floatChannelData);
 
 
     }];
