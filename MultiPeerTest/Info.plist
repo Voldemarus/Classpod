@@ -29,6 +29,8 @@
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Use LAN to exchange data between teacher and students</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access is required to chat between teacher and student</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

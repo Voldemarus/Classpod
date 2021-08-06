@@ -17,7 +17,8 @@
 #import "TDAudioOutputStreamer.h"
 
 
-@interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate, GMMultipeerDelegate>
+@interface TeacherModeVC () <UITableViewDataSource, UITableViewDelegate,
+    GMMultipeerDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 {
     NSMutableArray *studentsPeer;
     NSString *lessonName;
@@ -28,6 +29,11 @@
 
 @property (strong, nonatomic) MPMediaItem *song;
 @property (strong, nonatomic) TDAudioOutputStreamer *outputStreamer;
+
+@property (nonatomic, retain) AVCaptureSession *captureSession;
+@property (nonatomic, retain) AVCaptureAudioDataOutput *dataOutput;
+@property (nonatomic, retain) AVCaptureDeviceInput *mic;
+@property (nonatomic, retain)  NSOutputStream *oStream;
 
 @property (weak, nonatomic) IBOutlet UITextField *lessonLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -153,47 +159,92 @@
     if (selectedPeer) {
         // prepare separate output stream
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        NSOutputStream *oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
-        // prepare microphone
+        self.oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
 
-        NSError *myErr;
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&myErr];
-        if (myErr) {
-            DLog(@"Cannot tune AudioSession - %@", [myErr localizedDescription]);
+        self.captureSession = [[AVCaptureSession alloc] init];
+        self.captureSession.sessionPreset = AVCaptureSessionPresetMedium;
+        self.dataOutput = [[AVCaptureAudioDataOutput alloc] init];
+        [self.dataOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+        NSError *error  =nil;
+        NSArray *audioInputType = @[AVCaptureDeviceTypeBuiltInMicrophone];
+        AVCaptureDeviceDiscoverySession *audioInputDevice = [
+                                                             AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:audioInputType mediaType:AVMediaTypeAudio position:AVCaptureDevicePositionUnspecified];
+        NSArray *audioDevices = audioInputDevice.devices;
+        AVCaptureDevice *micDevice = nil;
+        if ([audioDevices count]) {
+            micDevice = [audioDevices objectAtIndex:0];  // use the first audio device
+        } else {
+            [self.view makeToast:@"Cannot detect microphone"];
+            DLog(@"Cannot detect microphone on this device");
             return;
         }
-        [audioSession setMode:AVAudioSessionModeVoiceChat error:&myErr];
-        if (myErr) {
-            DLog(@"Cannot set VOIP mode for AudioSession - %@", [myErr localizedDescription]);
+        self.mic = [AVCaptureDeviceInput deviceInputWithDevice:micDevice error:&error];
+        if (error) {
+            [self.view makeToast:@"Error during mic intialisation"];
+            DLog(@"Cannot initalize microphone device - %@", [error localizedDescription]);
             return;
         }
-        [audioSession setActive:YES error:&myErr];
-        if (myErr) {
-            DLog(@"Cannot activate AudioSession - %@", [myErr localizedDescription]);
-            return;
-        }
-        // Request permissions
-        [audioSession requestRecordPermission:^(BOOL granted) {
-            if (granted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.view makeToast:@"Access to microphione granted"];
-                    // now we can proceed with audio dreaming
-                    NSDictionary *settings = @{
-                                    AVFormatIDKey: @(kAudioFormatMPEG4AAC),
-                                    AVSampleRateKey: @12000,
-                                    AVNumberOfChannelsKey: @1,
-                                    AVEncoderAudioQualityKey: @(AVAudioQualityMedium)
-                    };
-                   
-                });
-           }
-        }];
-
-
-    
+        [self.captureSession addInput:self.mic];
+        [self.captureSession addOutput:self.dataOutput];
+        [self.captureSession startRunning];
+//        // prepare microphone
+//
+//        NSError *myErr;
+//        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&myErr];
+//        if (myErr) {
+//            DLog(@"Cannot tune AudioSession - %@", [myErr localizedDescription]);
+//            return;
+//        }
+//        [audioSession setMode:AVAudioSessionModeVoiceChat error:&myErr];
+//        if (myErr) {
+//            DLog(@"Cannot set VOIP mode for AudioSession - %@", [myErr localizedDescription]);
+//            return;
+//        }
+//        [audioSession setActive:YES error:&myErr];
+//        if (myErr) {
+//            DLog(@"Cannot activate AudioSession - %@", [myErr localizedDescription]);
+//            return;
+//        }
+//        // Request permissions
+//        [audioSession requestRecordPermission:^(BOOL granted) {
+//            if (granted) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.view makeToast:@"Access to microphione granted"];
+//                    // now we can proceed with audio dreaming
+//                    NSDictionary *settings = @{
+//                                    AVFormatIDKey: @(kAudioFormatMPEG4AAC),
+//                                    AVSampleRateKey: @12000,
+//                                    AVNumberOfChannelsKey: @1,
+//                                    AVEncoderAudioQualityKey: @(AVAudioQualityMedium)
+//                    };
+//
+//                });
+//           }
+//        }];
     }
 }
+
+#pragma mark - AVCaptureAudioDataOutputSampleBufferDelegate -
+
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
+    CMBlockBufferRef block = CMSampleBufferGetDataBuffer(sampleBuffer);
+    size_t length = 0;
+    unsigned char *data;
+    OSStatus status = CMBlockBufferGetDataPointer(block, 0, nil, &length, &data);
+    if (status == 0) {
+        NSInteger written = [self.oStream write:data maxLength:4096];
+#ifdef DEBUG
+        printf("written : %4ld :: ", (long)written);
+        for (int i = 0; i < written; i++) {
+            printf("%02d ",data[i]);
+        }
+        printf("\n");
+#endif
+    }
+}
+
 
 
 #pragma mark - GMMultipeerDelegate -

@@ -179,7 +179,7 @@ NSString * const STREAM_TYPE_VOICE  =   @"voice";
 
 - (void) stopStreaming
 {
-
+    [self.assetReader cancelReading];
 }
 
 
