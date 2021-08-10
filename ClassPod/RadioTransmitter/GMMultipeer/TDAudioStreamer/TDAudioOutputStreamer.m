@@ -4,11 +4,13 @@
 //
 //  Created by Tony DiPasquale on 11/14/13.
 //  Copyright (c) 2013 Tony DiPasquale. The MIT License (MIT).
+//  Modified for Classpod project 2021, Geomatix Laboratory ,s.r.o.
 //
 
 #import <AVFoundation/AVFoundation.h>
 #import "TDAudioOutputStreamer.h"
 #import "TDAudioStream.h"
+#import "DebugPrint.h"
 
 @interface TDAudioOutputStreamer () <TDAudioStreamDelegate>
 
@@ -60,12 +62,39 @@
     }
 }
 
-- (void)streamAudioFromURL:(NSURL *)url
+- (void)streamAudioFromURL:(NSURL *)url loop:(BOOL)loop
 {
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
     NSError *assetError;
 
     self.assetReader = [AVAssetReader assetReaderWithAsset:asset error:&assetError];
+    if (loop) {
+        [asset loadValuesAsynchronouslyForKeys:@[@"tracks"]
+                             completionHandler:^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSError *error = nil;
+                if ([asset statusOfValueForKey:@"tracks" error:&error] == AVKeyValueStatusLoaded) {
+                    [self->_assetReader startReading];
+                } else {
+                    if (error) {
+                        DLog(@"cannot start reading - %@",[error localizedDescription]);
+                    }
+                    else {
+                        DLog(@"cannot restart reading - no error detected");
+                    }
+                    return;
+                }
+
+                if (self.assetReader.status == AVAssetReaderStatusCompleted) {
+                    [self.assetReader cancelReading];
+                    [self streamAudioFromURL:url loop:YES];
+                } else {
+                    DLog(@"status - %ld",(long)self.assetReader.status);
+                }
+            } );  // dispatch_async
+        }];    //asset loadValues
+    }   //loop
+
     self.assetOutput = [AVAssetReaderTrackOutput assetReaderTrackOutputWithTrack:asset.tracks[0] outputSettings:nil];
     if (![self.assetReader canAddOutput:self.assetOutput]) return;
 
@@ -81,8 +110,7 @@
     sampleBuffer = [self.assetOutput copyNextSampleBuffer];
 
     if (sampleBuffer == NULL || CMSampleBufferGetNumSamples(sampleBuffer) == 0) {
-        CFRelease(sampleBuffer);
-        return;
+         return;
     }
 
     CMBlockBufferRef blockBuffer;

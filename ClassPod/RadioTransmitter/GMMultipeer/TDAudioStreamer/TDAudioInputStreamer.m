@@ -14,6 +14,8 @@
 #import "TDAudioQueueFiller.h"
 #import "TDAudioStreamerConstants.h"
 
+#import "DebugPrint.h"
+
 @interface TDAudioInputStreamer () <TDAudioStreamDelegate, TDAudioFileStreamDelegate, TDAudioQueueDelegate>
 
 @property (strong, nonatomic) NSThread *audioStreamerThread;
@@ -107,6 +109,7 @@
 {
     switch (event) {
         case TDAudioStreamEventHasData: {
+            DLog(@"TDAudioStreamEventHasData");
             uint8_t bytes[self.audioStreamReadMaxLength];
             UInt32 length = [audioStream readData:bytes maxLength:self.audioStreamReadMaxLength];
             [self.audioFileStream parseData:bytes length:length];
@@ -114,11 +117,13 @@
         }
 
         case TDAudioStreamEventEnd:
+            DLog(@"TDAudioStreamEventEnd");
             self.isPlaying = NO;
             [self.audioQueue finish];
             break;
 
         case TDAudioStreamEventError:
+            DLog(@"TDAudioStreamEventError");
             [[NSNotificationCenter defaultCenter] postNotificationName:TDAudioStreamDidFinishPlayingNotification object:nil];
             break;
 

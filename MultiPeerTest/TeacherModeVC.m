@@ -146,7 +146,8 @@
     if (d.engine.connectedStudents.count) {
         NSOutputStream *oStream = [engine startOutputMusicStreamForPeer:d.engine.connectedStudents[0]];
         self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:oStream];
-        [self.outputStreamer streamAudioFromURL:mediaURL];
+#warning Process loop variable bia settings or lesson mode!
+        [self.outputStreamer streamAudioFromURL:mediaURL loop:YES];
         [self.outputStreamer start];
     }
 }
@@ -160,12 +161,13 @@
         // prepare separate output stream
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
         self.oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
+        self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:self.oStream];
 
-        self.captureSession = [[AVCaptureSession alloc] init];
+         self.captureSession = [[AVCaptureSession alloc] init];
         self.captureSession.sessionPreset = AVCaptureSessionPresetMedium;
         self.dataOutput = [[AVCaptureAudioDataOutput alloc] init];
         [self.dataOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
-        NSError *error  =nil;
+        NSError *error = nil;
         NSArray *audioInputType = @[AVCaptureDeviceTypeBuiltInMicrophone];
         AVCaptureDeviceDiscoverySession *audioInputDevice = [
                                                              AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:audioInputType mediaType:AVMediaTypeAudio position:AVCaptureDevicePositionUnspecified];
@@ -187,6 +189,9 @@
         [self.captureSession addInput:self.mic];
         [self.captureSession addOutput:self.dataOutput];
         [self.captureSession startRunning];
+
+        [self.outputStreamer start];
+
 //        // prepare microphone
 //
 //        NSError *myErr;
@@ -227,22 +232,33 @@
 
 #pragma mark - AVCaptureAudioDataOutputSampleBufferDelegate -
 
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 8192
+#endif
+
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
     CMBlockBufferRef block = CMSampleBufferGetDataBuffer(sampleBuffer);
+    NSAssert(block, @"Block should be valid");
     size_t length = 0;
-    unsigned char *data;
-    OSStatus status = CMBlockBufferGetDataPointer(block, 0, nil, &length, &data);
+    void  *data  = malloc(BUFFER_SIZE*sizeof(double_t));
+    OSStatus status = CMBlockBufferGetDataPointer(block, 0, nil, &length, data);
     if (status == 0) {
-        NSInteger written = [self.oStream write:data maxLength:4096];
+        if (self.oStream.streamStatus == NSStreamStatusWriting) {
+            NSInteger written = [self.oStream write:data maxLength:BUFFER_SIZE];
 #ifdef DEBUG
-        printf("written : %4ld :: ", (long)written);
-        for (int i = 0; i < written; i++) {
-            printf("%02d ",data[i]);
-        }
-        printf("\n");
+            printf("written : %4ld :: ", (long)written);
+            unsigned char *dd = data;
+            for (int i = 0; i < written; i++) {
+                printf("%02d ",dd[i]);
+            }
+            printf("\n");
 #endif
+        } else {
+            DLog(@"Mic capturing stream is not oened yet!!!");
+        }
     }
+    free(data);
 }
 
 
