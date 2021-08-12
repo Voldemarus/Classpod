@@ -145,22 +145,26 @@
 
     if (d.engine.connectedStudents.count) {
         NSOutputStream *oStream = [engine startOutputMusicStreamForPeer:d.engine.connectedStudents[0]];
+        NSAssert(oStream, @"Strem should be initalised!");
         self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:oStream];
 #warning Process loop variable bia settings or lesson mode!
-        [self.outputStreamer streamAudioFromURL:mediaURL loop:YES];
+        [self.outputStreamer streamAudioFromURL:mediaURL loop:NO];
         [self.outputStreamer start];
     }
 }
 
 - (IBAction)talkButtonClicked:(id)sender
 {
+    AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (!selectedPeer && studentsPeer.count > 0) {
-        selectedPeer = studentsPeer[0];
+        selectedPeer = d.engine.connectedStudents[0];
     }
+    NSAssert(selectedPeer, @"Peer should be non empty to initate recording");
     if (selectedPeer) {
         // prepare separate output stream
         AppDelegate *d = (AppDelegate *)[UIApplication sharedApplication].delegate;
         self.oStream = [d.engine startOutputVoiceStreamForPeer:selectedPeer];
+        NSAssert(self.oStream,@"Stream for talking should be initalised");
         self.outputStreamer = [[TDAudioOutputStreamer alloc] initWithOutputStream:self.oStream];
 
          self.captureSession = [[AVCaptureSession alloc] init];

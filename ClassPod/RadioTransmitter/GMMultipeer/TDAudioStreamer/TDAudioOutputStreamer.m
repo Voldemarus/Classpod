@@ -125,8 +125,8 @@
 
     for (NSUInteger i = 0; i < audioBufferList.mNumberBuffers; i++) {
         AudioBuffer audioBuffer = audioBufferList.mBuffers[i];
-        [self.audioStream writeData:audioBuffer.mData maxLength:audioBuffer.mDataByteSize];
-        NSLog(@"buffer size: %u", (unsigned int)audioBuffer.mDataByteSize);
+        BOOL written = [self.audioStream writeData:audioBuffer.mData maxLength:audioBuffer.mDataByteSize];
+        NSLog(@"buffer size: %u written %ld", (unsigned int)audioBuffer.mDataByteSize, (long)written);
     }
 
     CFRelease(blockBuffer);
